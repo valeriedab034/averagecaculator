@@ -32,6 +32,44 @@
             background-color: #fce4ec;
         }
 
+        /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI */
+        .qr-box {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            z-index: 9999; /* Đảm bảo luôn nổi trên cùng */
+            max-width: 110px;
+        }
+
+        .qr-box img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto 5px auto;
+        }
+
+        .qr-box a {
+            font-size: 10px;
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .qr-box a:hover {
+            text-decoration: underline;
+            color: #c0392b;
+        }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -42,7 +80,19 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        h2, h3 {
+        /* ĐIỀU CHỈNH TIÊU ĐỀ: BÊN TRONG MÀU CAM, VIỀN MÀU XANH, CĂN GIỮA */
+        h2 {
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #ff7f50; /* Màu da cam bên trong */
+            -webkit-text-stroke: 1.2px #0056b3; /* Viền chữ màu xanh dương */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        h3 {
             color: #4a235a;
             font-weight: 700;
             line-height: 1.4;
@@ -70,7 +120,7 @@
             border-radius: 6px;
             box-sizing: border-box;
             font-size: 14px;
-            font-family: 'Merriweather', serif; /* Áp dụng phông chữ cho ô nhập liệu */
+            font-family: 'Merriweather', serif;
             background-color: #fdfefe;
         }
 
@@ -78,7 +128,7 @@
         button {
             width: 100%;
             padding: 14px;
-            background-color: #8e44ad; /* Màu tím chủ đạo */
+            background-color: #8e44ad;
             color: white;
             font-family: 'Merriweather', serif;
             font-weight: 700;
@@ -89,15 +139,13 @@
             margin-top: 15px;
             transition: background-color 0.3s ease;
             
-            /* Áp dụng hiệu ứng dao động */
             animation: daoDong 2.5s infinite ease-in-out;
             display: inline-block;
         }
 
-        /* Khi rê chuột vào nút bấm */
         button:hover {
-            background-color: #6c3483; /* Tím đậm hơn khi rê chuột */
-            animation-duration: 0.8s;    /* Lắc nhanh hơn khi hover */
+            background-color: #6c3483;
+            animation-duration: 0.8s;
         }
 
         .card {
@@ -133,7 +181,7 @@
         }
 
         th {
-            background-color: #f2e6ff; /* Tím nhạt cho tiêu đề bảng */
+            background-color: #f2e6ff;
             color: #4a235a;
             font-weight: 700;
         }
@@ -141,9 +189,24 @@
         .hidden {
             display: none;
         }
+
+        /* Tối ưu hiển thị cho màn hình điện thoại nhỏ */
+        @media (max-width: 600px) {
+            .qr-box {
+                position: static;
+                margin: 0 auto 15px auto;
+                max-width: 120px;
+            }
+        }
     </style>
 </head>
 <body>
+
+<!-- KHUNG MÃ QR VÀ LINK FACEBOOK BÁM GÓC PHẢI TRÊN CÙNG -->
+<div class="qr-box">
+    <img src="fbcuatui.jpg" alt="Mã QR Facebook">
+    <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
+</div>
 
 <div class="container">
     <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
