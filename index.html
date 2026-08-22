@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lập dữ liệu kết quả học tập - valeriebui</title>
 
+    <!-- FAVICON LOGO CHỮ B CHO TAB TRÌNH DUYỆT -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%238e44ad'/><text x='50%' y='68%' font-size='60' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>B</text></svg>" type="image/svg+xml">
+
     <!-- TẢI PHÔNG CHỮ MERRIWEATHER TỪ GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -125,7 +128,7 @@
         }
 
         /* THIẾT LẬP NÚT BẤM MÀU TÍM + PHÔNG MERRIWEATHER + DAO ĐỘNG */
-        button {
+        button.btn-main {
             width: 100%;
             padding: 14px;
             background-color: #8e44ad;
@@ -143,7 +146,7 @@
             display: inline-block;
         }
 
-        button:hover {
+        button.btn-main:hover {
             background-color: #6c3483;
             animation-duration: 0.8s;
         }
@@ -190,6 +193,35 @@
             display: none;
         }
 
+        /* NÚT BẤM BẬT/TẮT AM THANH GÓC DƯỚI BÊN PHẢI (KHÔNG DÙNG ICON) */
+        .audio-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #8e44ad;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 9999;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .audio-btn:hover {
+            background-color: #6c3483;
+            transform: scale(1.08);
+        }
+
         /* Tối ưu hiển thị cho màn hình điện thoại nhỏ */
         @media (max-width: 600px) {
             .qr-box {
@@ -207,6 +239,12 @@
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
+
+<!-- THẺ AUDIO NHẠC NỀN ESCAPE.MP3 -->
+<audio id="bgMusic" src="escape.mp3" loop autoplay></audio>
+
+<!-- NÚT BẤM BẬT/TẮT NHẠC Ở GÓC DƯỚI BÊN PHẢI (SỬ DỤNG CHỮ, KHÔNG DÙNG ICON) -->
+<button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
 
 <div class="container">
     <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
@@ -232,14 +270,14 @@
             <input type="number" id="so_mon" min="1" value="5">
         </div>
 
-        <button onclick="taoFormNhap()">✨ Tạo biểu mẫu nhập liệu ✨</button>
+        <button class="btn-main" onclick="taoFormNhap()">Tạo biểu mẫu nhập liệu</button>
     </div>
 
     <!-- BƯỚC 2: NHẬP CHI TIẾT CHO TỪNG NGƯỜI -->
     <div id="step2" class="hidden">
         <h3>Nhập thông tin chi tiết</h3>
         <div id="form-container"></div>
-        <button onclick="tinhVaInKetQua()">📊 Tính điểm & Xuất kết quả 📊</button>
+        <button class="btn-main" onclick="tinhVaInKetQua()">Tính điểm & Xuất kết quả</button>
     </div>
 
     <!-- BƯỚC 3: IN KẾT QUẢ -->
@@ -255,12 +293,42 @@
             </thead>
             <tbody></tbody>
         </table>
-        <button onclick="location.reload()">🔄 Nhập lại từ đầu 🔄</button>
+        <button class="btn-main" onclick="location.reload()">Nhập lại từ đầu</button>
     </div>
 </div>
 
 <script>
     let loaiTinhVal, soNguoiVal, soMonVal;
+
+    // SỰ KIỆN PHÁT NHẠC TỰ ĐỘNG
+    const audio = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggleBtn');
+
+    window.addEventListener('DOMContentLoaded', () => {
+        audio.play().then(() => {
+            musicBtn.innerText = "Tắt";
+        }).catch(() => {
+            // Trường hợp trình duyệt chặn Autoplay cho tới khi người dùng tương tác
+            musicBtn.innerText = "Bật";
+            const enableAudioOnInteraction = () => {
+                audio.play().then(() => {
+                    musicBtn.innerText = "Tắt";
+                });
+                document.removeEventListener('click', enableAudioOnInteraction);
+            };
+            document.addEventListener('click', enableAudioOnInteraction);
+        });
+    });
+
+    function toggleAudio() {
+        if (audio.paused) {
+            audio.play();
+            musicBtn.innerText = "Tắt";
+        } else {
+            audio.pause();
+            musicBtn.innerText = "Bật";
+        }
+    }
 
     function taoFormNhap() {
         loaiTinhVal = parseInt(document.getElementById('loai_tinh').value);
