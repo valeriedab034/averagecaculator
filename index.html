@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
+<!--
+=============================================================
+* WEBSITE LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ
+* Author / Developer: valeriebui (Bùi Đỗ Bình)
+* Year: 2026
+* Facebook: https://www.facebook.com/iambuidobinh
+* Instagram: https://instagram.com/buidobinh
+* YouTube: https://youtube.com/@buiobinh5083
+* Copyright (c) 2026 valeriebui. All rights reserved.
+=============================================================
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* HIỆU ỨNG TRƯỢT NHẸ TỪ TRÊN XUỐNG CỦA CONTAINER */
+        /* HIỆU ỨNG TRƯỢT NHẸ TỪ TRÊN XUỐNG CỦA CONTAINER TRONG 0.5S */
         @keyframes slideDownCenter {
             0% {
                 opacity: 0;
@@ -485,6 +496,29 @@
 </div>
 
 <script>
+    // IN BẢN QUYỀN NỔI BẬT RA CONSOLE KHI MỞ DEVTOOLS
+    console.log(
+        "%c WEBSITE BỞI VALERIEBUI %c Copyright © 2026 | Bùi Đỗ Bình - fb.com/iambuidobinh ",
+        "background: #8e44ad; color: #fff; font-size: 14px; font-weight: bold; padding: 6px 12px; border-radius: 4px 0 0 4px;",
+        "background: #2c3e50; color: #fff; font-size: 14px; padding: 6px 12px; border-radius: 0 4px 4px 0;"
+    );
+
+    // CHỐNG CHUỘT PHẢI VÀ PHÍM TẮT MỞ PAGE SOURCE (F12, CTRL+U, CTRL+SHIFT+I)
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.keyCode === 123 || 
+            (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
+            (e.ctrlKey && e.keyCode === 85)
+        ) {
+            e.preventDefault();
+        }
+    });
+
+    // MÃ HÓA TÊN KHÓA LƯU DỮ LIỆU ĐỂ BẢO VỆ BẢN QUYỀN VÀ DỮ LIỆU
+    var _0x9a81 = ["\x76\x61\x6C\x65\x72\x69\x65\x62\x75\x69\x5F\x73\x74\x75\x64\x65\x6E\x74\x5F\x64\x61\x74\x61"];
+    var STORAGE_KEY = _0x9a81[0];
+
     let loaiTinhVal, soNguoiVal, soMonVal;
 
     // SỰ KIỆN PHÁT NHẠC TỰ ĐỘNG
@@ -709,7 +743,8 @@
             savedData.danhSachNguoi.push(nguoiData);
         }
 
-        localStorage.setItem('valeriebui_student_data', JSON.stringify(savedData));
+        // AM THAM LUU DU LIEU VAO LOCALSTORAGE VOI KHÓA MÃ HÓA
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
 
         ketQuaList.sort((a, b) => b.dtb - a.dtb);
 
@@ -733,7 +768,7 @@
     }
 
     function khoiPhucDuLieuDaLuu() {
-        let rawData = localStorage.getItem('valeriebui_student_data');
+        let rawData = localStorage.getItem(STORAGE_KEY);
         if (!rawData) return;
 
         try {
