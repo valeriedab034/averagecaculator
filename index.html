@@ -113,7 +113,7 @@
             color: #c0392b;
         }
 
-        /* CONTAINER CHÍNH CÓ HIỆU ỨNG TRƯỢT TỪ TRÊN XUỐNG IN 0.5S */
+        /* CONTAINER CHÍNH CÓ HIỆU ỨNG TRƯỢT TỪ TRÊN XUỐNG 0.5S */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -266,8 +266,8 @@
             display: none;
         }
 
-        /* NÚT BẤM ĐIỀU KHIỂN CỐ ĐỊNH Ở GÓC DƯỚI BÊN PHẢI */
-        .controls-corner {
+        /* NÚT BẤM ĐIỀU KHIỂN ÂM THANH & TỐI Ở GÓC DƯỚI BÊN PHẢI */
+        .controls-corner-right {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -277,7 +277,18 @@
             z-index: 9999;
         }
 
-        .audio-btn, .theme-btn {
+        /* KHUNG ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN Ở GÓC DƯỚI BÊN TRÁI */
+        .controls-corner-left {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+        }
+
+        .audio-btn, .theme-btn, .bg-btn {
             width: 50px;
             height: 50px;
             background-color: #8e44ad;
@@ -296,22 +307,24 @@
             padding: 0;
         }
 
-        .audio-btn:hover, .theme-btn:hover {
+        .audio-btn:hover, .theme-btn:hover, .bg-btn:hover {
             background-color: #6c3483;
             transform: scale(1.08);
         }
 
-        /* SECTION TÙY CHỈNH HÌNH NỀN / MÀU NỀN */
-        .bg-selector-panel {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: var(--card-bg);
+        /* MENU CHỌN HÌNH NỀN POPUP */
+        .bg-select-popup {
+            background: var(--container-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .bg-selector-panel label {
-            margin-bottom: 10px;
+        .bg-select-popup select {
+            width: 180px;
+            padding: 8px;
+            font-size: 12px;
         }
 
         /* FOOTER CHÂN TRANG */
@@ -367,18 +380,15 @@
 <audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
 
 <!-- CÁC NÚT ĐIỀU KHIỂN ÂM THANH & SÁNG/TỐI Ở GÓC DƯỚI BÊN PHẢI -->
-<div class="controls-corner">
+<div class="controls-corner-right">
     <button id="themeToggleBtn" class="theme-btn" onclick="toggleDarkMode()">Tối</button>
     <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
 </div>
 
-<div class="container">
-    <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
-    <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
-
-    <!-- BẢNG TÙY CHỈNH HÌNH NỀN / MÀU NỀN WEBSITE -->
-    <div class="bg-selector-panel">
-        <label for="bg_select">Tùy chọn màu nền hoặc hình nền website:</label>
+<!-- ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN Ở GÓC DƯỚI BÊN TRÁI -->
+<div class="controls-corner-left">
+    <button class="bg-btn" onclick="toggleBgMenu()">Nền</button>
+    <div id="bgMenu" class="bg-select-popup hidden">
         <select id="bg_select" onchange="doiHinhNen(this.value)">
             <optgroup label="Màu nền pastel">
                 <option value="hong">Màu Hồng Pastel</option>
@@ -395,6 +405,11 @@
             </optgroup>
         </select>
     </div>
+</div>
+
+<div class="container">
+    <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
+    <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
     <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU -->
     <form id="formStep1" onsubmit="event.preventDefault(); taoFormNhap();">
@@ -514,6 +529,12 @@
         }
     }
 
+    // BẬT/TẮT MENU CHỌN NỀN Ở GÓC DƯỚI BÊN TRÁI
+    function toggleBgMenu() {
+        const menu = document.getElementById('bgMenu');
+        menu.classList.toggle('hidden');
+    }
+
     // TÙY CHỈNH ĐỔI HÌNH NỀN HOẶC MÀU NỀN WEBSITE
     function doiHinhNen(value) {
         document.body.style.backgroundImage = 'none';
@@ -532,7 +553,6 @@
                 document.body.style.backgroundColor = '#ffffff';
                 break;
             default:
-                // Nếu là file hình ảnh (.jpg)
                 document.body.style.backgroundImage = `url('${value}')`;
                 break;
         }
@@ -555,7 +575,6 @@
             let card = document.createElement('div');
             card.className = 'card';
             
-            // ĐÃ BỎ CÁC KÝ TỰ "-" Ở TIÊU ĐỀ VA HỌ TÊN
             let html = `<h4>Nhập thông tin người số ${i + 1}</h4>`;
             html += `<div class="form-group"><label>Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên" required></div>`;
 
@@ -605,7 +624,6 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    // TỰ ĐỘNG XẾP LOẠI HỌC LỰC
     function xepLoaiHocLuc(dtb) {
         if (dtb >= 9.0) return "Xuất sắc";
         if (dtb >= 8.0) return "Giỏi";
@@ -691,13 +709,10 @@
             savedData.danhSachNguoi.push(nguoiData);
         }
 
-        // ÂM THẦM LƯU DỮ LIỆU VÀO LOCALSTORAGE
         localStorage.setItem('valeriebui_student_data', JSON.stringify(savedData));
 
-        // TỰ ĐỘNG SẮP XẾP BẢNG KẾT QUẢ THEO THỨ TỰ ĐIỂM TỪ CAO ĐẾN THẤP (XẾP HẠNG)
         ketQuaList.sort((a, b) => b.dtb - a.dtb);
 
-        // IN BẢNG KẾT QUẢ & XẾP HẠNG
         let tbody = document.querySelector('#resultTable tbody');
         tbody.innerHTML = '';
         document.getElementById('th_dtb').innerText = (loaiTinhVal === 1) ? 'ĐTB Thường' : 'ĐTB Tín Chỉ';
@@ -717,7 +732,6 @@
         document.getElementById('step3').classList.remove('hidden');
     }
 
-    // ÂM THẦM KHÔI PHỤC DỮ LIỆU ĐÃ LƯU
     function khoiPhucDuLieuDaLuu() {
         let rawData = localStorage.getItem('valeriebui_student_data');
         if (!rawData) return;
