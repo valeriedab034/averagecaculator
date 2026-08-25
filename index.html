@@ -14,6 +14,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
     <style>
+        /* HIỆU ỨNG TRƯỢT NHẸ TỪ TRÊN XUỐNG CỦA CONTAINER */
+        @keyframes slideDownCenter {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* TẠO HIỆU ỨNG DAO ĐỘNG (LẮC NHẸ) CHO NÚT BẤM */
         @keyframes daoDong {
             0% { transform: rotate(0deg); }
@@ -31,12 +43,36 @@
             100% { transform: translateX(0); }
         }
 
+        :root {
+            --bg-color: #fce4ec;
+            --container-bg: #ffffff;
+            --text-color: #2c3e50;
+            --card-bg: #fdfefe;
+            --card-border: #d6dbdf;
+            --table-th-bg: #f2e6ff;
+            --table-th-color: #4a235a;
+        }
+
+        /* CHẾ ĐỘ TỐI (DARK MODE) */
+        body.dark-mode {
+            --container-bg: #1e1e2e;
+            --text-color: #e0e0e0;
+            --card-bg: #2a2a3d;
+            --card-border: #444466;
+            --table-th-bg: #3a2d54;
+            --table-th-color: #f0e6ff;
+        }
+
         body {
             font-family: 'Merriweather', serif;
             margin: 0;
             padding: 20px;
-            color: #2c3e50;
-            background-color: #fce4ec;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI */
@@ -44,7 +80,7 @@
             position: fixed;
             top: 15px;
             right: 15px;
-            background: #ffffff;
+            background: var(--container-bg);
             padding: 8px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -77,13 +113,15 @@
             color: #c0392b;
         }
 
+        /* CONTAINER CHÍNH CÓ HIỆU ỨNG TRƯỢT TỪ TRÊN XUỐNG IN 0.5S */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background: var(--container-bg);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            animation: slideDownCenter 0.5s ease-out forwards;
         }
 
         h2 {
@@ -98,7 +136,7 @@
         }
 
         h3 {
-            color: #4a235a;
+            color: #8e44ad;
             font-weight: 700;
             line-height: 1.4;
         }
@@ -126,7 +164,8 @@
             box-sizing: border-box;
             font-size: 14px;
             font-family: 'Merriweather', serif;
-            background-color: #fdfefe;
+            background-color: var(--card-bg);
+            color: var(--text-color);
         }
 
         /* KHUNG CHỨA NÚT BẤM VÀ ICON BÀN TAY */
@@ -186,8 +225,8 @@
         }
 
         .card {
-            background: #fdfefe;
-            border: 1px solid #d6dbdf;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -207,19 +246,19 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 25px;
-            background: #fff;
+            background: var(--card-bg);
         }
 
         th, td {
-            border: 1px solid #000;
+            border: 1px solid var(--card-border);
             padding: 12px;
             text-align: left;
             font-size: 14px;
         }
 
         th {
-            background-color: #f2e6ff;
-            color: #4a235a;
+            background-color: var(--table-th-bg);
+            color: var(--table-th-color);
             font-weight: 700;
         }
 
@@ -227,10 +266,18 @@
             display: none;
         }
 
-        .audio-btn {
+        /* NÚT BẤM ĐIỀU KHIỂN CỐ ĐỊNH Ở GÓC DƯỚI BÊN PHẢI */
+        .controls-corner {
             position: fixed;
             bottom: 20px;
             right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .audio-btn, .theme-btn {
             width: 50px;
             height: 50px;
             background-color: #8e44ad;
@@ -239,7 +286,6 @@
             border-radius: 50%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             cursor: pointer;
-            z-index: 9999;
             font-family: 'Merriweather', serif;
             font-weight: bold;
             font-size: 11px;
@@ -250,9 +296,52 @@
             padding: 0;
         }
 
-        .audio-btn:hover {
+        .audio-btn:hover, .theme-btn:hover {
             background-color: #6c3483;
             transform: scale(1.08);
+        }
+
+        /* SECTION TÙY CHỈNH HÌNH NỀN / MÀU NỀN */
+        .bg-selector-panel {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+        }
+
+        .bg-selector-panel label {
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER CHÂN TRANG */
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer .social-links {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        footer .social-links a {
+            color: #8e44ad;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        footer .social-links a:hover {
+            color: #e74c3c;
+            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
@@ -276,11 +365,36 @@
 </div>
 
 <audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
-<button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
+
+<!-- CÁC NÚT ĐIỀU KHIỂN ÂM THANH & SÁNG/TỐI Ở GÓC DƯỚI BÊN PHẢI -->
+<div class="controls-corner">
+    <button id="themeToggleBtn" class="theme-btn" onclick="toggleDarkMode()">Tối</button>
+    <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
+</div>
 
 <div class="container">
     <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
     <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
+
+    <!-- BẢNG TÙY CHỈNH HÌNH NỀN / MÀU NỀN WEBSITE -->
+    <div class="bg-selector-panel">
+        <label for="bg_select">Tùy chọn màu nền hoặc hình nền website:</label>
+        <select id="bg_select" onchange="doiHinhNen(this.value)">
+            <optgroup label="Màu nền pastel">
+                <option value="hong">Màu Hồng Pastel</option>
+                <option value="xanh">Màu Xanh Dương Pastel</option>
+                <option value="vang">Màu Vàng Pastel</option>
+                <option value="trang">Màu Trắng</option>
+            </optgroup>
+            <optgroup label="Hình nền ảnh (File .jpg)">
+                <option value="11.jpg">Hình nền 11.jpg</option>
+                <option value="12.jpg">Hình nền 12.jpg</option>
+                <option value="13.jpg">Hình nền 13.jpg</option>
+                <option value="14.jpg">Hình nền 14.jpg</option>
+                <option value="15.jpg">Hình nền 15.jpg</option>
+            </optgroup>
+        </select>
+    </div>
 
     <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU -->
     <form id="formStep1" onsubmit="event.preventDefault(); taoFormNhap();">
@@ -323,15 +437,16 @@
         </div>
     </form>
 
-    <!-- BƯỚC 3: IN KẾT QUẢ -->
+    <!-- BƯỚC 3: IN KẾT QUẢ VÀ XẾP HẠNG -->
     <div id="step3" class="hidden">
-        <h3>BẢNG KẾT QUẢ</h3>
+        <h3>BẢNG KẾT QUẢ & XẾP HẠNG</h3>
         <table id="resultTable">
             <thead>
                 <tr>
-                    <th style="width: 10%;">STT</th>
-                    <th style="width: 60%;">Họ và tên</th>
-                    <th id="th_dtb" style="width: 30%;">ĐTB</th>
+                    <th style="width: 10%;">Hạng</th>
+                    <th style="width: 45%;">Họ và tên</th>
+                    <th id="th_dtb" style="width: 20%;">ĐTB</th>
+                    <th style="width: 25%;">Xếp loại</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -342,6 +457,16 @@
             <span class="hand-pointer">👈</span>
         </div>
     </div>
+
+    <!-- FOOTER CHÂN TRANG CÓ CÁC LINK MẠNG XÃ HỘI VÀ LỜI GIỚI THIỆU -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook</a> |
+            <a href="https://instagram.com/buidobinh" target="_blank">Instagram</a> |
+            <a href="https://youtube.com/@buiobinh5083" target="_blank">YouTube</a>
+        </div>
+        <div>Website này được lập năm 2026 bởi <b>valeriebui</b></div>
+    </footer>
 </div>
 
 <script>
@@ -365,7 +490,6 @@
             document.addEventListener('click', enableAudioOnInteraction);
         });
 
-        // Tự động tải dữ liệu đã lưu từ trước (nếu có)
         khoiPhucDuLieuDaLuu();
     });
 
@@ -376,6 +500,41 @@
         } else {
             audio.pause();
             musicBtn.innerText = "Bật";
+        }
+    }
+
+    // CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI (DARK MODE)
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const themeBtn = document.getElementById('themeToggleBtn');
+        if (document.body.classList.contains('dark-mode')) {
+            themeBtn.innerText = "Sáng";
+        } else {
+            themeBtn.innerText = "Tối";
+        }
+    }
+
+    // TÙY CHỈNH ĐỔI HÌNH NỀN HOẶC MÀU NỀN WEBSITE
+    function doiHinhNen(value) {
+        document.body.style.backgroundImage = 'none';
+        
+        switch (value) {
+            case 'hong':
+                document.body.style.backgroundColor = '#fce4ec';
+                break;
+            case 'xanh':
+                document.body.style.backgroundColor = '#e3f2fd';
+                break;
+            case 'vang':
+                document.body.style.backgroundColor = '#fffde7';
+                break;
+            case 'trang':
+                document.body.style.backgroundColor = '#ffffff';
+                break;
+            default:
+                // Nếu là file hình ảnh (.jpg)
+                document.body.style.backgroundImage = `url('${value}')`;
+                break;
         }
     }
 
@@ -396,25 +555,26 @@
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>--- Nhập thông tin người số ${i + 1} ---</h4>`;
-            html += `<div class="form-group"><label>- Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên" required></div>`;
+            // ĐÃ BỎ CÁC KÝ TỰ "-" Ở TIÊU ĐỀ VA HỌ TÊN
+            let html = `<h4>Nhập thông tin người số ${i + 1}</h4>`;
+            html += `<div class="form-group"><label>Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên" required></div>`;
 
             for (let m = 1; m <= soMonVal; m++) {
                 if (loaiTinhVal === 1) {
                     html += `
                         <div class="form-group">
-                            <label>+ Điểm môn thứ ${m}:</label>
+                            <label>Điểm môn thứ ${m}:</label>
                             <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm từ 0 - 10" required>
                         </div>`;
                 } else {
                     html += `
                         <div class="mon-group">
                             <div>
-                                <label>+ Tín chỉ môn ${m}:</label>
+                                <label>Tín chỉ môn ${m}:</label>
                                 <input type="number" min="1" id="tc_${i}_${m}" placeholder="Số TC" required>
                             </div>
                             <div>
-                                <label>+ Điểm môn ${m}:</label>
+                                <label>Điểm môn ${m}:</label>
                                 <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm 0 - 10" required>
                             </div>
                         </div>`;
@@ -423,7 +583,7 @@
 
             html += `
                 <div class="form-group">
-                    <label>+ Điểm thưởng (không bắt buộc):</label>
+                    <label>Điểm thưởng (không bắt buộc):</label>
                     <input type="number" step="0.1" min="0" id="thuong_${i}" value="0">
                 </div>`;
 
@@ -445,9 +605,17 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
+    // TỰ ĐỘNG XẾP LOẠI HỌC LỰC
+    function xepLoaiHocLuc(dtb) {
+        if (dtb >= 9.0) return "Xuất sắc";
+        if (dtb >= 8.0) return "Giỏi";
+        if (dtb >= 6.5) return "Khá";
+        if (dtb >= 5.0) return "Trung bình";
+        return "Yếu";
+    }
+
     function tinhVaInKetQua() {
-        let hoVaTen = [];
-        let previousTimes = [];
+        let ketQuaList = [];
         let savedData = {
             loaiTinh: loaiTinhVal,
             soNguoi: soNguoiVal,
@@ -467,6 +635,7 @@
 
             let thuong = parseFloat(document.getElementById(`thuong_${i}`).value) || 0;
             let nguoiData = { ten: ten, thuong: thuong, mons: [] };
+            let dtb = 0;
             
             if (loaiTinhVal === 1) {
                 let tongCa = 0;
@@ -482,9 +651,7 @@
                     tongCa += d;
                     nguoiData.mons.push({ diem: d });
                 }
-                let dtb = (tongCa / soMonVal) + thuong;
-                if (dtb > 10.0) dtb = 10.0;
-                previousTimes.push(dtb);
+                dtb = (tongCa / soMonVal) + thuong;
             } else {
                 let tongDiemxTC = 0;
                 let tongTC = 0;
@@ -510,28 +677,38 @@
                     tongTC += tc;
                     nguoiData.mons.push({ tc: tc, diem: d });
                 }
-                let dtbTC = (tongDiemxTC / tongTC) + thuong;
-                if (dtbTC > 10.0) dtbTC = 10.0;
-                previousTimes.push(dtbTC);
+                dtb = (tongDiemxTC / tongTC) + thuong;
             }
-            hoVaTen.push(ten);
+
+            if (dtb > 10.0) dtb = 10.0;
+
+            ketQuaList.push({
+                ten: ten,
+                dtb: dtb,
+                xepLoai: xepLoaiHocLuc(dtb)
+            });
+
             savedData.danhSachNguoi.push(nguoiData);
         }
 
-        // Âm thầm lưu dữ liệu vào LocalStorage của trình duyệt
+        // ÂM THẦM LƯU DỮ LIỆU VÀO LOCALSTORAGE
         localStorage.setItem('valeriebui_student_data', JSON.stringify(savedData));
 
-        // In bảng kết quả
+        // TỰ ĐỘNG SẮP XẾP BẢNG KẾT QUẢ THEO THỨ TỰ ĐIỂM TỪ CAO ĐẾN THẤP (XẾP HẠNG)
+        ketQuaList.sort((a, b) => b.dtb - a.dtb);
+
+        // IN BẢNG KẾT QUẢ & XẾP HẠNG
         let tbody = document.querySelector('#resultTable tbody');
         tbody.innerHTML = '';
         document.getElementById('th_dtb').innerText = (loaiTinhVal === 1) ? 'ĐTB Thường' : 'ĐTB Tín Chỉ';
 
-        for (let i = 0; i < soNguoiVal; i++) {
+        for (let i = 0; i < ketQuaList.length; i++) {
             let tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${i + 1}</td>
-                <td>${hoVaTen[i]}</td>
-                <td>${previousTimes[i].toFixed(2)}</td>
+                <td><b>${i + 1}</b></td>
+                <td>${ketQuaList[i].ten}</td>
+                <td>${ketQuaList[i].dtb.toFixed(2)}</td>
+                <td><b>${ketQuaList[i].xepLoai}</b></td>
             `;
             tbody.appendChild(tr);
         }
@@ -540,7 +717,7 @@
         document.getElementById('step3').classList.remove('hidden');
     }
 
-    // Âm thầm tải lại dữ liệu khi mở lại trang
+    // ÂM THẦM KHÔI PHỤC DỮ LIỆU ĐÃ LƯU
     function khoiPhucDuLieuDaLuu() {
         let rawData = localStorage.getItem('valeriebui_student_data');
         if (!rawData) return;
@@ -577,7 +754,7 @@
                 }
             }
         } catch (e) {
-            console.error("Lỗi khi khôi phục dữ liệu:", e);
+            console.error("Lỗi khôi phục dữ liệu:", e);
         }
     }
 </script>
