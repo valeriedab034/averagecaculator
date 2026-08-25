@@ -32,13 +32,10 @@
         }
 
         body {
-            /* ÁP DỤNG PHÔNG CHỮ MERRIWEATHER CHO TOÀN BỘ TRANG */
             font-family: 'Merriweather', serif;
             margin: 0;
             padding: 20px;
             color: #2c3e50;
-            
-            /* ĐỔI NỀN THÀNH MÀU HỒNG PASTEL DỊU MẮT */
             background-color: #fce4ec;
         }
 
@@ -52,7 +49,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             text-align: center;
-            z-index: 9999; /* Đảm bảo luôn nổi trên cùng */
+            z-index: 9999;
             max-width: 110px;
         }
 
@@ -83,20 +80,18 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            /* Khung màu trắng nổi bật trên nền hồng */
             background: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
 
-        /* ĐIỀU CHỈNH TIÊU ĐỀ: BÊN TRONG MÀU CAM, VIỀN MÀU XANH, CĂN GIỮA */
         h2 {
             text-align: center;
             font-weight: 700;
             line-height: 1.4;
-            color: #ff7f50; /* Màu da cam bên trong */
-            -webkit-text-stroke: 1.2px #0056b3; /* Viền chữ màu xanh dương */
+            color: #ff7f50;
+            -webkit-text-stroke: 1.2px #0056b3;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             font-size: 24px;
             margin-top: 10px;
@@ -139,10 +134,10 @@
             position: relative;
             display: flex;
             align-items: center;
+            gap: 10px;
             margin-top: 15px;
         }
 
-        /* THIẾT LẬP NÚT BẤM MÀU TÍM + PHÔNG MERRIWEATHER + DAO ĐỘNG */
         button.btn-main {
             flex: 1;
             padding: 14px;
@@ -155,7 +150,6 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            
             animation: daoDong 2.5s infinite ease-in-out;
             display: inline-block;
         }
@@ -165,11 +159,27 @@
             animation-duration: 0.8s;
         }
 
-        /* ICON BÀN TAY LỚN HƠN 40% VÀ CHỈ VÀO NÚT BẤM */
+        button.btn-back {
+            padding: 14px 20px;
+            background-color: #7f8c8d;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.btn-back:hover {
+            background-color: #95a5a6;
+        }
+
         .hand-pointer {
             position: absolute;
             right: -55px;
-            font-size: 42px; /* Tăng 40% kích thước ban đầu (30px -> 42px) */
+            font-size: 42px;
             animation: chiTay 1s infinite ease-in-out;
             pointer-events: none;
             user-select: none;
@@ -217,7 +227,6 @@
             display: none;
         }
 
-        /* NÚT BẤM BẬT/TẮT AM THANH GÓC DƯỚI BÊN PHẢI (KHÔNG DÙNG ICON) */
         .audio-btn {
             position: fixed;
             bottom: 20px;
@@ -246,7 +255,6 @@
             transform: scale(1.08);
         }
 
-        /* Tối ưu hiển thị cho màn hình điện thoại nhỏ */
         @media (max-width: 600px) {
             .qr-box {
                 position: static;
@@ -262,16 +270,12 @@
 </head>
 <body>
 
-<!-- KHUNG MÃ QR VÀ LINK FACEBOOK BÁM GÓC PHẢI TRÊN CÙNG -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
-<!-- THẺ AUDIO NHẠC NỀN ESCSPE.MP3 -->
 <audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
-
-<!-- NÚT BẤM BẬT/TẮT NHẠC Ở GÓC DƯỚI BÊN PHẢI (SỬ DỤNG CHỮ, KHÔNG DÙNG ICON) -->
 <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
 
 <div class="container">
@@ -312,6 +316,7 @@
             <h3>Nhập thông tin chi tiết</h3>
             <div id="form-container"></div>
             <div class="btn-wrapper">
+                <button type="button" class="btn-back" onclick="quayLaiBuoc1()">Quay lại</button>
                 <button type="submit" class="btn-main">Tính điểm & Xuất kết quả</button>
                 <span class="hand-pointer">👈</span>
             </div>
@@ -332,7 +337,8 @@
             <tbody></tbody>
         </table>
         <div class="btn-wrapper">
-            <button class="btn-main" onclick="location.reload()">Nhập lại từ đầu</button>
+            <button class="btn-main" onclick="quayLaiBuoc2()">Sửa lại điểm</button>
+            <button class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()">Nhập lại từ đầu</button>
             <span class="hand-pointer">👈</span>
         </div>
     </div>
@@ -358,6 +364,9 @@
             };
             document.addEventListener('click', enableAudioOnInteraction);
         });
+
+        // Tự động tải dữ liệu đã lưu từ trước (nếu có)
+        khoiPhucDuLieuDaLuu();
     });
 
     function toggleAudio() {
@@ -412,7 +421,6 @@
                 }
             }
 
-            /* KHÔNG THÊM REQUIRED CHO ĐIỂM THƯỞNG */
             html += `
                 <div class="form-group">
                     <label>+ Điểm thưởng (không bắt buộc):</label>
@@ -427,9 +435,25 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
+    function quayLaiBuoc1() {
+        document.getElementById('step2').classList.add('hidden');
+        document.getElementById('step1').classList.remove('hidden');
+    }
+
+    function quayLaiBuoc2() {
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
+    }
+
     function tinhVaInKetQua() {
         let hoVaTen = [];
         let previousTimes = [];
+        let savedData = {
+            loaiTinh: loaiTinhVal,
+            soNguoi: soNguoiVal,
+            soMon: soMonVal,
+            danhSachNguoi: []
+        };
 
         for (let i = 0; i < soNguoiVal; i++) {
             let tenInput = document.getElementById(`ten_${i}`);
@@ -442,6 +466,7 @@
             }
 
             let thuong = parseFloat(document.getElementById(`thuong_${i}`).value) || 0;
+            let nguoiData = { ten: ten, thuong: thuong, mons: [] };
             
             if (loaiTinhVal === 1) {
                 let tongCa = 0;
@@ -455,6 +480,7 @@
                         return;
                     }
                     tongCa += d;
+                    nguoiData.mons.push({ diem: d });
                 }
                 let dtb = (tongCa / soMonVal) + thuong;
                 if (dtb > 10.0) dtb = 10.0;
@@ -482,13 +508,18 @@
 
                     tongDiemxTC += (d * tc);
                     tongTC += tc;
+                    nguoiData.mons.push({ tc: tc, diem: d });
                 }
                 let dtbTC = (tongDiemxTC / tongTC) + thuong;
                 if (dtbTC > 10.0) dtbTC = 10.0;
                 previousTimes.push(dtbTC);
             }
             hoVaTen.push(ten);
+            savedData.danhSachNguoi.push(nguoiData);
         }
+
+        // Âm thầm lưu dữ liệu vào LocalStorage của trình duyệt
+        localStorage.setItem('valeriebui_student_data', JSON.stringify(savedData));
 
         // In bảng kết quả
         let tbody = document.querySelector('#resultTable tbody');
@@ -507,6 +538,47 @@
 
         document.getElementById('step2').classList.add('hidden');
         document.getElementById('step3').classList.remove('hidden');
+    }
+
+    // Âm thầm tải lại dữ liệu khi mở lại trang
+    function khoiPhucDuLieuDaLuu() {
+        let rawData = localStorage.getItem('valeriebui_student_data');
+        if (!rawData) return;
+
+        try {
+            let data = JSON.parse(rawData);
+            document.getElementById('loai_tinh').value = data.loaiTinh;
+            document.getElementById('so_nguoi').value = data.soNguoi;
+            document.getElementById('so_mon').value = data.soMon;
+
+            taoFormNhap();
+
+            for (let i = 0; i < data.danhSachNguoi.length; i++) {
+                let nguoi = data.danhSachNguoi[i];
+                if (document.getElementById(`ten_${i}`)) {
+                    document.getElementById(`ten_${i}`).value = nguoi.ten || '';
+                    document.getElementById(`thuong_${i}`).value = nguoi.thuong || 0;
+
+                    for (let m = 1; m <= nguoi.mons.length; m++) {
+                        let mon = nguoi.mons[m - 1];
+                        if (data.loaiTinh === 1) {
+                            if (document.getElementById(`diem_${i}_${m}`)) {
+                                document.getElementById(`diem_${i}_${m}`).value = mon.diem;
+                            }
+                        } else {
+                            if (document.getElementById(`tc_${i}_${m}`)) {
+                                document.getElementById(`tc_${i}_${m}`).value = mon.tc;
+                            }
+                            if (document.getElementById(`diem_${i}_${m}`)) {
+                                document.getElementById(`diem_${i}_${m}`).value = mon.diem;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Lỗi khi khôi phục dữ liệu:", e);
+        }
     }
 </script>
 
