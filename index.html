@@ -62,6 +62,9 @@
             --card-border: #d6dbdf;
             --table-th-bg: #f2e6ff;
             --table-th-color: #4a235a;
+            --note-bg: #fff8e1;
+            --note-border: #ffe082;
+            --note-text: #5d4037;
         }
 
         /* CHẾ ĐỘ TỐI (DARK MODE) */
@@ -72,6 +75,9 @@
             --card-border: #444466;
             --table-th-bg: #3a2d54;
             --table-th-color: #f0e6ff;
+            --note-bg: #2d2a1e;
+            --note-border: #5d522b;
+            --note-text: #ffe082;
         }
 
         body {
@@ -126,7 +132,7 @@
 
         /* CONTAINER CHÍNH CÓ HIỆU ỨNG TRƯỢT TỪ TRÊN XUỐNG 0.5S */
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             background: var(--container-bg);
             padding: 30px;
@@ -273,6 +279,22 @@
             font-weight: 700;
         }
 
+        /* BẢNG LƯU Ý KẾT QUẢ */
+        .gpa-note-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--note-bg);
+            border: 1px dashed var(--note-border);
+            border-radius: 8px;
+            color: var(--note-text);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .gpa-note-box strong {
+            color: #d35400;
+        }
+
         .hidden {
             display: none;
         }
@@ -288,7 +310,7 @@
             z-index: 9999;
         }
 
-        /* KHUNG ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN Ở GÓC DƯỚI BÊN TRÁI */
+        /* KHUNG ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN VÀ NGÔN NGỮ Ở GÓC DƯỚI BÊN TRÁI */
         .controls-corner-left {
             position: fixed;
             bottom: 20px;
@@ -299,7 +321,7 @@
             z-index: 9999;
         }
 
-        .audio-btn, .theme-btn, .bg-btn {
+        .audio-btn, .theme-btn, .bg-btn, .lang-btn {
             width: 50px;
             height: 50px;
             background-color: #8e44ad;
@@ -318,13 +340,13 @@
             padding: 0;
         }
 
-        .audio-btn:hover, .theme-btn:hover, .bg-btn:hover {
+        .audio-btn:hover, .theme-btn:hover, .bg-btn:hover, .lang-btn:hover {
             background-color: #6c3483;
             transform: scale(1.08);
         }
 
-        /* MENU CHỌN HÌNH NỀN POPUP */
-        .bg-select-popup {
+        /* MENU POPUP POP-UP */
+        .select-popup {
             background: var(--container-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
@@ -332,8 +354,8 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        .bg-select-popup select {
-            width: 180px;
+        .select-popup select {
+            width: 170px;
             padding: 8px;
             font-size: 12px;
         }
@@ -385,7 +407,7 @@
 
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
-    <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
+    <a href="https://www.facebook.com/iambuidobinh" target="_blank" id="qr_link_text">Facebook cá nhân</a>
 </div>
 
 <audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
@@ -396,55 +418,64 @@
     <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
 </div>
 
-<!-- ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN Ở GÓC DƯỚI BÊN TRÁI -->
+<!-- ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN VÀ NGÔN NGỮ Ở GÓC DƯỚI BÊN TRÁI -->
 <div class="controls-corner-left">
-    <button class="bg-btn" onclick="toggleBgMenu()">Nền</button>
-    <div id="bgMenu" class="bg-select-popup hidden">
+    <button class="bg-btn" onclick="toggleBgMenu()" id="btn_bg_label">Nền</button>
+    <div id="bgMenu" class="select-popup hidden">
         <select id="bg_select" onchange="doiHinhNen(this.value)">
-            <optgroup label="Màu nền pastel">
-                <option value="hong">Màu Hồng Pastel</option>
-                <option value="xanh">Màu Xanh Dương Pastel</option>
-                <option value="vang">Màu Vàng Pastel</option>
-                <option value="trang">Màu Trắng</option>
+            <optgroup label="Màu nền pastel" id="opt_group_color">
+                <option value="hong" id="opt_hong">Màu Hồng Pastel</option>
+                <option value="xanh" id="opt_xanh">Màu Xanh Dương Pastel</option>
+                <option value="vang" id="opt_vang">Màu Vàng Pastel</option>
+                <option value="trang" id="opt_trang">Màu Trắng</option>
             </optgroup>
-            <optgroup label="Hình nền ảnh (File .jpg)">
-                <option value="11.jpg">Hình nền 11.jpg</option>
-                <option value="12.jpg">Hình nền 12.jpg</option>
-                <option value="13.jpg">Hình nền 13.jpg</option>
-                <option value="14.jpg">Hình nền 14.jpg</option>
-                <option value="15.jpg">Hình nền 15.jpg</option>
+            <optgroup label="Hình nền ảnh (File .jpg)" id="opt_group_img">
+                <option value="11.jpg">Một vùng thảo nguyên tại Tân Cương, Trung Quốc</option>
+                <option value="12.jpg">Stamford Bridge, London, Vương quốc Anh</option>
+                <option value="13.jpg">Trận đấu giữa Manchester United và Chelsea</option>
+                <option value="14.jpg">Hồ Hoàn Kiếm, Hà Nội, Việt Nam</option>
+                <option value="15.jpg">Dãy Thiên Sơn, Tân Cương, Trung Quốc</option>
             </optgroup>
+        </select>
+    </div>
+
+    <button class="lang-btn" onclick="toggleLangMenu()" id="btn_lang_label">Dịch</button>
+    <div id="langMenu" class="select-popup hidden">
+        <select id="lang_select" onchange="doiNgonNgu(this.value)">
+            <option value="vi">Tiếng Việt (Gốc)</option>
+            <option value="en">English</option>
+            <option value="zh">中文 (Chinese)</option>
         </select>
     </div>
 </div>
 
 <div class="container">
-    <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
-    <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
+    <h2 id="main_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
+    <p id="welcome_p">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
     <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU -->
     <form id="formStep1" onsubmit="event.preventDefault(); taoFormNhap();">
         <div id="step1">
             <div class="form-group">
-                <label for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
+                <label for="loai_tinh" id="lbl_loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
                 <select id="loai_tinh" required>
-                    <option value="1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
-                    <option value="2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
+                    <option value="1" id="opt_target_1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
+                    <option value="2" id="opt_target_2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
+                <label for="so_nguoi" id="lbl_so_nguoi">Nhập số lượng người cần tính điểm:</label>
                 <input type="number" id="so_nguoi" min="1" value="3" required>
             </div>
 
             <div class="form-group">
-                <label for="so_mon">Nhập số lượng môn học trong học kỳ:</label>
+                <label for="so_mon" id="lbl_so_mon">Nhập số lượng môn học trong học kỳ:</label>
                 <input type="number" id="so_mon" min="1" value="5" required>
             </div>
 
             <div class="btn-wrapper">
-                <button type="submit" class="btn-main">Tạo biểu mẫu nhập liệu</button>
+                <button type="submit" class="btn-main" id="btn_step1_submit">Tạo biểu mẫu nhập liệu</button>
                 <span class="hand-pointer">👈</span>
             </div>
         </div>
@@ -453,11 +484,11 @@
     <!-- BƯỚC 2: NHẬP CHI TIẾT CHO TỪNG NGƯỜI -->
     <form id="formStep2" onsubmit="event.preventDefault(); tinhVaInKetQua();">
         <div id="step2" class="hidden">
-            <h3>Nhập thông tin chi tiết</h3>
+            <h3 id="step2_title">Nhập thông tin chi tiết</h3>
             <div id="form-container"></div>
             <div class="btn-wrapper">
-                <button type="button" class="btn-back" onclick="quayLaiBuoc1()">Quay lại</button>
-                <button type="submit" class="btn-main">Tính điểm & Xuất kết quả</button>
+                <button type="button" class="btn-back" onclick="quayLaiBuoc1()" id="btn_back_step1">Quay lại</button>
+                <button type="submit" class="btn-main" id="btn_step2_submit">Tính điểm & Xuất kết quả</button>
                 <span class="hand-pointer">👈</span>
             </div>
         </div>
@@ -465,21 +496,31 @@
 
     <!-- BƯỚC 3: IN KẾT QUẢ VÀ XẾP HẠNG -->
     <div id="step3" class="hidden">
-        <h3>BẢNG KẾT QUẢ & XẾP HẠNG</h3>
+        <h3 id="step3_title">BẢNG KẾT QUẢ & XẾP HẠNG</h3>
         <table id="resultTable">
             <thead>
                 <tr>
-                    <th style="width: 10%;">Hạng</th>
-                    <th style="width: 45%;">Họ và tên</th>
-                    <th id="th_dtb" style="width: 20%;">ĐTB</th>
-                    <th style="width: 25%;">Xếp loại</th>
+                    <th style="width: 8%;" id="th_rank">Hạng</th>
+                    <th style="width: 37%;" id="th_name">Họ và tên</th>
+                    <th id="th_dtb" style="width: 18%;">ĐTB (10)</th>
+                    <th style="width: 17%;" id="th_gpa4">ĐTB (4.0)</th>
+                    <th style="width: 20%;" id="th_grade">Xếp loại</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
+
+        <!-- BẢNG LƯU Ý KẾT QUẢ QUY ĐỔI GPA 4.0 -->
+        <div class="gpa-note-box" id="gpa_note_content">
+            <strong>* Lưu ý quan trọng về quy đổi GPA:</strong><br>
+            - ĐTB thang 4.0 trên bảng được quy đổi chuẩn ($A=4.0, B=3.0, C=2.0, D=1.0, F=0$).<br>
+            - Tuy nhiên, tại một số trường đại học lớn (như Bách khoa, ĐHQG, ĐHKTQD...), điểm tổng kết từ <strong>8.5 trở lên</strong> trên thang 10 đã được quy đổi thành <strong>GPA 4.0 (Điểm A)</strong>.<br>
+            - Cách tính điểm, quy đổi chữ/số và tiêu chí xét xếp loại học tập ở mỗi trường có thể có quy định riêng khác nhau.
+        </div>
+
         <div class="btn-wrapper">
-            <button class="btn-main" onclick="quayLaiBuoc2()">Sửa lại điểm</button>
-            <button class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()">Nhập lại từ đầu</button>
+            <button class="btn-main" onclick="quayLaiBuoc2()" id="btn_edit_data">Sửa lại điểm</button>
+            <button class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()" id="btn_restart">Nhập lại từ đầu</button>
             <span class="hand-pointer">👈</span>
         </div>
     </div>
@@ -491,7 +532,7 @@
             <a href="https://instagram.com/buidobinh" target="_blank">Instagram</a> |
             <a href="https://youtube.com/@buiobinh5083" target="_blank">YouTube</a>
         </div>
-        <div>Website này được lập năm 2026 bởi <b>valeriebui</b></div>
+        <div id="footer_author">Website này được lập năm 2026 bởi <b>valeriebui</b></div>
     </footer>
 </div>
 
@@ -515,24 +556,132 @@
         }
     });
 
-    // MÃ HÓA TÊN KHÓA LƯU DỮ LIỆU ĐỂ BẢO VỆ BẢN QUYỀN VÀ DỮ LIỆU
     var _0x9a81 = ["\x76\x61\x6C\x65\x72\x69\x65\x62\x75\x69\x5F\x73\x74\x75\x64\x65\x6E\x74\x5F\x64\x61\x74\x61"];
     var STORAGE_KEY = _0x9a81[0];
 
     let loaiTinhVal, soNguoiVal, soMonVal;
+    let currentLang = 'vi';
 
-    // SỰ KIỆN PHÁT NHẠC TỰ ĐỘNG
+    // BỘ TỪ ĐIỂN ĐA NGÔN NGỮ (VI, EN, ZH)
+    const translations = {
+        vi: {
+            main_title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
+            welcome_p: "Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!",
+            lbl_loai_tinh: "Mời bạn chọn đối tượng tính điểm:",
+            opt_target_1: "1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)",
+            opt_target_2: "2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)",
+            lbl_so_nguoi: "Nhập số lượng người cần tính điểm:",
+            lbl_so_mon: "Nhập số lượng môn học trong học kỳ:",
+            btn_step1_submit: "Tạo biểu mẫu nhập liệu",
+            step2_title: "Nhập thông tin chi tiết",
+            btn_back_step1: "Quay lại",
+            btn_step2_submit: "Tính điểm & Xuất kết quả",
+            step3_title: "BẢNG KẾT QUẢ & XẾP HẠNG",
+            th_rank: "Hạng",
+            th_name: "Họ và tên",
+            th_dtb1: "ĐTB Thường",
+            th_dtb2: "ĐTB Tín Chỉ",
+            th_gpa4: "ĐTB (4.0)",
+            th_grade: "Xếp loại",
+            btn_edit_data: "Sửa lại điểm",
+            btn_restart: "Nhập lại từ đầu",
+            footer_author: "Website này được lập năm 2026 bởi <b>valeriebui</b>",
+            btn_bg_label: "Nền",
+            btn_lang_label: "Dịch",
+            theme_dark: "Tối",
+            theme_light: "Sáng",
+            audio_on: "Bật",
+            audio_off: "Tắt",
+            person_num: "Nhập thông tin người số ",
+            full_name: "Họ và tên:",
+            score_sub: "Điểm môn thứ ",
+            tc_sub: "Tín chỉ môn ",
+            score_bonus: "Điểm thưởng (không bắt buộc):",
+            gpa_note: "<strong>* Lưu ý quan trọng về quy đổi GPA:</strong><br>- ĐTB thang 4.0 trên bảng được quy đổi chuẩn (A=4.0, B=3.0, C=2.0, D=1.0, F=0).<br>- Tuy nhiên, tại một số trường đại học lớn (như Bách khoa, ĐHQG, ĐHKTQD...), điểm tổng kết từ <strong>8.5 trở lên</strong> trên thang 10 đã được quy đổi thành <strong>GPA 4.0 (Điểm A)</strong>.<br>- Cách tính điểm, quy đổi chữ/số và tiêu chí xét xếp loại học tập ở mỗi trường có thể có quy định riêng khác nhau."
+        },
+        en: {
+            main_title: "ACADEMIC RESULT CALCULATOR FOR 1 SEMESTER",
+            welcome_p: "Hello, I am <b>valeriebui</b>. The tool below will help you calculate your academic results!",
+            lbl_loai_tinh: "Select target group:",
+            opt_target_1: "1. K12 Students & Undergraduates in initial basic training at K01, K02 (Average of subjects)",
+            opt_target_2: "2. University or Postgraduate Students (Credit-based system)",
+            lbl_so_nguoi: "Enter number of students:",
+            lbl_so_mon: "Enter number of courses in semester:",
+            btn_step1_submit: "Create Entry Form",
+            step2_title: "Enter Detailed Information",
+            btn_back_step1: "Back",
+            btn_step2_submit: "Calculate & Export Results",
+            step3_title: "RESULT BOARD & RANKING",
+            th_rank: "Rank",
+            th_name: "Full Name",
+            th_dtb1: "GPA (10)",
+            th_dtb2: "GPA (10)",
+            th_gpa4: "GPA (4.0)",
+            th_grade: "Academic Classification",
+            btn_edit_data: "Edit Scores",
+            btn_restart: "Reset All",
+            footer_author: "This website was established in 2026 by <b>valeriebui</b>",
+            btn_bg_label: "Theme",
+            btn_lang_label: "Lang",
+            theme_dark: "Dark",
+            theme_light: "Light",
+            audio_on: "On",
+            audio_off: "Off",
+            person_num: "Enter details for Person #",
+            full_name: "Full Name:",
+            score_sub: "Score for Course #",
+            tc_sub: "Credits for Course #",
+            score_bonus: "Bonus Score (Optional):",
+            gpa_note: "<strong>* Important GPA Conversion Note:</strong><br>- The 4.0 scale GPA in the table follows standard conversion (A=4.0, B=3.0, C=2.0, D=1.0, F=0).<br>- However, at several major universities (such as Hust, VNU, NEU...), a score of <strong>8.5+</strong> on the 10-point scale converts to <strong>GPA 4.0 (Grade A)</strong>.<br>- Grading scales, letter conversions, and academic ranking criteria may vary depending on each institution."
+        },
+        zh: {
+            main_title: "一学期学业成绩计算器",
+            welcome_p: "你好，我是 <b>valeriebui</b>。下面的工具将帮助您计算学业成绩！",
+            lbl_loai_tinh: "请选择计算对象：",
+            opt_target_1: "1. 中小学学生及K01、K02初级训练学员（各科平均分）",
+            opt_target_2: "2. 本科生或研究生（按学分计算）",
+            lbl_so_nguoi: "输入需要计算的人数：",
+            lbl_so_mon: "输入本学期的课程数量：",
+            btn_step1_submit: "生成输入表单",
+            step2_title: "输入详细信息",
+            btn_back_step1: "返回",
+            btn_step2_submit: "计算并导出结果",
+            step3_title: "成绩榜与排名",
+            th_rank: "排名",
+            th_name: "姓名",
+            th_dtb1: "平均分 (10)",
+            th_dtb2: "学分绩点 (10)",
+            th_gpa4: "绩点 (4.0)",
+            th_grade: "成绩等级",
+            btn_edit_data: "修改分数",
+            btn_restart: "重新开始",
+            footer_author: "本网站由 <b>valeriebui</b> 于 2026 年创建",
+            btn_bg_label: "背景",
+            btn_lang_label: "语言",
+            theme_dark: "暗色",
+            theme_light: "亮色",
+            audio_on: "开启",
+            audio_off: "关闭",
+            person_num: "输入第几位人员的信息 #",
+            full_name: "姓名：",
+            score_sub: "第几门课程分数 #",
+            tc_sub: "第几门课程学分 #",
+            score_bonus: "加分（选填）：",
+            gpa_note: "<strong>* 关于 GPA 转换的重要说明：</strong><br>- 表中的 4.0 绩点按标准转换（A=4.0, B=3.0, C=2.0, D=1.0, F=0）。<br>- 但是，在部分知名大学（如河内白科、国家大学、国民经济大学等），10 分制下达到 <strong>8.5分以上</strong> 即直接折算为 <strong>GPA 4.0 (A 级)</strong>。<br>- 各校的评分标准、等级转换和学业排名规定可能有所不同。"
+        }
+    };
+
     const audio = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicToggleBtn');
 
     window.addEventListener('DOMContentLoaded', () => {
         audio.play().then(() => {
-            musicBtn.innerText = "Tắt";
+            musicBtn.innerText = translations[currentLang].audio_off;
         }).catch(() => {
-            musicBtn.innerText = "Bật";
+            musicBtn.innerText = translations[currentLang].audio_on;
             const enableAudioOnInteraction = () => {
                 audio.play().then(() => {
-                    musicBtn.innerText = "Tắt";
+                    musicBtn.innerText = translations[currentLang].audio_off;
                 });
                 document.removeEventListener('click', enableAudioOnInteraction);
             };
@@ -545,50 +694,78 @@
     function toggleAudio() {
         if (audio.paused) {
             audio.play();
-            musicBtn.innerText = "Tắt";
+            musicBtn.innerText = translations[currentLang].audio_off;
         } else {
             audio.pause();
-            musicBtn.innerText = "Bật";
+            musicBtn.innerText = translations[currentLang].audio_on;
         }
     }
 
-    // CHUYỂN ĐỔI CHẾ ĐỘ SÁNG / TỐI (DARK MODE)
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
         const themeBtn = document.getElementById('themeToggleBtn');
         if (document.body.classList.contains('dark-mode')) {
-            themeBtn.innerText = "Sáng";
+            themeBtn.innerText = translations[currentLang].theme_light;
         } else {
-            themeBtn.innerText = "Tối";
+            themeBtn.innerText = translations[currentLang].theme_dark;
         }
     }
 
-    // BẬT/TẮT MENU CHỌN NỀN Ở GÓC DƯỚI BÊN TRÁI
     function toggleBgMenu() {
-        const menu = document.getElementById('bgMenu');
-        menu.classList.toggle('hidden');
+        document.getElementById('bgMenu').classList.toggle('hidden');
+        document.getElementById('langMenu').classList.add('hidden');
     }
 
-    // TÙY CHỈNH ĐỔI HÌNH NỀN HOẶC MÀU NỀN WEBSITE
+    function toggleLangMenu() {
+        document.getElementById('langMenu').classList.toggle('hidden');
+        document.getElementById('bgMenu').classList.add('hidden');
+    }
+
     function doiHinhNen(value) {
         document.body.style.backgroundImage = 'none';
-        
         switch (value) {
-            case 'hong':
-                document.body.style.backgroundColor = '#fce4ec';
-                break;
-            case 'xanh':
-                document.body.style.backgroundColor = '#e3f2fd';
-                break;
-            case 'vang':
-                document.body.style.backgroundColor = '#fffde7';
-                break;
-            case 'trang':
-                document.body.style.backgroundColor = '#ffffff';
-                break;
-            default:
-                document.body.style.backgroundImage = `url('${value}')`;
-                break;
+            case 'hong': document.body.style.backgroundColor = '#fce4ec'; break;
+            case 'xanh': document.body.style.backgroundColor = '#e3f2fd'; break;
+            case 'vang': document.body.style.backgroundColor = '#fffde7'; break;
+            case 'trang': document.body.style.backgroundColor = '#ffffff'; break;
+            default: document.body.style.backgroundImage = `url('${value}')`; break;
+        }
+    }
+
+    // CHUYỂN ĐỔI NGÔN NGỮ
+    function doiNgonNgu(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+
+        document.getElementById('main_title').innerText = t.main_title;
+        document.getElementById('welcome_p').innerHTML = t.welcome_p;
+        document.getElementById('lbl_loai_tinh').innerText = t.lbl_loai_tinh;
+        document.getElementById('opt_target_1').innerText = t.opt_target_1;
+        document.getElementById('opt_target_2').innerText = t.opt_target_2;
+        document.getElementById('lbl_so_nguoi').innerText = t.lbl_so_nguoi;
+        document.getElementById('lbl_so_mon').innerText = t.lbl_so_mon;
+        document.getElementById('btn_step1_submit').innerText = t.btn_step1_submit;
+        document.getElementById('step2_title').innerText = t.step2_title;
+        document.getElementById('btn_back_step1').innerText = t.btn_back_step1;
+        document.getElementById('btn_step2_submit').innerText = t.btn_step2_submit;
+        document.getElementById('step3_title').innerText = t.step3_title;
+        document.getElementById('th_rank').innerText = t.th_rank;
+        document.getElementById('th_name').innerText = t.th_name;
+        document.getElementById('th_gpa4').innerText = t.th_gpa4;
+        document.getElementById('th_grade').innerText = t.th_grade;
+        document.getElementById('btn_edit_data').innerText = t.btn_edit_data;
+        document.getElementById('btn_restart').innerText = t.btn_restart;
+        document.getElementById('footer_author').innerHTML = t.footer_author;
+        document.getElementById('btn_bg_label').innerText = t.btn_bg_label;
+        document.getElementById('btn_lang_label').innerText = t.btn_lang_label;
+        document.getElementById('gpa_note_content').innerHTML = t.gpa_note;
+
+        const isDark = document.body.classList.contains('dark-mode');
+        document.getElementById('themeToggleBtn').innerText = isDark ? t.theme_light : t.theme_dark;
+        document.getElementById('musicToggleBtn').innerText = audio.paused ? t.audio_on : t.audio_off;
+
+        if (!document.getElementById('step2').classList.contains('hidden')) {
+            taoFormNhap();
         }
     }
 
@@ -604,31 +781,32 @@
 
         let container = document.getElementById('form-container');
         container.innerHTML = '';
+        const t = translations[currentLang];
 
         for (let i = 0; i < soNguoiVal; i++) {
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>Nhập thông tin người số ${i + 1}</h4>`;
-            html += `<div class="form-group"><label>Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên" required></div>`;
+            let html = `<h4>${t.person_num}${i + 1}</h4>`;
+            html += `<div class="form-group"><label>${t.full_name}</label><input type="text" id="ten_${i}" placeholder="${t.full_name}" required></div>`;
 
             for (let m = 1; m <= soMonVal; m++) {
                 if (loaiTinhVal === 1) {
                     html += `
                         <div class="form-group">
-                            <label>Điểm môn thứ ${m}:</label>
-                            <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm từ 0 - 10" required>
+                            <label>${t.score_sub}${m}:</label>
+                            <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="0 - 10" required>
                         </div>`;
                 } else {
                     html += `
                         <div class="mon-group">
                             <div>
-                                <label>Tín chỉ môn ${m}:</label>
-                                <input type="number" min="1" id="tc_${i}_${m}" placeholder="Số TC" required>
+                                <label>${t.tc_sub}${m}:</label>
+                                <input type="number" min="1" id="tc_${i}_${m}" placeholder="TC" required>
                             </div>
                             <div>
-                                <label>Điểm môn ${m}:</label>
-                                <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm 0 - 10" required>
+                                <label>${t.score_sub}${m}:</label>
+                                <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="0 - 10" required>
                             </div>
                         </div>`;
                 }
@@ -636,7 +814,7 @@
 
             html += `
                 <div class="form-group">
-                    <label>Điểm thưởng (không bắt buộc):</label>
+                    <label>${t.score_bonus}</label>
                     <input type="number" step="0.1" min="0" id="thuong_${i}" value="0">
                 </div>`;
 
@@ -658,12 +836,21 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
+    // QUY ĐỔI ĐIỂM SANG THANG 4.0 CHUẨN
+    function quyDoiThang4(dtb10) {
+        if (dtb10 >= 8.5) return 4.0;
+        if (dtb10 >= 7.0) return 3.0;
+        if (dtb10 >= 5.5) return 2.0;
+        if (dtb10 >= 4.0) return 1.0;
+        return 0.0;
+    }
+
     function xepLoaiHocLuc(dtb) {
-        if (dtb >= 9.0) return "Xuất sắc";
-        if (dtb >= 8.0) return "Giỏi";
-        if (dtb >= 6.5) return "Khá";
-        if (dtb >= 5.0) return "Trung bình";
-        return "Yếu";
+        if (dtb >= 9.0) return currentLang === 'en' ? "Excellent" : (currentLang === 'zh' ? "优秀" : "Xuất sắc");
+        if (dtb >= 8.0) return currentLang === 'en' ? "Very Good" : (currentLang === 'zh' ? "良好" : "Giỏi");
+        if (dtb >= 6.5) return currentLang === 'en' ? "Good" : (currentLang === 'zh' ? "中等" : "Khá");
+        if (dtb >= 5.0) return currentLang === 'en' ? "Average" : (currentLang === 'zh' ? "合格" : "Trung bình");
+        return currentLang === 'en' ? "Weak" : (currentLang === 'zh' ? "不合格" : "Yếu");
     }
 
     function tinhVaInKetQua() {
@@ -737,20 +924,21 @@
             ketQuaList.push({
                 ten: ten,
                 dtb: dtb,
+                dtb4: quyDoiThang4(dtb),
                 xepLoai: xepLoaiHocLuc(dtb)
             });
 
             savedData.danhSachNguoi.push(nguoiData);
         }
 
-        // AM THAM LUU DU LIEU VAO LOCALSTORAGE VOI KHÓA MÃ HÓA
         localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
 
         ketQuaList.sort((a, b) => b.dtb - a.dtb);
 
         let tbody = document.querySelector('#resultTable tbody');
         tbody.innerHTML = '';
-        document.getElementById('th_dtb').innerText = (loaiTinhVal === 1) ? 'ĐTB Thường' : 'ĐTB Tín Chỉ';
+        const t = translations[currentLang];
+        document.getElementById('th_dtb').innerText = (loaiTinhVal === 1) ? t.th_dtb1 : t.th_dtb2;
 
         for (let i = 0; i < ketQuaList.length; i++) {
             let tr = document.createElement('tr');
@@ -758,6 +946,7 @@
                 <td><b>${i + 1}</b></td>
                 <td>${ketQuaList[i].ten}</td>
                 <td>${ketQuaList[i].dtb.toFixed(2)}</td>
+                <td><b>${ketQuaList[i].dtb4.toFixed(1)}</b></td>
                 <td><b>${ketQuaList[i].xepLoai}</b></td>
             `;
             tbody.appendChild(tr);
