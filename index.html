@@ -192,6 +192,7 @@
             align-items: center;
             gap: 10px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         button.btn-main {
@@ -213,6 +214,23 @@
         button.btn-main:hover {
             background-color: #6c3483;
             animation-duration: 0.8s;
+        }
+
+        button.btn-print {
+            padding: 14px 20px;
+            background-color: #27ae60;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.btn-print:hover {
+            background-color: #219150;
         }
 
         button.btn-back {
@@ -279,7 +297,6 @@
             font-weight: 700;
         }
 
-        /* BẢNG LƯU Ý KẾT QUẢ */
         .gpa-note-box {
             margin-top: 20px;
             padding: 15px;
@@ -299,7 +316,6 @@
             display: none;
         }
 
-        /* NÚT BẤM ĐIỀU KHIỂN ÂM THANH & TỐI Ở GÓC DƯỚI BÊN PHẢI */
         .controls-corner-right {
             position: fixed;
             bottom: 20px;
@@ -310,7 +326,6 @@
             z-index: 9999;
         }
 
-        /* KHUNG ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN VÀ NGÔN NGỮ Ở GÓC DƯỚI BÊN TRÁI */
         .controls-corner-left {
             position: fixed;
             bottom: 20px;
@@ -345,7 +360,6 @@
             transform: scale(1.08);
         }
 
-        /* MENU POPUP POP-UP */
         .select-popup {
             background: var(--container-bg);
             border: 1px solid var(--card-border);
@@ -360,7 +374,6 @@
             font-size: 12px;
         }
 
-        /* FOOTER CHÂN TRANG */
         footer {
             margin-top: 40px;
             padding-top: 20px;
@@ -390,6 +403,37 @@
             text-decoration: underline;
         }
 
+        /* TỐI ƯU HÓA GIAO DIỆN KHI BẤM IN (PRINT CSS) */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                animation: none !important;
+                max-width: 100% !important;
+            }
+            .qr-box, .controls-corner-right, .controls-corner-left, .btn-wrapper, #step1, #step2 {
+                display: none !important;
+            }
+            table {
+                border-collapse: collapse !important;
+            }
+            th, td {
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+                background: transparent !important;
+            }
+            .gpa-note-box {
+                background: #ffffff !important;
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+            }
+        }
+
         @media (max-width: 600px) {
             .qr-box {
                 position: static;
@@ -412,29 +456,27 @@
 
 <audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
 
-<!-- CÁC NÚT ĐIỀU KHIỂN ÂM THANH & SÁNG/TỐI Ở GÓC DƯỚI BÊN PHẢI -->
 <div class="controls-corner-right">
     <button id="themeToggleBtn" class="theme-btn" onclick="toggleDarkMode()">Tối</button>
     <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
 </div>
 
-<!-- ĐIỀU KHIỂN TÙY CHỈNH HÌNH NỀN VÀ NGÔN NGỮ Ở GÓC DƯỚI BÊN TRÁI -->
 <div class="controls-corner-left">
     <button class="bg-btn" onclick="toggleBgMenu()" id="btn_bg_label">Nền</button>
     <div id="bgMenu" class="select-popup hidden">
         <select id="bg_select" onchange="doiHinhNen(this.value)">
-            <optgroup label="Màu nền pastel" id="opt_group_color">
-                <option value="hong" id="opt_hong">Màu Hồng Pastel</option>
-                <option value="xanh" id="opt_xanh">Màu Xanh Dương Pastel</option>
-                <option value="vang" id="opt_vang">Màu Vàng Pastel</option>
-                <option value="trang" id="opt_trang">Màu Trắng</option>
+            <optgroup label="Màu nền pastel">
+                <option value="hong">Màu Hồng Pastel</option>
+                <option value="xanh">Màu Xanh Dương Pastel</option>
+                <option value="vang">Màu Vàng Pastel</option>
+                <option value="trang">Màu Trắng</option>
             </optgroup>
-            <optgroup label="Hình nền ảnh (File .jpg)" id="opt_group_img">
-                <option value="11.jpg">Một vùng thảo nguyên tại Tân Cương, Trung Quốc</option>
-                <option value="12.jpg">Stamford Bridge, London, Vương quốc Anh</option>
-                <option value="13.jpg">Trận đấu giữa Manchester United và Chelsea</option>
-                <option value="14.jpg">Hồ Hoàn Kiếm, Hà Nội, Việt Nam</option>
-                <option value="15.jpg">Dãy Thiên Sơn, Tân Cương, Trung Quốc</option>
+            <optgroup label="Hình nền ảnh (File .jpg)">
+                <option value="11.jpg">Hình nền 11.jpg</option>
+                <option value="12.jpg">Hình nền 12.jpg</option>
+                <option value="13.jpg">Hình nền 13.jpg</option>
+                <option value="14.jpg">Hình nền 14.jpg</option>
+                <option value="15.jpg">Hình nền 15.jpg</option>
             </optgroup>
         </select>
     </div>
@@ -510,7 +552,6 @@
             <tbody></tbody>
         </table>
 
-        <!-- BẢNG LƯU Ý KẾT QUẢ QUY ĐỔI GPA 4.0 -->
         <div class="gpa-note-box" id="gpa_note_content">
             <strong>* Lưu ý quan trọng về quy đổi GPA:</strong><br>
             - ĐTB thang 4.0 trên bảng được quy đổi chuẩn ($A=4.0, B=3.0, C=2.0, D=1.0, F=0$).<br>
@@ -519,13 +560,13 @@
         </div>
 
         <div class="btn-wrapper">
-            <button class="btn-main" onclick="quayLaiBuoc2()" id="btn_edit_data">Sửa lại điểm</button>
-            <button class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()" id="btn_restart">Nhập lại từ đầu</button>
+            <button type="button" class="btn-print" onclick="window.print()" id="btn_print_table">🖨️ In bảng kết quả</button>
+            <button type="button" class="btn-main" onclick="quayLaiBuoc2()" id="btn_edit_data">Sửa lại điểm</button>
+            <button type="button" class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()" id="btn_restart">Nhập lại từ đầu</button>
             <span class="hand-pointer">👈</span>
         </div>
     </div>
 
-    <!-- FOOTER CHÂN TRANG CÓ CÁC LINK MẠNG XÃ HỘI VÀ LỜI GIỚI THIỆU -->
     <footer>
         <div class="social-links">
             <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook</a> |
@@ -537,14 +578,12 @@
 </div>
 
 <script>
-    // IN BẢN QUYỀN NỔI BẬT RA CONSOLE KHI MỞ DEVTOOLS
     console.log(
         "%c WEBSITE BỞI VALERIEBUI %c Copyright © 2026 | Bùi Đỗ Bình - fb.com/iambuidobinh ",
         "background: #8e44ad; color: #fff; font-size: 14px; font-weight: bold; padding: 6px 12px; border-radius: 4px 0 0 4px;",
         "background: #2c3e50; color: #fff; font-size: 14px; padding: 6px 12px; border-radius: 0 4px 4px 0;"
     );
 
-    // CHỐNG CHUỘT PHẢI VÀ PHÍM TẮT MỞ PAGE SOURCE (F12, CTRL+U, CTRL+SHIFT+I)
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     document.addEventListener('keydown', function(e) {
         if (
@@ -562,7 +601,6 @@
     let loaiTinhVal, soNguoiVal, soMonVal;
     let currentLang = 'vi';
 
-    // BỘ TỪ ĐIỂN ĐA NGÔN NGỮ (VI, EN, ZH)
     const translations = {
         vi: {
             main_title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
@@ -583,6 +621,7 @@
             th_dtb2: "ĐTB Tín Chỉ",
             th_gpa4: "ĐTB (4.0)",
             th_grade: "Xếp loại",
+            btn_print_table: "🖨️ In bảng kết quả",
             btn_edit_data: "Sửa lại điểm",
             btn_restart: "Nhập lại từ đầu",
             footer_author: "Website này được lập năm 2026 bởi <b>valeriebui</b>",
@@ -618,6 +657,7 @@
             th_dtb2: "GPA (10)",
             th_gpa4: "GPA (4.0)",
             th_grade: "Academic Classification",
+            btn_print_table: "🖨️ Print Result Board",
             btn_edit_data: "Edit Scores",
             btn_restart: "Reset All",
             footer_author: "This website was established in 2026 by <b>valeriebui</b>",
@@ -653,6 +693,7 @@
             th_dtb2: "学分绩点 (10)",
             th_gpa4: "绩点 (4.0)",
             th_grade: "成绩等级",
+            btn_print_table: "🖨️ 打印成绩单",
             btn_edit_data: "修改分数",
             btn_restart: "重新开始",
             footer_author: "本网站由 <b>valeriebui</b> 于 2026 年创建",
@@ -732,7 +773,6 @@
         }
     }
 
-    // CHUYỂN ĐỔI NGÔN NGỮ
     function doiNgonNgu(lang) {
         currentLang = lang;
         const t = translations[lang];
@@ -753,6 +793,7 @@
         document.getElementById('th_name').innerText = t.th_name;
         document.getElementById('th_gpa4').innerText = t.th_gpa4;
         document.getElementById('th_grade').innerText = t.th_grade;
+        document.getElementById('btn_print_table').innerText = t.btn_print_table;
         document.getElementById('btn_edit_data').innerText = t.btn_edit_data;
         document.getElementById('btn_restart').innerText = t.btn_restart;
         document.getElementById('footer_author').innerHTML = t.footer_author;
@@ -836,7 +877,6 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    // QUY ĐỔI ĐIỂM SANG THANG 4.0 CHUẨN
     function quyDoiThang4(dtb10) {
         if (dtb10 >= 8.5) return 4.0;
         if (dtb10 >= 7.0) return 3.0;
