@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* TẠO HIỆU ỨNG DAO ĐỘNG (LẮC NHẸ) CHO NÚT BẤM */
+        /* HIỆU ỨNG DAO ĐỘNG LẮC NHẸ CHO NÚT CHÍNH */
         @keyframes daoDong {
             0% { transform: rotate(0deg); }
             20% { transform: rotate(-2deg); }
@@ -29,7 +29,7 @@
             background-color: #fce4ec;
         }
 
-        /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI MAN HINH */
+        /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI MÀN HÌNH */
         .qr-box {
             position: fixed;
             top: 15px;
@@ -68,16 +68,16 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 850px;
             margin: 0 auto;
             background: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            position: relative; /* Tạo gốc tọa độ cho nút in góc phải */
+            position: relative;
         }
 
-        /* TIÊU ĐỀ H2: MÀU CAM BÊN TRONG, VIỀN MÀU XANH, CĂN GIỮA */
+        /* TIÊU ĐỀ H2: MÀU CAM BÊN TRONG, VIỀN XANH, CĂN GIỮA */
         h2 {
             text-align: center;
             font-weight: 700;
@@ -89,7 +89,7 @@
             margin-top: 10px;
         }
 
-        h3 {
+        h3, h4 {
             color: #4a235a;
             font-weight: 700;
             line-height: 1.4;
@@ -121,33 +121,8 @@
             background-color: #fdfefe;
         }
 
-        /* NÚT IN Ở GÓC PHẢI TRÊN CÙNG CỦA CONTAINER */
-        .btn-print {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #27ae60;
-            color: white;
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-            font-size: 13px;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            transition: background-color 0.3s;
-            animation: none; /* Không lắc nút in */
-            width: auto;
-            margin-top: 0;
-        }
-
-        .btn-print:hover {
-            background-color: #1e8449;
-        }
-
-        /* THIẾT LẬP NÚT BẤM MÀU TÍM DAO ĐỘNG */
-        button {
+        /* NÚT BẤM CHÍNH MÀU TÍM DAO ĐỘNG */
+        button.btn-main {
             width: 100%;
             padding: 14px;
             background-color: #8e44ad;
@@ -164,9 +139,51 @@
             display: inline-block;
         }
 
-        button:hover {
+        button.btn-main:hover {
             background-color: #6c3483;
             animation-duration: 0.8s;
+        }
+
+        /* NÚT QUAY LẠI / SỬA LẠI THÔNG TIN */
+        button.btn-back {
+            background-color: #7f8c8d;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-size: 13px;
+        }
+
+        button.btn-back:hover {
+            background-color: #626567;
+        }
+
+        /* NÚT IN CHỈ XUẤT HIỆN Ở TRANG CỦA TRANG CUỐI */
+        .btn-print {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: background-color 0.3s;
+            display: none; /* Mặc định ẩn, chỉ hiện ở trang cuối */
+        }
+
+        .btn-print:hover {
+            background-color: #1e8449;
         }
 
         .card {
@@ -177,30 +194,16 @@
             margin-bottom: 20px;
         }
 
-        .mon-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .mon-group input {
-            flex: 1;
-        }
-
-        /* BẢNG KẾT QUẢ CÓ THÊM CÁC CỘT MÔN HỌC */
-        .table-responsive {
-            overflow-x: auto;
-        }
-
+        /* BẢNG ĐIỀN THÔNG TIN VÀ BẢNG KẾT QUẢ */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 25px;
+            margin-top: 15px;
             background: #fff;
         }
 
         th, td {
-            border: 1px solid #000;
+            border: 1px solid #bdc3c7;
             padding: 10px;
             text-align: center;
             font-size: 13px;
@@ -212,21 +215,60 @@
             font-weight: 700;
         }
 
-        td.text-left {
+        td.ten-mon-col {
+            width: 70%;
             text-align: left;
         }
 
-        .hidden {
-            display: none;
+        .row-dtb {
+            background-color: #fef9e7;
+            font-weight: bold;
+            color: #b7950b;
+            font-size: 14px;
         }
 
-        /* TỐI ƯU KHI IN (ẨN CÁC NÚT BẤM VÀ MÃ QR) */
+        /* THANH CHUYỂN TRANG NGƯỜI DÙNG Ở TRANG CUỐI */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-nav {
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-nav:hover {
+            background-color: #1a5276;
+        }
+
+        .btn-nav:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* TỐI ƯU KHI IN TRANG */
         @media print {
             body {
                 background: white;
                 padding: 0;
             }
-            .qr-box, .btn-print, button {
+            .qr-box, .btn-print, button, .pagination-container {
                 display: none !important;
             }
             .container {
@@ -244,7 +286,6 @@
             }
             .btn-print {
                 position: static;
-                display: block;
                 width: 100%;
                 margin-bottom: 15px;
             }
@@ -253,20 +294,20 @@
 </head>
 <body>
 
-<!-- KHUNG MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH -->
+<!-- MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH GÓC PHẢI MÀN HÌNH -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
 <div class="container">
-    <!-- NÚT IN ĐẶT Ở GÓC PHẢI TRÊN CÙNG CỦA CONTAINER -->
-    <button class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
+    <!-- NÚT IN NẰM Ở GÓC TRÊN BÊN PHẢI CONTAINER (CHỈ HIỆN Ở TRANG CUỐI) -->
+    <button id="btnPrint" class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
 
     <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
-    <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
+    <p style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
-    <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU & NHẬP TÊN MÔN HỌC -->
+    <!-- ================= TRANG 1: CẤU HÌNH BAN ĐẦU ================= -->
     <div id="step1">
         <div class="form-group">
             <label for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
@@ -278,205 +319,313 @@
 
         <div class="form-group">
             <label for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
-            <input type="number" id="so_nguoi" min="1" value="3">
+            <input type="number" id="so_nguoi" min="1" value="1">
         </div>
 
-        <div class="form-group">
-            <label for="so_mon">Nhập số lượng môn học trong học kỳ:</label>
-            <input type="number" id="so_mon" min="1" value="5" onchange="taoOnhapTenMon()">
-        </div>
-
-        <!-- KHUNG ĐIỀN TÊN CHO TỪNG MÔN HỌC -->
-        <div class="card" id="card-ten-mon">
-            <label>Nhập tên tương ứng cho từng môn học:</label>
-            <div id="danh-sach-ten-mon"></div>
-        </div>
-
-        <button onclick="taoFormNhap()">✨ Tạo biểu mẫu nhập liệu ✨</button>
+        <button class="btn-main" onclick="chuyenSangTrang2()">✨ Tiếp tục: Nhập số môn học ✨</button>
     </div>
 
-    <!-- BƯỚC 2: NHẬP CHI TIẾT ĐIỂM CHO TỪNG NGƯỜI -->
+    <!-- ================= TRANG 2: NHẬP SỐ MÔN HỌC TỪNG NGƯỜI ================= -->
     <div id="step2" class="hidden">
-        <h3>Nhập thông tin chi tiết</h3>
-        <div id="form-container"></div>
-        <button onclick="tinhVaInKetQua()">📊 Tính điểm & Xuất kết quả 📊</button>
+        <h3>Bước 2: Nhập số lượng môn học của từng người</h3>
+        <div id="form-so-mon-container"></div>
+        
+        <div>
+            <button class="btn-back" onclick="quayLaiTrang(1)">⬅ Sửa lại Trang 1</button>
+            <button class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang3()">✨ Tiếp tục: Nhập tên môn & điểm ✨</button>
+        </div>
     </div>
 
-    <!-- BƯỚC 3: IN KẾT QUẢ BẢNG BÀO GỒM CÁC MÔN HỌC -->
+    <!-- ================= TRANG 3: ĐIỀN TÊN MÔN HỌC & ĐIỂM ================= -->
     <div id="step3" class="hidden">
-        <h3>BẢNG KẾT QUẢ CHI TIẾT</h3>
-        <div class="table-responsive">
-            <table id="resultTable">
-                <thead>
-                    <tr id="tableHeader">
-                        <th>STT</th>
-                        <th>Họ và tên</th>
-                        <!-- Cột các môn học và ĐTB sẽ tự động tạo bằng JS -->
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <h3>Bước 3: Lập danh sách tên môn học & Điểm số</h3>
+        <div id="form-chi-tiet-container"></div>
+
+        <div>
+            <button class="btn-back" onclick="quayLaiTrang(2)">⬅ Sửa lại Trang 2</button>
+            <button class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang4()">📊 Tính điểm & Xuất Bảng Kết Quả 📊</button>
         </div>
-        <button onclick="location.reload()">🔄 Nhập lại từ đầu 🔄</button>
+    </div>
+
+    <!-- ================= TRANG 4: BẢNG KẾT QUẢ CUỐI CÙNG ================= -->
+    <div id="step4" class="hidden">
+        <div id="resultCard" class="card">
+            <!-- Nội dung bảng kết quả từng người sẽ hiển thị ở đây -->
+        </div>
+
+        <!-- BỘ NÚT CHUYỂN TRANG CHO NHIỀU NGƯỜI (NẾU SỐ NGƯỜI >= 2) -->
+        <div id="paginationNav" class="pagination-container hidden">
+            <button id="btnPrevUser" class="btn-nav" onclick="chuyenNguoiDisplay(-1)">⬅ Người trước</button>
+            <span id="userPageIndicator" style="font-weight: bold; color: #4a235a;"></span>
+            <button id="btnNextUser" class="btn-nav" onclick="chuyenNguoiDisplay(1)">Người tiếp theo ➡</button>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button class="btn-back" onclick="quayLaiTrang(3)">⬅ Sửa lại thông tin nhập liệu (Trang 3)</button>
+            <button class="btn-back" style="background-color: #c0392b;" onclick="location.reload()">🔄 Nhập lại từ đầu</button>
+        </div>
     </div>
 </div>
 
 <script>
-    let loaiTinhVal, soNguoiVal, soMonVal;
-    let danhSachTenMon = [];
+    // CÁC BIẾN TOÀN CỤC LƯU TRỮ DỮ LIỆU
+    let loaiTinhVal = 1;
+    let soNguoiVal = 1;
+    let dsSoMonTungNguoi = [];
+    let dsThongTinNguoiDung = []; // Lưu tên, các môn (tên, tín chỉ, điểm), điểm thưởng, điểm TB
+    let currentUserIndex = 0; // Chỉ số người đang hiển thị ở trang cuối
 
-    // Tự động tạo ô điền tên môn học khi mở trang
-    window.onload = function() {
-        taoOnhapTenMon();
-    };
-
-    function taoOnhapTenMon() {
-        let sm = parseInt(document.getElementById('so_mon').value) || 0;
-        let dsContainer = document.getElementById('danh-sach-ten-mon');
-        dsContainer.innerHTML = '';
-
-        for (let m = 1; m <= sm; m++) {
-            let div = document.createElement('div');
-            div.style.marginBottom = '8px';
-            div.innerHTML = `<input type="text" id="ten_mon_${m}" placeholder="Tên môn thứ ${m} (VD: Toán, C++, ...)">`;
-            dsContainer.appendChild(div);
-        }
-    }
-
-    function taoFormNhap() {
+    // --- CHUYỂN SANG TRANG 2 ---
+    function chuyenSangTrang2() {
         loaiTinhVal = parseInt(document.getElementById('loai_tinh').value);
         soNguoiVal = parseInt(document.getElementById('so_nguoi').value);
-        soMonVal = parseInt(document.getElementById('so_mon').value);
 
-        if (isNaN(soNguoiVal) || soNguoiVal <= 0 || isNaN(soMonVal) || soMonVal <= 0) {
-            alert('Vui lòng nhập số người và số môn hợp lệ!');
+        if (isNaN(soNguoiVal) || soNguoiVal <= 0) {
+            alert('Vui lòng nhập số lượng người hợp lệ!');
             return;
         }
 
-        // Lưu danh sách tên môn học người dùng đã nhập
-        danhSachTenMon = [];
-        for (let m = 1; m <= soMonVal; m++) {
-            let ten = document.getElementById(`ten_mon_${m}`).value.trim();
-            danhSachTenMon.push(ten !== '' ? ten : `Môn ${m}`);
-        }
-
-        let container = document.getElementById('form-container');
+        let container = document.getElementById('form-so-mon-container');
         container.innerHTML = '';
 
         for (let i = 0; i < soNguoiVal; i++) {
+            let valCu = dsSoMonTungNguoi[i] || 5;
+            let card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="form-group">
+                    <label>👤 Người thứ ${i + 1} - Số lượng môn học trong học kỳ:</label>
+                    <input type="number" id="so_mon_nguoi_${i}" min="1" value="${valCu}">
+                </div>
+            `;
+            container.appendChild(card);
+        }
+
+        hienThiTrang(2);
+    }
+
+    // --- CHUYỂN SANG TRANG 3 ---
+    function chuyenSangTrang3() {
+        dsSoMonTungNguoi = [];
+        for (let i = 0; i < soNguoiVal; i++) {
+            let sm = parseInt(document.getElementById(`so_mon_nguoi_${i}`).value);
+            if (isNaN(sm) || sm <= 0) {
+                alert(`Vui lòng nhập số môn hợp lệ cho người thứ ${i + 1}!`);
+                return;
+            }
+            dsSoMonTungNguoi.push(sm);
+        }
+
+        let container = document.getElementById('form-chi-tiet-container');
+        container.innerHTML = '';
+
+        for (let i = 0; i < soNguoiVal; i++) {
+            let sm = dsSoMonTungNguoi[i];
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>--- Nhập thông tin người số ${i + 1} ---</h4>`;
-            html += `<div class="form-group"><label>- Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên"></div>`;
+            let html = `<h4>👤 Nhập thông tin người số ${i + 1}</h4>`;
+            let tenCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].ten) ? dsThongTinNguoiDung[i].ten : '';
+            html += `<div class="form-group"><label>Họ và tên:</label><input type="text" id="ten_user_${i}" value="${tenCu}" placeholder="Nhập họ và tên"></div>`;
 
-            for (let m = 1; m <= soMonVal; m++) {
-                let tenMon = danhSachTenMon[m - 1];
-                if (loaiTinhVal === 1) {
-                    html += `
-                        <div class="form-group">
-                            <label>+ Điểm môn ${tenMon}:</label>
-                            <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm từ 0 - 10">
-                        </div>`;
-                } else {
-                    html += `
-                        <div class="mon-group">
-                            <div>
-                                <label>+ Tín chỉ ${tenMon}:</label>
-                                <input type="number" min="1" id="tc_${i}_${m}" placeholder="Số TC">
-                            </div>
-                            <div>
-                                <label>+ Điểm ${tenMon}:</label>
-                                <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm 0 - 10">
-                            </div>
-                        </div>`;
+            // Lập bảng điền môn học
+            html += `
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">STT</th>
+                            <th style="width: ${loaiTinhVal === 2 ? '55%' : '70%'};">Tên môn học</th>
+                            ${loaiTinhVal === 2 ? '<th style="width: 15%;">Số tín chỉ</th>' : ''}
+                            <th style="width: 20%;">Điểm số</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            for (let m = 1; m <= sm; m++) {
+                let tenMonCu = '', tcCu = 1, diemCu = '';
+                if (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].dsMon && dsThongTinNguoiDung[i].dsMon[m-1]) {
+                    tenMonCu = dsThongTinNguoiDung[i].dsMon[m-1].tenMon || '';
+                    tcCu = dsThongTinNguoiDung[i].dsMon[m-1].tc || 1;
+                    diemCu = dsThongTinNguoiDung[i].dsMon[m-1].diem !== undefined ? dsThongTinNguoiDung[i].dsMon[m-1].diem : '';
                 }
+
+                html += `
+                    <tr>
+                        <td><b>${m}</b></td>
+                        <td class="ten-mon-col"><input type="text" id="ten_mon_${i}_${m}" value="${tenMonCu}" placeholder="Nhập tên môn thứ ${m}"></td>
+                        ${loaiTinhVal === 2 ? `<td><input type="number" min="1" id="tc_${i}_${m}" value="${tcCu}"></td>` : ''}
+                        <td><input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" value="${diemCu}" placeholder="0 - 10"></td>
+                    </tr>
+                `;
             }
 
             html += `
-                <div class="form-group">
-                    <label>+ Điểm thưởng:</label>
-                    <input type="number" step="0.1" min="0" id="thuong_${i}" value="0">
-                </div>`;
+                    </tbody>
+                </table>
+            `;
+
+            let thuongCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].thuong !== undefined) ? dsThongTinNguoiDung[i].thuong : 0;
+            html += `
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>+ Điểm thưởng (nếu có):</label>
+                    <input type="number" step="0.1" min="0" id="thuong_${i}" value="${thuongCu}">
+                </div>
+            `;
 
             card.innerHTML = html;
             container.appendChild(card);
         }
 
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
+        hienThiTrang(3);
     }
 
-    function tinhVaInKetQua() {
-        let hoVaTen = [];
-        let bangDiemChiTiet = [];
-        let previousTimes = [];
+    // --- CHUYỂN SANG TRANG 4 (TÍNH ĐIỂM & IN KẾT QUẢ) ---
+    function chuyenSangTrang4() {
+        dsThongTinNguoiDung = [];
 
         for (let i = 0; i < soNguoiVal; i++) {
-            let ten = document.getElementById(`ten_${i}`).value || `Người số ${i + 1}`;
+            let ten = document.getElementById(`ten_user_${i}`).value.trim() || `Người số ${i + 1}`;
             let thuong = parseFloat(document.getElementById(`thuong_${i}`).value) || 0;
-            let dsDiemMon = [];
-
-            if (loaiTinhVal === 1) {
-                let tongCa = 0;
-                for (let m = 1; m <= soMonVal; m++) {
-                    let d = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
-                    tongCa += d;
-                    dsDiemMon.push(d);
-                }
-                let dtb = (tongCa / soMonVal) + thuong;
-                if (dtb > 10.0) dtb = 10.0;
-                previousTimes.push(dtb);
-            } else {
-                let tongDiemxTC = 0;
-                let tongTC = 0;
-                for (let m = 1; m <= soMonVal; m++) {
-                    let tc = parseInt(document.getElementById(`tc_${i}_${m}`).value) || 1;
-                    let d = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
-                    tongDiemxTC += (d * tc);
-                    tongTC += tc;
-                    dsDiemMon.push(d);
-                }
-                let dtbTC = (tongDiemxTC / tongTC) + thuong;
-                if (dtbTC > 10.0) dtbTC = 10.0;
-                previousTimes.push(dtbTC);
-            }
-            hoVaTen.push(ten);
-            bangDiemChiTiet.push(dsDiemMon);
-        }
-
-        // Tạo tiêu đề cho Bảng kết quả (Gồm STT, Họ tên, Các môn học, Điểm TB)
-        let headerRow = document.getElementById('tableHeader');
-        headerRow.innerHTML = '<th>STT</th><th>Họ và tên</th>';
-        
-        for (let m = 0; m < soMonVal; m++) {
-            headerRow.innerHTML += `<th>${danhSachTenMon[m]}</th>`;
-        }
-        
-        let labelDTB = (loaiTinhVal === 1) ? 'ĐTB Thường' : 'ĐTB Tín Chỉ';
-        headerRow.innerHTML += `<th>${labelDTB}</th>`;
-
-        // In từng hàng kết quả
-        let tbody = document.querySelector('#resultTable tbody');
-        tbody.innerHTML = '';
-
-        for (let i = 0; i < soNguoiVal; i++) {
-            let tr = document.createElement('tr');
-            let rowHtml = `<td>${i + 1}</td><td class="text-left">${hoVaTen[i]}</td>`;
+            let sm = dsSoMonTungNguoi[i];
             
-            // Hiện điểm từng môn
-            for (let m = 0; m < soMonVal; m++) {
-                rowHtml += `<td>${bangDiemChiTiet[i][m]}</td>`;
+            let dsMon = [];
+            let tongDiemOrProduct = 0;
+            let tongTC = 0;
+
+            for (let m = 1; m <= sm; m++) {
+                let tenMon = document.getElementById(`ten_mon_${i}_${m}`).value.trim() || `Môn ${m}`;
+                let diem = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
+                let tc = 1;
+
+                if (loaiTinhVal === 2) {
+                    tc = parseInt(document.getElementById(`tc_${i}_${m}`).value) || 1;
+                    tongDiemOrProduct += (diem * tc);
+                    tongTC += tc;
+                } else {
+                    tongDiemOrProduct += diem;
+                }
+
+                dsMon.push({ tenMon: tenMon, tc: tc, diem: diem });
             }
 
-            // Hiện điểm trung bình
-            rowHtml += `<td><b>${previousTimes[i].toFixed(2)}</b></td>`;
-            tr.innerHTML = rowHtml;
-            tbody.appendChild(tr);
+            // Tính điểm trung bình
+            let dtb = 0;
+            if (loaiTinhVal === 1) {
+                dtb = (tongDiemOrProduct / sm) + thuong;
+            } else {
+                dtb = (tongTC > 0 ? (tongDiemOrProduct / tongTC) : 0) + thuong;
+            }
+            if (dtb > 10.0) dtb = 10.0;
+
+            dsThongTinNguoiDung.push({
+                ten: ten,
+                dsMon: dsMon,
+                thuong: thuong,
+                dtb: dtb
+            });
         }
 
+        currentUserIndex = 0;
+        capNhatBangKetQuaUser(currentUserIndex);
+
+        // Hiển thị bộ chuyển trang nếu người >= 2
+        let paginationNav = document.getElementById('paginationNav');
+        if (soNguoiVal >= 2) {
+            paginationNav.classList.remove('hidden');
+        } else {
+            paginationNav.classList.add('hidden');
+        }
+
+        hienThiTrang(4);
+    }
+
+    // --- CẬP NHẬT GIAO DIỆN BẢNG KẾT QUẢ CHO NGƯỜI ĐƯỢC CHỌN ---
+    function capNhatBangKetQuaUser(index) {
+        let u = dsThongTinNguoiDung[index];
+        let card = document.getElementById('resultCard');
+
+        let labelDTB = (loaiTinhVal === 1) ? 'ĐIỂM TRUNG BÌNH CỘNG' : 'ĐIỂM TRUNG BÌNH TÍN CHỈ';
+
+        let html = `
+            <h3 style="text-align: center; margin-bottom: 5px;">BẢNG KẾT QUẢ HỌC TẬP</h3>
+            <p style="text-align: center; margin-top: 0;"><b>Họ và tên:</b> <span style="color: #8e44ad; font-size: 16px;">${u.ten}</span></p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">STT</th>
+                        <th style="width: ${loaiTinhVal === 2 ? '55%' : '70%'};">Tên môn học</th>
+                        ${loaiTinhVal === 2 ? '<th style="width: 15%;">Số tín chỉ</th>' : ''}
+                        <th style="width: 20%;">Điểm số</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        for (let m = 0; m < u.dsMon.length; m++) {
+            let item = u.dsMon[m];
+            html += `
+                <tr>
+                    <td>${m + 1}</td>
+                    <td style="text-align: left;">${item.tenMon}</td>
+                    ${loaiTinhVal === 2 ? `<td>${item.tc}</td>` : ''}
+                    <td><b>${item.diem.toFixed(1)}</b></td>
+                </tr>
+            `;
+        }
+
+        // HÀNG ĐIỂM TRUNG BÌNH NẰM Ở DÒNG CUỐI
+        html += `
+                <tr class="row-dtb">
+                    <td colspan="${loaiTinhVal === 2 ? '3' : '2'}" style="text-align: right; padding-right: 15px;">
+                        <b>${labelDTB} ${u.thuong > 0 ? `(Đã cộng +${u.thuong} điểm thưởng)` : ''}:</b>
+                    </td>
+                    <td><b>${u.dtb.toFixed(2)}</b></td>
+                </tr>
+            </tbody>
+        </table>
+        `;
+
+        card.innerHTML = html;
+
+        // Cập nhật thông tin thanh điều hướng chuyển trang
+        if (soNguoiVal >= 2) {
+            document.getElementById('userPageIndicator').innerText = `Người ${index + 1} / ${soNguoiVal}`;
+            document.getElementById('btnPrevUser').disabled = (index === 0);
+            document.getElementById('btnNextUser').disabled = (index === soNguoiVal - 1);
+        }
+    }
+
+    // --- ĐIỀU HƯỚNG BẤM CHUYỂN NGƯỜI TRONG TRANG KẾT QUẢ ---
+    function chuyenNguoiDisplay(direction) {
+        currentUserIndex += direction;
+        if (currentUserIndex < 0) currentUserIndex = 0;
+        if (currentUserIndex >= soNguoiVal) currentUserIndex = soNguoiVal - 1;
+        capNhatBangKetQuaUser(currentUserIndex);
+    }
+
+    // --- QUAY LẠI TRANG TRƯỚC ĐỂ SỬA THÔNG TIN ---
+    function quayLaiTrang(stepNumber) {
+        hienThiTrang(stepNumber);
+    }
+
+    // --- HÀM ẨN/HIỆN TRANG VÀ NÚT IN ---
+    function hienThiTrang(stepNumber) {
+        document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step3').classList.remove('hidden');
+        document.getElementById('step3').classList.add('hidden');
+        document.getElementById('step4').classList.add('hidden');
+
+        document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+
+        // CHỈ HIỆN NÚT IN Ở TRANG CUỐI (TRANG 4)
+        let btnPrint = document.getElementById('btnPrint');
+        if (stepNumber === 4) {
+            btnPrint.style.display = 'block';
+        } else {
+            btnPrint.style.display = 'none';
+        }
     }
 </script>
 
