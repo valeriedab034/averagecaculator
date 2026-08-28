@@ -1,23 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
-<!--
-=============================================================
-* WEBSITE LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ
-* Author / Developer: valeriebui (Bùi Đỗ Bình)
-* Year: 2026
-* Facebook: https://www.facebook.com/iambuidobinh
-* Instagram: https://instagram.com/buidobinh
-* YouTube: https://youtube.com/@buiobinh5083
-* Copyright (c) 2026 valeriebui. All rights reserved.
-=============================================================
--->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lập dữ liệu kết quả học tập - valeriebui</title>
-
-    <!-- FAVICON LOGO CHỮ B CHO TAB TRÌNH DUYỆT -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%238e44ad'/><text x='50%' y='68%' font-size='60' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>B</text></svg>" type="image/svg+xml">
 
     <!-- TẢI PHÔNG CHỮ MERRIWEATHER TỪ GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,18 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
     <style>
-        /* HIỆU ỨNG TRƯỢT NHẸ TỪ TRÊN XUỐNG CỦA CONTAINER TRONG 0.5S */
-        @keyframes slideDownCenter {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* TẠO HIỆU ỨNG DAO ĐỘNG (LẮC NHẸ) CHO NÚT BẤM */
         @keyframes daoDong {
             0% { transform: rotate(0deg); }
@@ -47,57 +21,20 @@
             100% { transform: rotate(0deg); }
         }
 
-        /* HIỆU ỨNG DAO ĐỘNG & CHỈ TAY CHO ICON BÀN TAY */
-        @keyframes chiTay {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(-12px); }
-            100% { transform: translateX(0); }
-        }
-
-        :root {
-            --bg-color: #fce4ec;
-            --container-bg: #ffffff;
-            --text-color: #2c3e50;
-            --card-bg: #fdfefe;
-            --card-border: #d6dbdf;
-            --table-th-bg: #f2e6ff;
-            --table-th-color: #4a235a;
-            --note-bg: #fff8e1;
-            --note-border: #ffe082;
-            --note-text: #5d4037;
-        }
-
-        /* CHẾ ĐỘ TỐI (DARK MODE) */
-        body.dark-mode {
-            --container-bg: #1e1e2e;
-            --text-color: #e0e0e0;
-            --card-bg: #2a2a3d;
-            --card-border: #444466;
-            --table-th-bg: #3a2d54;
-            --table-th-color: #f0e6ff;
-            --note-bg: #2d2a1e;
-            --note-border: #5d522b;
-            --note-text: #ffe082;
-        }
-
         body {
             font-family: 'Merriweather', serif;
             margin: 0;
             padding: 20px;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: background 0.3s ease, color 0.3s ease;
+            color: #2c3e50;
+            background-color: #fce4ec;
         }
 
-        /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI */
+        /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI MAN HINH */
         .qr-box {
             position: fixed;
             top: 15px;
             right: 15px;
-            background: var(--container-bg);
+            background: #ffffff;
             padding: 8px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -130,17 +67,17 @@
             color: #c0392b;
         }
 
-        /* CONTAINER CHÍNH CÓ HIỆU ỨNG TRƯỢT TỪ TRÊN XUỐNG 0.5S */
         .container {
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
-            background: var(--container-bg);
+            background: #ffffff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            animation: slideDownCenter 0.5s ease-out forwards;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative; /* Tạo gốc tọa độ cho nút in góc phải */
         }
 
+        /* TIÊU ĐỀ H2: MÀU CAM BÊN TRONG, VIỀN MÀU XANH, CĂN GIỮA */
         h2 {
             text-align: center;
             font-weight: 700;
@@ -153,7 +90,7 @@
         }
 
         h3 {
-            color: #8e44ad;
+            color: #4a235a;
             font-weight: 700;
             line-height: 1.4;
         }
@@ -181,22 +118,37 @@
             box-sizing: border-box;
             font-size: 14px;
             font-family: 'Merriweather', serif;
-            background-color: var(--card-bg);
-            color: var(--text-color);
+            background-color: #fdfefe;
         }
 
-        /* KHUNG CHỨA NÚT BẤM VÀ ICON BÀN TAY */
-        .btn-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+        /* NÚT IN Ở GÓC PHẢI TRÊN CÙNG CỦA CONTAINER */
+        .btn-print {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #27ae60;
+            color: white;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: background-color 0.3s;
+            animation: none; /* Không lắc nút in */
+            width: auto;
+            margin-top: 0;
         }
 
-        button.btn-main {
-            flex: 1;
+        .btn-print:hover {
+            background-color: #1e8449;
+        }
+
+        /* THIẾT LẬP NÚT BẤM MÀU TÍM DAO ĐỘNG */
+        button {
+            width: 100%;
             padding: 14px;
             background-color: #8e44ad;
             color: white;
@@ -206,62 +158,20 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            margin-top: 15px;
             transition: background-color 0.3s ease;
             animation: daoDong 2.5s infinite ease-in-out;
             display: inline-block;
         }
 
-        button.btn-main:hover {
+        button:hover {
             background-color: #6c3483;
             animation-duration: 0.8s;
         }
 
-        button.btn-print {
-            padding: 14px 20px;
-            background-color: #27ae60;
-            color: white;
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button.btn-print:hover {
-            background-color: #219150;
-        }
-
-        button.btn-back {
-            padding: 14px 20px;
-            background-color: #7f8c8d;
-            color: white;
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button.btn-back:hover {
-            background-color: #95a5a6;
-        }
-
-        .hand-pointer {
-            position: absolute;
-            right: -55px;
-            font-size: 42px;
-            animation: chiTay 1s infinite ease-in-out;
-            pointer-events: none;
-            user-select: none;
-        }
-
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            background: #fdfefe;
+            border: 1px solid #d6dbdf;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -273,164 +183,56 @@
             margin-bottom: 10px;
         }
 
-        .mon-group > div {
+        .mon-group input {
             flex: 1;
+        }
+
+        /* BẢNG KẾT QUẢ CÓ THÊM CÁC CỘT MÔN HỌC */
+        .table-responsive {
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 25px;
-            background: var(--card-bg);
+            background: #fff;
         }
 
         th, td {
-            border: 1px solid var(--card-border);
-            padding: 12px;
-            text-align: left;
-            font-size: 14px;
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
         }
 
         th {
-            background-color: var(--table-th-bg);
-            color: var(--table-th-color);
+            background-color: #f2e6ff;
+            color: #4a235a;
             font-weight: 700;
         }
 
-        .gpa-note-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: var(--note-bg);
-            border: 1px dashed var(--note-border);
-            border-radius: 8px;
-            color: var(--note-text);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .gpa-note-box strong {
-            color: #d35400;
+        td.text-left {
+            text-align: left;
         }
 
         .hidden {
             display: none;
         }
 
-        .controls-corner-right {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 9999;
-        }
-
-        .controls-corner-left {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 9999;
-        }
-
-        .audio-btn, .theme-btn, .bg-btn, .lang-btn {
-            width: 50px;
-            height: 50px;
-            background-color: #8e44ad;
-            color: #ffffff;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            cursor: pointer;
-            font-family: 'Merriweather', serif;
-            font-weight: bold;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            padding: 0;
-        }
-
-        .audio-btn:hover, .theme-btn:hover, .bg-btn:hover, .lang-btn:hover {
-            background-color: #6c3483;
-            transform: scale(1.08);
-        }
-
-        .select-popup {
-            background: var(--container-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .select-popup select {
-            width: 170px;
-            padding: 8px;
-            font-size: 12px;
-        }
-
-        footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--card-border);
-            text-align: center;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        footer .social-links {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        footer .social-links a {
-            color: #8e44ad;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.2s;
-        }
-
-        footer .social-links a:hover {
-            color: #e74c3c;
-            text-decoration: underline;
-        }
-
-        /* TỐI ƯU HÓA GIAO DIỆN KHI BẤM IN (PRINT CSS) */
+        /* TỐI ƯU KHI IN (ẨN CÁC NÚT BẤM VÀ MÃ QR) */
         @media print {
             body {
-                background: #ffffff !important;
-                color: #000000 !important;
+                background: white;
                 padding: 0;
             }
-            .container {
-                box-shadow: none !important;
-                padding: 0 !important;
-                animation: none !important;
-                max-width: 100% !important;
-            }
-            .qr-box, .controls-corner-right, .controls-corner-left, .btn-wrapper, #step1, #step2 {
+            .qr-box, .btn-print, button {
                 display: none !important;
             }
-            table {
-                border-collapse: collapse !important;
-            }
-            th, td {
-                border: 1px solid #000000 !important;
-                color: #000000 !important;
-                background: transparent !important;
-            }
-            .gpa-note-box {
-                background: #ffffff !important;
-                border: 1px solid #000000 !important;
-                color: #000000 !important;
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0;
             }
         }
 
@@ -440,373 +242,104 @@
                 margin: 0 auto 15px auto;
                 max-width: 120px;
             }
-            .hand-pointer {
-                right: -42px;
-                font-size: 32px;
+            .btn-print {
+                position: static;
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- KHUNG MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
-    <a href="https://www.facebook.com/iambuidobinh" target="_blank" id="qr_link_text">Facebook cá nhân</a>
-</div>
-
-<audio id="bgMusic" src="escspe.mp3" loop autoplay></audio>
-
-<div class="controls-corner-right">
-    <button id="themeToggleBtn" class="theme-btn" onclick="toggleDarkMode()">Tối</button>
-    <button id="musicToggleBtn" class="audio-btn" onclick="toggleAudio()">Nhạc</button>
-</div>
-
-<div class="controls-corner-left">
-    <button class="bg-btn" onclick="toggleBgMenu()" id="btn_bg_label">Nền</button>
-    <div id="bgMenu" class="select-popup hidden">
-        <select id="bg_select" onchange="doiHinhNen(this.value)">
-            <optgroup label="Màu nền pastel">
-                <option value="hong">Màu Hồng Pastel</option>
-                <option value="xanh">Màu Xanh Dương Pastel</option>
-                <option value="vang">Màu Vàng Pastel</option>
-                <option value="trang">Màu Trắng</option>
-            </optgroup>
-            <optgroup label="Hình nền ảnh (File .jpg)">
-                <option value="11.jpg">Hình nền 11.jpg</option>
-                <option value="12.jpg">Hình nền 12.jpg</option>
-                <option value="13.jpg">Hình nền 13.jpg</option>
-                <option value="14.jpg">Hình nền 14.jpg</option>
-                <option value="15.jpg">Hình nền 15.jpg</option>
-            </optgroup>
-        </select>
-    </div>
-
-    <button class="lang-btn" onclick="toggleLangMenu()" id="btn_lang_label">Dịch</button>
-    <div id="langMenu" class="select-popup hidden">
-        <select id="lang_select" onchange="doiNgonNgu(this.value)">
-            <option value="vi">Tiếng Việt (Gốc)</option>
-            <option value="en">English</option>
-            <option value="zh">中文 (Chinese)</option>
-        </select>
-    </div>
+    <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
 <div class="container">
-    <h2 id="main_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
-    <p id="welcome_p">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
+    <!-- NÚT IN ĐẶT Ở GÓC PHẢI TRÊN CÙNG CỦA CONTAINER -->
+    <button class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
 
-    <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU -->
-    <form id="formStep1" onsubmit="event.preventDefault(); taoFormNhap();">
-        <div id="step1">
-            <div class="form-group">
-                <label for="loai_tinh" id="lbl_loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
-                <select id="loai_tinh" required>
-                    <option value="1" id="opt_target_1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
-                    <option value="2" id="opt_target_2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
-                </select>
-            </div>
+    <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
+    <p>Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
-            <div class="form-group">
-                <label for="so_nguoi" id="lbl_so_nguoi">Nhập số lượng người cần tính điểm:</label>
-                <input type="number" id="so_nguoi" min="1" value="3" required>
-            </div>
-
-            <div class="form-group">
-                <label for="so_mon" id="lbl_so_mon">Nhập số lượng môn học trong học kỳ:</label>
-                <input type="number" id="so_mon" min="1" value="5" required>
-            </div>
-
-            <div class="btn-wrapper">
-                <button type="submit" class="btn-main" id="btn_step1_submit">Tạo biểu mẫu nhập liệu</button>
-                <span class="hand-pointer">👈</span>
-            </div>
-        </div>
-    </form>
-
-    <!-- BƯỚC 2: NHẬP CHI TIẾT CHO TỪNG NGƯỜI -->
-    <form id="formStep2" onsubmit="event.preventDefault(); tinhVaInKetQua();">
-        <div id="step2" class="hidden">
-            <h3 id="step2_title">Nhập thông tin chi tiết</h3>
-            <div id="form-container"></div>
-            <div class="btn-wrapper">
-                <button type="button" class="btn-back" onclick="quayLaiBuoc1()" id="btn_back_step1">Quay lại</button>
-                <button type="submit" class="btn-main" id="btn_step2_submit">Tính điểm & Xuất kết quả</button>
-                <span class="hand-pointer">👈</span>
-            </div>
-        </div>
-    </form>
-
-    <!-- BƯỚC 3: IN KẾT QUẢ VÀ XẾP HẠNG -->
-    <div id="step3" class="hidden">
-        <h3 id="step3_title">BẢNG KẾT QUẢ & XẾP HẠNG</h3>
-        <table id="resultTable">
-            <thead>
-                <tr>
-                    <th style="width: 8%;" id="th_rank">Hạng</th>
-                    <th style="width: 37%;" id="th_name">Họ và tên</th>
-                    <th id="th_dtb" style="width: 18%;">ĐTB (10)</th>
-                    <th style="width: 17%;" id="th_gpa4">ĐTB (4.0)</th>
-                    <th style="width: 20%;" id="th_grade">Xếp loại</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-        <div class="gpa-note-box" id="gpa_note_content">
-            <strong>* Lưu ý quan trọng về quy đổi GPA:</strong><br>
-            - ĐTB thang 4.0 trên bảng được quy đổi chuẩn ($A=4.0, B=3.0, C=2.0, D=1.0, F=0$).<br>
-            - Tuy nhiên, tại một số trường đại học lớn (như Bách khoa, ĐHQG, ĐHKTQD...), điểm tổng kết từ <strong>8.5 trở lên</strong> trên thang 10 đã được quy đổi thành <strong>GPA 4.0 (Điểm A)</strong>.<br>
-            - Cách tính điểm, quy đổi chữ/số và tiêu chí xét xếp loại học tập ở mỗi trường có thể có quy định riêng khác nhau.
+    <!-- BƯỚC 1: CẤU HÌNH BAN ĐẦU & NHẬP TÊN MÔN HỌC -->
+    <div id="step1">
+        <div class="form-group">
+            <label for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
+            <select id="loai_tinh">
+                <option value="1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
+                <option value="2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
+            </select>
         </div>
 
-        <div class="btn-wrapper">
-            <button type="button" class="btn-print" onclick="window.print()" id="btn_print_table">🖨️ In bảng kết quả</button>
-            <button type="button" class="btn-main" onclick="quayLaiBuoc2()" id="btn_edit_data">Sửa lại điểm</button>
-            <button type="button" class="btn-main" style="background-color: #e74c3c;" onclick="location.reload()" id="btn_restart">Nhập lại từ đầu</button>
-            <span class="hand-pointer">👈</span>
+        <div class="form-group">
+            <label for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
+            <input type="number" id="so_nguoi" min="1" value="3">
         </div>
+
+        <div class="form-group">
+            <label for="so_mon">Nhập số lượng môn học trong học kỳ:</label>
+            <input type="number" id="so_mon" min="1" value="5" onchange="taoOnhapTenMon()">
+        </div>
+
+        <!-- KHUNG ĐIỀN TÊN CHO TỪNG MÔN HỌC -->
+        <div class="card" id="card-ten-mon">
+            <label>Nhập tên tương ứng cho từng môn học:</label>
+            <div id="danh-sach-ten-mon"></div>
+        </div>
+
+        <button onclick="taoFormNhap()">✨ Tạo biểu mẫu nhập liệu ✨</button>
     </div>
 
-    <footer>
-        <div class="social-links">
-            <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook</a> |
-            <a href="https://instagram.com/buidobinh" target="_blank">Instagram</a> |
-            <a href="https://youtube.com/@buiobinh5083" target="_blank">YouTube</a>
+    <!-- BƯỚC 2: NHẬP CHI TIẾT ĐIỂM CHO TỪNG NGƯỜI -->
+    <div id="step2" class="hidden">
+        <h3>Nhập thông tin chi tiết</h3>
+        <div id="form-container"></div>
+        <button onclick="tinhVaInKetQua()">📊 Tính điểm & Xuất kết quả 📊</button>
+    </div>
+
+    <!-- BƯỚC 3: IN KẾT QUẢ BẢNG BÀO GỒM CÁC MÔN HỌC -->
+    <div id="step3" class="hidden">
+        <h3>BẢNG KẾT QUẢ CHI TIẾT</h3>
+        <div class="table-responsive">
+            <table id="resultTable">
+                <thead>
+                    <tr id="tableHeader">
+                        <th>STT</th>
+                        <th>Họ và tên</th>
+                        <!-- Cột các môn học và ĐTB sẽ tự động tạo bằng JS -->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <div id="footer_author">Website này được lập năm 2026 bởi <b>valeriebui</b></div>
-    </footer>
+        <button onclick="location.reload()">🔄 Nhập lại từ đầu 🔄</button>
+    </div>
 </div>
 
 <script>
-    console.log(
-        "%c WEBSITE BỞI VALERIEBUI %c Copyright © 2026 | Bùi Đỗ Bình - fb.com/iambuidobinh ",
-        "background: #8e44ad; color: #fff; font-size: 14px; font-weight: bold; padding: 6px 12px; border-radius: 4px 0 0 4px;",
-        "background: #2c3e50; color: #fff; font-size: 14px; padding: 6px 12px; border-radius: 0 4px 4px 0;"
-    );
-
-    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-    document.addEventListener('keydown', function(e) {
-        if (
-            e.keyCode === 123 || 
-            (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || 
-            (e.ctrlKey && e.keyCode === 85)
-        ) {
-            e.preventDefault();
-        }
-    });
-
-    var _0x9a81 = ["\x76\x61\x6C\x65\x72\x69\x65\x62\x75\x69\x5F\x73\x74\x75\x64\x65\x6E\x74\x5F\x64\x61\x74\x61"];
-    var STORAGE_KEY = _0x9a81[0];
-
     let loaiTinhVal, soNguoiVal, soMonVal;
-    let currentLang = 'vi';
+    let danhSachTenMon = [];
 
-    const translations = {
-        vi: {
-            main_title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
-            welcome_p: "Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!",
-            lbl_loai_tinh: "Mời bạn chọn đối tượng tính điểm:",
-            opt_target_1: "1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)",
-            opt_target_2: "2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)",
-            lbl_so_nguoi: "Nhập số lượng người cần tính điểm:",
-            lbl_so_mon: "Nhập số lượng môn học trong học kỳ:",
-            btn_step1_submit: "Tạo biểu mẫu nhập liệu",
-            step2_title: "Nhập thông tin chi tiết",
-            btn_back_step1: "Quay lại",
-            btn_step2_submit: "Tính điểm & Xuất kết quả",
-            step3_title: "BẢNG KẾT QUẢ & XẾP HẠNG",
-            th_rank: "Hạng",
-            th_name: "Họ và tên",
-            th_dtb1: "ĐTB Thường",
-            th_dtb2: "ĐTB Tín Chỉ",
-            th_gpa4: "ĐTB (4.0)",
-            th_grade: "Xếp loại",
-            btn_print_table: "🖨️ In bảng kết quả",
-            btn_edit_data: "Sửa lại điểm",
-            btn_restart: "Nhập lại từ đầu",
-            footer_author: "Website này được lập năm 2026 bởi <b>valeriebui</b>",
-            btn_bg_label: "Nền",
-            btn_lang_label: "Dịch",
-            theme_dark: "Tối",
-            theme_light: "Sáng",
-            audio_on: "Bật",
-            audio_off: "Tắt",
-            person_num: "Nhập thông tin người số ",
-            full_name: "Họ và tên:",
-            score_sub: "Điểm môn thứ ",
-            tc_sub: "Tín chỉ môn ",
-            score_bonus: "Điểm thưởng (không bắt buộc):",
-            gpa_note: "<strong>* Lưu ý quan trọng về quy đổi GPA:</strong><br>- ĐTB thang 4.0 trên bảng được quy đổi chuẩn (A=4.0, B=3.0, C=2.0, D=1.0, F=0).<br>- Tuy nhiên, tại một số trường đại học lớn (như Bách khoa, ĐHQG, ĐHKTQD...), điểm tổng kết từ <strong>8.5 trở lên</strong> trên thang 10 đã được quy đổi thành <strong>GPA 4.0 (Điểm A)</strong>.<br>- Cách tính điểm, quy đổi chữ/số và tiêu chí xét xếp loại học tập ở mỗi trường có thể có quy định riêng khác nhau."
-        },
-        en: {
-            main_title: "ACADEMIC RESULT CALCULATOR FOR 1 SEMESTER",
-            welcome_p: "Hello, I am <b>valeriebui</b>. The tool below will help you calculate your academic results!",
-            lbl_loai_tinh: "Select target group:",
-            opt_target_1: "1. K12 Students & Undergraduates in initial basic training at K01, K02 (Average of subjects)",
-            opt_target_2: "2. University or Postgraduate Students (Credit-based system)",
-            lbl_so_nguoi: "Enter number of students:",
-            lbl_so_mon: "Enter number of courses in semester:",
-            btn_step1_submit: "Create Entry Form",
-            step2_title: "Enter Detailed Information",
-            btn_back_step1: "Back",
-            btn_step2_submit: "Calculate & Export Results",
-            step3_title: "RESULT BOARD & RANKING",
-            th_rank: "Rank",
-            th_name: "Full Name",
-            th_dtb1: "GPA (10)",
-            th_dtb2: "GPA (10)",
-            th_gpa4: "GPA (4.0)",
-            th_grade: "Academic Classification",
-            btn_print_table: "🖨️ Print Result Board",
-            btn_edit_data: "Edit Scores",
-            btn_restart: "Reset All",
-            footer_author: "This website was established in 2026 by <b>valeriebui</b>",
-            btn_bg_label: "Theme",
-            btn_lang_label: "Lang",
-            theme_dark: "Dark",
-            theme_light: "Light",
-            audio_on: "On",
-            audio_off: "Off",
-            person_num: "Enter details for Person #",
-            full_name: "Full Name:",
-            score_sub: "Score for Course #",
-            tc_sub: "Credits for Course #",
-            score_bonus: "Bonus Score (Optional):",
-            gpa_note: "<strong>* Important GPA Conversion Note:</strong><br>- The 4.0 scale GPA in the table follows standard conversion (A=4.0, B=3.0, C=2.0, D=1.0, F=0).<br>- However, at several major universities (such as Hust, VNU, NEU...), a score of <strong>8.5+</strong> on the 10-point scale converts to <strong>GPA 4.0 (Grade A)</strong>.<br>- Grading scales, letter conversions, and academic ranking criteria may vary depending on each institution."
-        },
-        zh: {
-            main_title: "一学期学业成绩计算器",
-            welcome_p: "你好，我是 <b>valeriebui</b>。下面的工具将帮助您计算学业成绩！",
-            lbl_loai_tinh: "请选择计算对象：",
-            opt_target_1: "1. 中小学学生及K01、K02初级训练学员（各科平均分）",
-            opt_target_2: "2. 本科生或研究生（按学分计算）",
-            lbl_so_nguoi: "输入需要计算的人数：",
-            lbl_so_mon: "输入本学期的课程数量：",
-            btn_step1_submit: "生成输入表单",
-            step2_title: "输入详细信息",
-            btn_back_step1: "返回",
-            btn_step2_submit: "计算并导出结果",
-            step3_title: "成绩榜与排名",
-            th_rank: "排名",
-            th_name: "姓名",
-            th_dtb1: "平均分 (10)",
-            th_dtb2: "学分绩点 (10)",
-            th_gpa4: "绩点 (4.0)",
-            th_grade: "成绩等级",
-            btn_print_table: "🖨️ 打印成绩单",
-            btn_edit_data: "修改分数",
-            btn_restart: "重新开始",
-            footer_author: "本网站由 <b>valeriebui</b> 于 2026 年创建",
-            btn_bg_label: "背景",
-            btn_lang_label: "语言",
-            theme_dark: "暗色",
-            theme_light: "亮色",
-            audio_on: "开启",
-            audio_off: "关闭",
-            person_num: "输入第几位人员的信息 #",
-            full_name: "姓名：",
-            score_sub: "第几门课程分数 #",
-            tc_sub: "第几门课程学分 #",
-            score_bonus: "加分（选填）：",
-            gpa_note: "<strong>* 关于 GPA 转换的重要说明：</strong><br>- 表中的 4.0 绩点按标准转换（A=4.0, B=3.0, C=2.0, D=1.0, F=0）。<br>- 但是，在部分知名大学（如河内白科、国家大学、国民经济大学等），10 分制下达到 <strong>8.5分以上</strong> 即直接折算为 <strong>GPA 4.0 (A 级)</strong>。<br>- 各校的评分标准、等级转换和学业排名规定可能有所不同。"
-        }
+    // Tự động tạo ô điền tên môn học khi mở trang
+    window.onload = function() {
+        taoOnhapTenMon();
     };
 
-    const audio = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicToggleBtn');
+    function taoOnhapTenMon() {
+        let sm = parseInt(document.getElementById('so_mon').value) || 0;
+        let dsContainer = document.getElementById('danh-sach-ten-mon');
+        dsContainer.innerHTML = '';
 
-    window.addEventListener('DOMContentLoaded', () => {
-        audio.play().then(() => {
-            musicBtn.innerText = translations[currentLang].audio_off;
-        }).catch(() => {
-            musicBtn.innerText = translations[currentLang].audio_on;
-            const enableAudioOnInteraction = () => {
-                audio.play().then(() => {
-                    musicBtn.innerText = translations[currentLang].audio_off;
-                });
-                document.removeEventListener('click', enableAudioOnInteraction);
-            };
-            document.addEventListener('click', enableAudioOnInteraction);
-        });
-
-        khoiPhucDuLieuDaLuu();
-    });
-
-    function toggleAudio() {
-        if (audio.paused) {
-            audio.play();
-            musicBtn.innerText = translations[currentLang].audio_off;
-        } else {
-            audio.pause();
-            musicBtn.innerText = translations[currentLang].audio_on;
-        }
-    }
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        const themeBtn = document.getElementById('themeToggleBtn');
-        if (document.body.classList.contains('dark-mode')) {
-            themeBtn.innerText = translations[currentLang].theme_light;
-        } else {
-            themeBtn.innerText = translations[currentLang].theme_dark;
-        }
-    }
-
-    function toggleBgMenu() {
-        document.getElementById('bgMenu').classList.toggle('hidden');
-        document.getElementById('langMenu').classList.add('hidden');
-    }
-
-    function toggleLangMenu() {
-        document.getElementById('langMenu').classList.toggle('hidden');
-        document.getElementById('bgMenu').classList.add('hidden');
-    }
-
-    function doiHinhNen(value) {
-        document.body.style.backgroundImage = 'none';
-        switch (value) {
-            case 'hong': document.body.style.backgroundColor = '#fce4ec'; break;
-            case 'xanh': document.body.style.backgroundColor = '#e3f2fd'; break;
-            case 'vang': document.body.style.backgroundColor = '#fffde7'; break;
-            case 'trang': document.body.style.backgroundColor = '#ffffff'; break;
-            default: document.body.style.backgroundImage = `url('${value}')`; break;
-        }
-    }
-
-    function doiNgonNgu(lang) {
-        currentLang = lang;
-        const t = translations[lang];
-
-        document.getElementById('main_title').innerText = t.main_title;
-        document.getElementById('welcome_p').innerHTML = t.welcome_p;
-        document.getElementById('lbl_loai_tinh').innerText = t.lbl_loai_tinh;
-        document.getElementById('opt_target_1').innerText = t.opt_target_1;
-        document.getElementById('opt_target_2').innerText = t.opt_target_2;
-        document.getElementById('lbl_so_nguoi').innerText = t.lbl_so_nguoi;
-        document.getElementById('lbl_so_mon').innerText = t.lbl_so_mon;
-        document.getElementById('btn_step1_submit').innerText = t.btn_step1_submit;
-        document.getElementById('step2_title').innerText = t.step2_title;
-        document.getElementById('btn_back_step1').innerText = t.btn_back_step1;
-        document.getElementById('btn_step2_submit').innerText = t.btn_step2_submit;
-        document.getElementById('step3_title').innerText = t.step3_title;
-        document.getElementById('th_rank').innerText = t.th_rank;
-        document.getElementById('th_name').innerText = t.th_name;
-        document.getElementById('th_gpa4').innerText = t.th_gpa4;
-        document.getElementById('th_grade').innerText = t.th_grade;
-        document.getElementById('btn_print_table').innerText = t.btn_print_table;
-        document.getElementById('btn_edit_data').innerText = t.btn_edit_data;
-        document.getElementById('btn_restart').innerText = t.btn_restart;
-        document.getElementById('footer_author').innerHTML = t.footer_author;
-        document.getElementById('btn_bg_label').innerText = t.btn_bg_label;
-        document.getElementById('btn_lang_label').innerText = t.btn_lang_label;
-        document.getElementById('gpa_note_content').innerHTML = t.gpa_note;
-
-        const isDark = document.body.classList.contains('dark-mode');
-        document.getElementById('themeToggleBtn').innerText = isDark ? t.theme_light : t.theme_dark;
-        document.getElementById('musicToggleBtn').innerText = audio.paused ? t.audio_on : t.audio_off;
-
-        if (!document.getElementById('step2').classList.contains('hidden')) {
-            taoFormNhap();
+        for (let m = 1; m <= sm; m++) {
+            let div = document.createElement('div');
+            div.style.marginBottom = '8px';
+            div.innerHTML = `<input type="text" id="ten_mon_${m}" placeholder="Tên môn thứ ${m} (VD: Toán, C++, ...)">`;
+            dsContainer.appendChild(div);
         }
     }
 
@@ -820,34 +353,41 @@
             return;
         }
 
+        // Lưu danh sách tên môn học người dùng đã nhập
+        danhSachTenMon = [];
+        for (let m = 1; m <= soMonVal; m++) {
+            let ten = document.getElementById(`ten_mon_${m}`).value.trim();
+            danhSachTenMon.push(ten !== '' ? ten : `Môn ${m}`);
+        }
+
         let container = document.getElementById('form-container');
         container.innerHTML = '';
-        const t = translations[currentLang];
 
         for (let i = 0; i < soNguoiVal; i++) {
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>${t.person_num}${i + 1}</h4>`;
-            html += `<div class="form-group"><label>${t.full_name}</label><input type="text" id="ten_${i}" placeholder="${t.full_name}" required></div>`;
+            let html = `<h4>--- Nhập thông tin người số ${i + 1} ---</h4>`;
+            html += `<div class="form-group"><label>- Họ và tên:</label><input type="text" id="ten_${i}" placeholder="Nhập họ và tên"></div>`;
 
             for (let m = 1; m <= soMonVal; m++) {
+                let tenMon = danhSachTenMon[m - 1];
                 if (loaiTinhVal === 1) {
                     html += `
                         <div class="form-group">
-                            <label>${t.score_sub}${m}:</label>
-                            <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="0 - 10" required>
+                            <label>+ Điểm môn ${tenMon}:</label>
+                            <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm từ 0 - 10">
                         </div>`;
                 } else {
                     html += `
                         <div class="mon-group">
                             <div>
-                                <label>${t.tc_sub}${m}:</label>
-                                <input type="number" min="1" id="tc_${i}_${m}" placeholder="TC" required>
+                                <label>+ Tín chỉ ${tenMon}:</label>
+                                <input type="number" min="1" id="tc_${i}_${m}" placeholder="Số TC">
                             </div>
                             <div>
-                                <label>${t.score_sub}${m}:</label>
-                                <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="0 - 10" required>
+                                <label>+ Điểm ${tenMon}:</label>
+                                <input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="Điểm 0 - 10">
                             </div>
                         </div>`;
                 }
@@ -855,7 +395,7 @@
 
             html += `
                 <div class="form-group">
-                    <label>${t.score_bonus}</label>
+                    <label>+ Điểm thưởng:</label>
                     <input type="number" step="0.1" min="0" id="thuong_${i}" value="0">
                 </div>`;
 
@@ -867,173 +407,76 @@
         document.getElementById('step2').classList.remove('hidden');
     }
 
-    function quayLaiBuoc1() {
-        document.getElementById('step2').classList.add('hidden');
-        document.getElementById('step1').classList.remove('hidden');
-    }
-
-    function quayLaiBuoc2() {
-        document.getElementById('step3').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
-    }
-
-    function quyDoiThang4(dtb10) {
-        if (dtb10 >= 8.5) return 4.0;
-        if (dtb10 >= 7.0) return 3.0;
-        if (dtb10 >= 5.5) return 2.0;
-        if (dtb10 >= 4.0) return 1.0;
-        return 0.0;
-    }
-
-    function xepLoaiHocLuc(dtb) {
-        if (dtb >= 9.0) return currentLang === 'en' ? "Excellent" : (currentLang === 'zh' ? "优秀" : "Xuất sắc");
-        if (dtb >= 8.0) return currentLang === 'en' ? "Very Good" : (currentLang === 'zh' ? "良好" : "Giỏi");
-        if (dtb >= 6.5) return currentLang === 'en' ? "Good" : (currentLang === 'zh' ? "中等" : "Khá");
-        if (dtb >= 5.0) return currentLang === 'en' ? "Average" : (currentLang === 'zh' ? "合格" : "Trung bình");
-        return currentLang === 'en' ? "Weak" : (currentLang === 'zh' ? "不合格" : "Yếu");
-    }
-
     function tinhVaInKetQua() {
-        let ketQuaList = [];
-        let savedData = {
-            loaiTinh: loaiTinhVal,
-            soNguoi: soNguoiVal,
-            soMon: soMonVal,
-            danhSachNguoi: []
-        };
+        let hoVaTen = [];
+        let bangDiemChiTiet = [];
+        let previousTimes = [];
 
         for (let i = 0; i < soNguoiVal; i++) {
-            let tenInput = document.getElementById(`ten_${i}`);
-            let ten = tenInput.value.trim();
-
-            if (!ten) {
-                alert(`Vui lòng nhập họ tên cho người số ${i + 1}!`);
-                tenInput.focus();
-                return;
-            }
-
+            let ten = document.getElementById(`ten_${i}`).value || `Người số ${i + 1}`;
             let thuong = parseFloat(document.getElementById(`thuong_${i}`).value) || 0;
-            let nguoiData = { ten: ten, thuong: thuong, mons: [] };
-            let dtb = 0;
-            
+            let dsDiemMon = [];
+
             if (loaiTinhVal === 1) {
                 let tongCa = 0;
                 for (let m = 1; m <= soMonVal; m++) {
-                    let dInput = document.getElementById(`diem_${i}_${m}`);
-                    let d = parseFloat(dInput.value);
-
-                    if (isNaN(d)) {
-                        alert(`Vui lòng nhập điểm môn ${m} cho ${ten}!`);
-                        dInput.focus();
-                        return;
-                    }
+                    let d = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
                     tongCa += d;
-                    nguoiData.mons.push({ diem: d });
+                    dsDiemMon.push(d);
                 }
-                dtb = (tongCa / soMonVal) + thuong;
+                let dtb = (tongCa / soMonVal) + thuong;
+                if (dtb > 10.0) dtb = 10.0;
+                previousTimes.push(dtb);
             } else {
                 let tongDiemxTC = 0;
                 let tongTC = 0;
                 for (let m = 1; m <= soMonVal; m++) {
-                    let tcInput = document.getElementById(`tc_${i}_${m}`);
-                    let dInput = document.getElementById(`diem_${i}_${m}`);
-                    
-                    let tc = parseInt(tcInput.value);
-                    let d = parseFloat(dInput.value);
-
-                    if (isNaN(tc)) {
-                        alert(`Vui lòng nhập số tín chỉ môn ${m} cho ${ten}!`);
-                        tcInput.focus();
-                        return;
-                    }
-                    if (isNaN(d)) {
-                        alert(`Vui lòng nhập điểm môn ${m} cho ${ten}!`);
-                        dInput.focus();
-                        return;
-                    }
-
+                    let tc = parseInt(document.getElementById(`tc_${i}_${m}`).value) || 1;
+                    let d = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
                     tongDiemxTC += (d * tc);
                     tongTC += tc;
-                    nguoiData.mons.push({ tc: tc, diem: d });
+                    dsDiemMon.push(d);
                 }
-                dtb = (tongDiemxTC / tongTC) + thuong;
+                let dtbTC = (tongDiemxTC / tongTC) + thuong;
+                if (dtbTC > 10.0) dtbTC = 10.0;
+                previousTimes.push(dtbTC);
             }
-
-            if (dtb > 10.0) dtb = 10.0;
-
-            ketQuaList.push({
-                ten: ten,
-                dtb: dtb,
-                dtb4: quyDoiThang4(dtb),
-                xepLoai: xepLoaiHocLuc(dtb)
-            });
-
-            savedData.danhSachNguoi.push(nguoiData);
+            hoVaTen.push(ten);
+            bangDiemChiTiet.push(dsDiemMon);
         }
 
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+        // Tạo tiêu đề cho Bảng kết quả (Gồm STT, Họ tên, Các môn học, Điểm TB)
+        let headerRow = document.getElementById('tableHeader');
+        headerRow.innerHTML = '<th>STT</th><th>Họ và tên</th>';
+        
+        for (let m = 0; m < soMonVal; m++) {
+            headerRow.innerHTML += `<th>${danhSachTenMon[m]}</th>`;
+        }
+        
+        let labelDTB = (loaiTinhVal === 1) ? 'ĐTB Thường' : 'ĐTB Tín Chỉ';
+        headerRow.innerHTML += `<th>${labelDTB}</th>`;
 
-        ketQuaList.sort((a, b) => b.dtb - a.dtb);
-
+        // In từng hàng kết quả
         let tbody = document.querySelector('#resultTable tbody');
         tbody.innerHTML = '';
-        const t = translations[currentLang];
-        document.getElementById('th_dtb').innerText = (loaiTinhVal === 1) ? t.th_dtb1 : t.th_dtb2;
 
-        for (let i = 0; i < ketQuaList.length; i++) {
+        for (let i = 0; i < soNguoiVal; i++) {
             let tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><b>${i + 1}</b></td>
-                <td>${ketQuaList[i].ten}</td>
-                <td>${ketQuaList[i].dtb.toFixed(2)}</td>
-                <td><b>${ketQuaList[i].dtb4.toFixed(1)}</b></td>
-                <td><b>${ketQuaList[i].xepLoai}</b></td>
-            `;
+            let rowHtml = `<td>${i + 1}</td><td class="text-left">${hoVaTen[i]}</td>`;
+            
+            // Hiện điểm từng môn
+            for (let m = 0; m < soMonVal; m++) {
+                rowHtml += `<td>${bangDiemChiTiet[i][m]}</td>`;
+            }
+
+            // Hiện điểm trung bình
+            rowHtml += `<td><b>${previousTimes[i].toFixed(2)}</b></td>`;
+            tr.innerHTML = rowHtml;
             tbody.appendChild(tr);
         }
 
         document.getElementById('step2').classList.add('hidden');
         document.getElementById('step3').classList.remove('hidden');
-    }
-
-    function khoiPhucDuLieuDaLuu() {
-        let rawData = localStorage.getItem(STORAGE_KEY);
-        if (!rawData) return;
-
-        try {
-            let data = JSON.parse(rawData);
-            document.getElementById('loai_tinh').value = data.loaiTinh;
-            document.getElementById('so_nguoi').value = data.soNguoi;
-            document.getElementById('so_mon').value = data.soMon;
-
-            taoFormNhap();
-
-            for (let i = 0; i < data.danhSachNguoi.length; i++) {
-                let nguoi = data.danhSachNguoi[i];
-                if (document.getElementById(`ten_${i}`)) {
-                    document.getElementById(`ten_${i}`).value = nguoi.ten || '';
-                    document.getElementById(`thuong_${i}`).value = nguoi.thuong || 0;
-
-                    for (let m = 1; m <= nguoi.mons.length; m++) {
-                        let mon = nguoi.mons[m - 1];
-                        if (data.loaiTinh === 1) {
-                            if (document.getElementById(`diem_${i}_${m}`)) {
-                                document.getElementById(`diem_${i}_${m}`).value = mon.diem;
-                            }
-                        } else {
-                            if (document.getElementById(`tc_${i}_${m}`)) {
-                                document.getElementById(`tc_${i}_${m}`).value = mon.tc;
-                            }
-                            if (document.getElementById(`diem_${i}_${m}`)) {
-                                document.getElementById(`diem_${i}_${m}`).value = mon.diem;
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (e) {
-            console.error("Lỗi khôi phục dữ liệu:", e);
-        }
     }
 </script>
 
