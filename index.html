@@ -25,8 +25,14 @@
             font-family: 'Merriweather', serif;
             margin: 0;
             padding: 20px;
+            padding-bottom: 90px; /* Dành khoảng trống cho bộ công cụ góc dưới */
             color: #2c3e50;
-            background-color: #fce4ec;
+            background-color: #fce4ec; /* Mặc định hồng pastel */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            transition: background 0.3s ease;
         }
 
         /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI MÀN HÌNH */
@@ -67,14 +73,107 @@
             color: #c0392b;
         }
 
+        /* BỘ CÔNG CỤ CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY TRÁI */
+        .bottom-left-tools {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 9999;
+        }
+
+        .tool-btn-wrapper {
+            position: relative;
+        }
+
+        /* NÚT CHỌN HÌNH NỀN (MÀU ĐỎ, ICON NÚI TRẮNG) */
+        .btn-bg-picker {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+        }
+
+        .btn-bg-picker:hover {
+            background-color: #c0392b;
+        }
+
+        /* NÚT DỊCH NGÔN NGỮ (MÀU XANH DƯƠNG) */
+        .btn-lang-picker {
+            background-color: #2980b9;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+        }
+
+        .btn-lang-picker:hover {
+            background-color: #1f618d;
+        }
+
+        /* MENU XỔ LÊN CỦA BỘ CÔNG CỤ GÓC DƯỚI TRÁI */
+        .tool-popup {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            width: 280px;
+            padding: 8px 0;
+            display: none;
+            flex-direction: column;
+            z-index: 10000;
+        }
+
+        .tool-popup button {
+            background: transparent;
+            color: #2c3e50;
+            border: none;
+            padding: 10px 15px;
+            text-align: left;
+            font-family: 'Merriweather', serif;
+            font-size: 12px;
+            cursor: pointer;
+            width: 100%;
+            margin: 0;
+            animation: none;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .tool-popup button:hover {
+            background-color: #f8f9fa;
+            color: #8e44ad;
+            font-weight: bold;
+        }
+
         .container {
             max-width: 850px;
             margin: 0 auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             position: relative;
+            backdrop-filter: blur(3px);
         }
 
         /* TIÊU ĐỀ H2: MÀU CAM BÊN TRONG, VIỀN XANH, CĂN GIỮA */
@@ -179,7 +278,7 @@
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             transition: background-color 0.3s;
-            display: none; /* Mặc định ẩn, chỉ hiện ở trang cuối */
+            display: none;
         }
 
         .btn-print:hover {
@@ -216,7 +315,6 @@
         }
 
         td.ten-mon-col {
-            width: 70%;
             text-align: left;
         }
 
@@ -268,13 +366,14 @@
                 background: white;
                 padding: 0;
             }
-            .qr-box, .btn-print, button, .pagination-container {
+            .qr-box, .bottom-left-tools, .btn-print, button, .pagination-container {
                 display: none !important;
             }
             .container {
                 box-shadow: none;
                 max-width: 100%;
                 padding: 0;
+                background: white;
             }
         }
 
@@ -300,50 +399,89 @@
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
+<!-- BỘ CÔNG CỤ CHỌN HÌNH NỀN VÀ DỊCH NẰM CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY TRÁI -->
+<div class="bottom-left-tools">
+    <!-- NÚT ĐỔI HÌNH NỀN (MÀU ĐỎ, ICON NÚI TRẮNG) -->
+    <div class="tool-btn-wrapper">
+        <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">
+            <!-- Icon hình bức ảnh có núi nét chữ màu trắng -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+        </button>
+        <div id="bgPopup" class="tool-popup">
+            <button onclick="setBgColor('#fce4ec')">🌸 Màu hồng pastel (Mặc định)</button>
+            <button onclick="setBgImage('11.jpg')">🌄 1. Thảo nguyên Nalati, Tân Cương, Trung Quốc</button>
+            <button onclick="setBgImage('12.jpg')">🏟️ 2. Stamford Bridge, London, Vương quốc Anh</button>
+            <button onclick="setBgImage('13.jpg')">⚽ 3. Trận đấu giữa Chelsea và Manchester United</button>
+            <button onclick="setBgImage('14.jpg')">🏛️ 4. Hồ Gươm, Hà Nội, Việt Nam</button>
+            <button onclick="setBgImage('15.jpg')">🏔️ 5. Dãy núi Thiên Sơn, Tân Cương, Trung Quốc</button>
+        </div>
+    </div>
+
+    <!-- NÚT DỊCH CÁC NGÔN NGỮ (MÀU XANH DƯƠNG) -->
+    <div class="tool-btn-wrapper">
+        <button class="btn-lang-picker" onclick="togglePopup('langPopup')">🌐 Dịch</button>
+        <div id="langPopup" class="tool-popup">
+            <button onclick="translateLang('vi')">🇻🇳 Tiếng Việt (Gốc)</button>
+            <button onclick="translateLang('en')">🇬🇧 Tiếng Anh (English)</button>
+            <button onclick="translateLang('zh')">🇨🇳 Tiếng Trung giản thể (简体中文)</button>
+            <button onclick="translateLang('ru')">🇷🇺 Tiếng Nga (Русский)</button>
+            <button onclick="translateLang('es')">🇪🇸 Tiếng Tây Ban Nha (Español)</button>
+            <button onclick="translateLang('fr')">🇫🇷 Tiếng Pháp (Français)</button>
+            <button onclick="translateLang('pt')">🇵🇹 Tiếng Bồ Đào Nha (Português)</button>
+            <button onclick="translateLang('sa')">🇮🇳 Tiếng Phạn (संस्कृतम्)</button>
+            <button onclick="translateLang('ar')">🇸🇦 Tiếng Ả Rập (العربية)</button>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <!-- NÚT IN NẰM Ở GÓC TRÊN BÊN PHẢI CONTAINER (CHỈ HIỆN Ở TRANG CUỐI) -->
     <button id="btnPrint" class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
 
-    <h2>LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
-    <p style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
+    <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
+    <p id="txt_intro" style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
     <!-- ================= TRANG 1: CẤU HÌNH BAN ĐẦU ================= -->
     <div id="step1">
         <div class="form-group">
-            <label for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
+            <label id="txt_lbl_obj" for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
             <select id="loai_tinh">
-                <option value="1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
-                <option value="2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
+                <option value="1" id="txt_opt1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
+                <option value="2" id="txt_opt2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
+            <label id="txt_lbl_num" for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
             <input type="number" id="so_nguoi" min="1" value="1">
         </div>
 
-        <button class="btn-main" onclick="chuyenSangTrang2()">✨ Tiếp tục: Nhập số môn học ✨</button>
+        <button id="txt_btn_step1" class="btn-main" onclick="chuyenSangTrang2()">✨ Tiếp tục: Nhập số môn học ✨</button>
     </div>
 
     <!-- ================= TRANG 2: NHẬP SỐ MÔN HỌC TỪNG NGƯỜI ================= -->
     <div id="step2" class="hidden">
-        <h3>Bước 2: Nhập số lượng môn học của từng người</h3>
+        <h3 id="txt_step2_title">Bước 2: Nhập số lượng môn học của từng người</h3>
         <div id="form-so-mon-container"></div>
         
         <div>
-            <button class="btn-back" onclick="quayLaiTrang(1)">⬅ Sửa lại Trang 1</button>
-            <button class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang3()">✨ Tiếp tục: Nhập tên môn & điểm ✨</button>
+            <button id="txt_btn_back1" class="btn-back" onclick="quayLaiTrang(1)">⬅ Sửa lại Trang 1</button>
+            <button id="txt_btn_step2" class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang3()">✨ Tiếp tục: Nhập tên môn & điểm ✨</button>
         </div>
     </div>
 
     <!-- ================= TRANG 3: ĐIỀN TÊN MÔN HỌC & ĐIỂM ================= -->
     <div id="step3" class="hidden">
-        <h3>Bước 3: Lập danh sách tên môn học & Điểm số</h3>
+        <h3 id="txt_step3_title">Bước 3: Lập danh sách tên môn học & Điểm số</h3>
         <div id="form-chi-tiet-container"></div>
 
         <div>
-            <button class="btn-back" onclick="quayLaiTrang(2)">⬅ Sửa lại Trang 2</button>
-            <button class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang4()">📊 Tính điểm & Xuất Bảng Kết Quả 📊</button>
+            <button id="txt_btn_back2" class="btn-back" onclick="quayLaiTrang(2)">⬅ Sửa lại Trang 2</button>
+            <button id="txt_btn_step3" class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang4()">📊 Tính điểm & Xuất Bảng Kết Quả 📊</button>
         </div>
     </div>
 
@@ -361,8 +499,8 @@
         </div>
 
         <div style="margin-top: 20px;">
-            <button class="btn-back" onclick="quayLaiTrang(3)">⬅ Sửa lại thông tin nhập liệu (Trang 3)</button>
-            <button class="btn-back" style="background-color: #c0392b;" onclick="location.reload()">🔄 Nhập lại từ đầu</button>
+            <button id="txt_btn_back3" class="btn-back" onclick="quayLaiTrang(3)">⬅ Sửa lại thông tin nhập liệu (Trang 3)</button>
+            <button id="txt_btn_reset" class="btn-back" style="background-color: #c0392b;" onclick="location.reload()">🔄 Nhập lại từ đầu</button>
         </div>
     </div>
 </div>
@@ -372,13 +510,369 @@
     let loaiTinhVal = 1;
     let soNguoiVal = 1;
     let dsSoMonTungNguoi = [];
-    let dsThongTinNguoiDung = []; // Lưu tên, các môn (tên, tín chỉ, điểm), điểm thưởng, điểm TB
-    let currentUserIndex = 0; // Chỉ số người đang hiển thị ở trang cuối
+    let dsThongTinNguoiDung = [];
+    let currentUserIndex = 0;
+    let currentLang = 'vi';
+
+    // BỘ DỮ LIỆU DỊCH ĐA NGÔN NGỮ
+    const i18n = {
+        vi: {
+            title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
+            intro: "Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!",
+            lbl_obj: "Mời bạn chọn đối tượng tính điểm:",
+            opt1: "1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)",
+            opt2: "2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)",
+            lbl_num: "Nhập số lượng người cần tính điểm:",
+            btn_step1: "✨ Tiếp tục: Nhập số môn học ✨",
+            step2_title: "Bước 2: Nhập số lượng môn học của từng người",
+            btn_back1: "⬅ Sửa lại Trang 1",
+            btn_step2: "✨ Tiếp tục: Nhập tên môn & điểm ✨",
+            step3_title: "Bước 3: Lập danh sách tên môn học & Điểm số",
+            btn_back2: "⬅ Sửa lại Trang 2",
+            btn_step3: "📊 Tính điểm & Xuất Bảng Kết Quả 📊",
+            btn_back3: "⬅ Sửa lại thông tin nhập liệu (Trang 3)",
+            btn_reset: "🔄 Nhập lại từ đầu",
+            btn_print: "🖨️ In kết quả",
+            person: "Người thứ",
+            num_courses: "Số lượng môn học trong học kỳ:",
+            fullname: "Họ và tên:",
+            stt: "STT",
+            subject_name: "Tên môn học",
+            credits: "Số tín chỉ",
+            score: "Điểm số",
+            bonus: "+ Điểm thưởng (nếu có):",
+            dtb_avg: "ĐIỂM TRUNG BÌNH CỘNG",
+            dtb_tc: "ĐIỂM TRUNG BÌNH TÍN CHỈ",
+            res_title: "BẢNG KẾT QUẢ HỌC TẬP",
+            prev_user: "⬅ Người trước",
+            next_user: "Người tiếp theo ➡"
+        },
+        en: {
+            title: "ACADEMIC RESULT DATA CALCULATOR",
+            intro: "Hello, I am <b>valeriebui</b>. This tool will help you calculate your semester results!",
+            lbl_obj: "Select calculation target:",
+            opt1: "1. High School & Basic Training Academy Cadets (Average of subjects)",
+            opt2: "2. University / Postgraduate Students (Credit-based system)",
+            lbl_num: "Enter number of people:",
+            btn_step1: "✨ Continue: Enter number of subjects ✨",
+            step2_title: "Step 2: Enter number of subjects for each person",
+            btn_back1: "⬅ Edit Step 1",
+            btn_step2: "✨ Continue: Enter subject names & scores ✨",
+            step3_title: "Step 3: Enter subject names & scores",
+            btn_back2: "⬅ Edit Step 2",
+            btn_step3: "📊 Calculate & Export Results 📊",
+            btn_back3: "⬅ Edit input data (Step 3)",
+            btn_reset: "🔄 Start over",
+            btn_print: "🖨️ Print Results",
+            person: "Person #",
+            num_courses: "Number of subjects in semester:",
+            fullname: "Full Name:",
+            stt: "No.",
+            subject_name: "Subject Name",
+            credits: "Credits",
+            score: "Score",
+            bonus: "+ Bonus Points (if any):",
+            dtb_avg: "GPA (AVERAGE)",
+            dtb_tc: "GPA (CREDIT-BASED)",
+            res_title: "ACADEMIC RESULT SHEET",
+            prev_user: "⬅ Previous Person",
+            next_user: "Next Person ➡"
+        },
+        zh: {
+            title: "学期学习成绩数据计算器",
+            intro: "你好，我是 <b>valeriebui</b>。以下工具将帮助您计算学期成绩！",
+            lbl_obj: "请选择计算对象：",
+            opt1: "1. 中小学生及初级培训学员（各科平均分）",
+            opt2: "2. 本科生或研究生（按学分计算）",
+            lbl_num: "请输入需要计算的人数：",
+            btn_step1: "✨ 继续：输入科目数量 ✨",
+            step2_title: "第二步：输入每个人的科目数量",
+            btn_back1: "⬅ 修改第一步",
+            btn_step2: "✨ 继续：输入科目名称和分数 ✨",
+            step3_title: "第三步：填写科目名称和分数列表",
+            btn_back2: "⬅ 修改第二步",
+            btn_step3: "📊 计算分值并输出结果表 📊",
+            btn_back3: "⬅ 修改输入数据（第三步）",
+            btn_reset: "🔄 重新开始",
+            btn_print: "🖨️ 打印结果",
+            person: "第几位：",
+            num_courses: "本学期科目数量：",
+            fullname: "姓名：",
+            stt: "序号",
+            subject_name: "科目名称",
+            credits: "学分",
+            score: "分数",
+            bonus: "+ 奖励分（如有）：",
+            dtb_avg: "平均分 (GPA)",
+            dtb_tc: "学分加权平均分",
+            res_title: "学习成绩表",
+            prev_user: "⬅ 上一位",
+            next_user: "下一位 ➡"
+        },
+        ru: {
+            title: "КАЛЬКУЛЯТОР УЧЕБНЫХ РЕЗУЛЬТАТОВ ЗА СЕМЕСТР",
+            intro: "Привет, я <b>valeriebui</b>. Этот инструмент поможет вам рассчитать успеваемость!",
+            lbl_obj: "Выберите категорию обучающихся:",
+            opt1: "1. Школьники и курсанты начальной подготовки (Средний балл)",
+            opt2: "2. Студенты вузов и аспиранты (Зачетные единицы/кредиты)",
+            lbl_num: "Введите количество человек:",
+            btn_step1: "✨ Далее: Ввести количество предметов ✨",
+            step2_title: "Шаг 2: Введите количество предметов для каждого",
+            btn_back1: "⬅ Изменить Шаг 1",
+            btn_step2: "✨ Далее: Названия предметов и оценки ✨",
+            step3_title: "Шаг 3: Введите названия предметов и оценки",
+            btn_back2: "⬅ Изменить Шаг 2",
+            btn_step3: "📊 Рассчитать и вывести результаты 📊",
+            btn_back3: "⬅ Изменить данные (Шаг 3)",
+            btn_reset: "🔄 Начать заново",
+            btn_print: "🖨️ Печать результатов",
+            person: "Человек №",
+            num_courses: "Количество предметов в семестре:",
+            fullname: "ФИО:",
+            stt: "№",
+            subject_name: "Предмет",
+            credits: "Кредиты",
+            score: "Оценка",
+            bonus: "+ Бонусные баллы:",
+            dtb_avg: "СРЕДНИЙ БАЛЛ",
+            dtb_tc: "СРЕДНИЙ БАЛЛ (КРЕДИТНЫЙ)",
+            res_title: "ВЕДОМОСТЬ УСПЕВАЕМОСТИ",
+            prev_user: "⬅ Предыдущий",
+            next_user: "Следующий ➡"
+        },
+        es: {
+            title: "CALCULADORA DE RESULTADOS ACADÉMICOS",
+            intro: "Hola, soy <b>valeriebui</b>. ¡Esta herramienta te ayudará a calcular tus resultados!",
+            lbl_obj: "Selecciona el objeto de cálculo:",
+            opt1: "1. Estudiantes de secundaria y cadetes (Promedio simple)",
+            opt2: "2. Estudiantes universitarios / posgrado (Sistema de créditos)",
+            lbl_num: "Ingrese el número de personas:",
+            btn_step1: "✨ Continuar: Número de asignaturas ✨",
+            step2_title: "Paso 2: Ingrese número de asignaturas por persona",
+            btn_back1: "⬅ Modificar Paso 1",
+            btn_step2: "✨ Continuar: Nombres y notas ✨",
+            step3_title: "Paso 3: Lista de asignaturas y calificaciones",
+            btn_back2: "⬅ Modificar Paso 2",
+            btn_step3: "📊 Calcular y exportar resultados 📊",
+            btn_back3: "⬅ Modificar datos (Paso 3)",
+            btn_reset: "🔄 Reiniciar",
+            btn_print: "🖨️ Imprimir resultados",
+            person: "Persona N°",
+            num_courses: "Cantidad de asignaturas:",
+            fullname: "Nombre completo:",
+            stt: "N°",
+            subject_name: "Asignatura",
+            credits: "Créditos",
+            score: "Nota",
+            bonus: "+ Puntos de bonificación:",
+            dtb_avg: "PROMEDIO GENERAL",
+            dtb_tc: "PROMEDIO POR CRÉDITOS",
+            res_title: "BOLETÍN DE CALIFICACIONES",
+            prev_user: "⬅ Anterior",
+            next_user: "Siguiente ➡"
+        },
+        fr: {
+            title: "CALCULATEUR DE RÉSULTATS ACADÉMIQUES",
+            intro: "Bonjour, je suis <b>valeriebui</b>. Cet outil vous aidera à calculer vos résultats!",
+            lbl_obj: "Sélectionnez la catégorie:",
+            opt1: "1. Élèves du secondaire et cadets (Moyenne simple)",
+            opt2: "2. Étudiants universitaires / post-grade (Système de crédits)",
+            lbl_num: "Entrez le nombre de personnes:",
+            btn_step1: "✨ Continuer: Nombre de matières ✨",
+            step2_title: "Étape 2: Nombre de matières pour chaque personne",
+            btn_back1: "⬅ Modifier Étape 1",
+            btn_step2: "✨ Continuer: Noms des matières & notes ✨",
+            step3_title: "Étape 3: Noms des matières et notes",
+            btn_back2: "⬅ Modifier Étape 2",
+            btn_step3: "📊 Calculer & afficher les résultats 📊",
+            btn_back3: "⬅ Modifier les données (Étape 3)",
+            btn_reset: "🔄 Recommencer",
+            btn_print: "🖨️ Imprimer les résultats",
+            person: "Personne N°",
+            num_courses: "Nombre de matières dans le semestre:",
+            fullname: "Nom et prénom:",
+            stt: "N°",
+            subject_name: "Matière",
+            credits: "Crédits",
+            score: "Note",
+            bonus: "+ Points bonus:",
+            dtb_avg: "MOYENNE GÉNÉRALE",
+            dtb_tc: "MOYENNE PONDÉRÉE (CRÉDITS)",
+            res_title: "RELEVÉ DE NOTES",
+            prev_user: "⬅ Précédent",
+            next_user: "Suivant ➡"
+        },
+        pt: {
+            title: "CALCULADORA DE RESULTADOS ACADÊMICOS",
+            intro: "Olá, eu sou <b>valeriebui</b>. Esta ferramenta ajudará a calcular seus resultados!",
+            lbl_obj: "Selecione o perfil de cálculo:",
+            opt1: "1. Ensino Fundamental/Médio e Cadetes (Média simples)",
+            opt2: "2. Estudantes Universitários (Sistema de créditos)",
+            lbl_num: "Insira a quantidade de pessoas:",
+            btn_step1: "✨ Continuar: Inserir quantidade de disciplinas ✨",
+            step2_title: "Passo 2: Inserir quantidade de disciplinas por pessoa",
+            btn_back1: "⬅ Editar Passo 1",
+            btn_step2: "✨ Continuar: Nomes das disciplinas e notas ✨",
+            step3_title: "Passo 3: Lista de disciplinas e notas",
+            btn_back2: "⬅ Editar Passo 2",
+            btn_step3: "📊 Calcular e exibir resultados 📊",
+            btn_back3: "⬅ Editar dados (Passo 3)",
+            btn_reset: "🔄 Recomeçar",
+            btn_print: "🖨️ Imprimir resultados",
+            person: "Pessoa N°",
+            num_courses: "Quantidade de disciplinas:",
+            fullname: "Nome completo:",
+            stt: "N°",
+            subject_name: "Disciplina",
+            credits: "Créditos",
+            score: "Nota",
+            bonus: "+ Pontos bônus:",
+            dtb_avg: "MÉDIA GERAL",
+            dtb_tc: "MÉDIA PONDERADA (CRÉDITOS)",
+            res_title: "BOLETIM ACADÊMICO",
+            prev_user: "⬅ Anterior",
+            next_user: "Próximo ➡"
+        },
+        sa: {
+            title: "शैक्षणिक-परिणाम-गणकम्",
+            intro: "नमस्ते, अहम् <b>valeriebui</b> अस्मि। एतत् साधनं भवतां परिणामगणने सहायं करिष्यति!",
+            lbl_obj: "गणनावर्गं चिनोतु:",
+            opt1: "1. विद्यालयछात्राः (साधारण-औसतम्)",
+            opt2: "2. विश्वविद्यालयछात्राः (क्रेडिट-प्रणाली)",
+            lbl_num: "जनानां सङ्ख्यां लिखतु:",
+            btn_step1: "✨ अग्रेसरतु: विषयाणां सङ्ख्या ✨",
+            step2_title: "द्वितीयः सोपानः: प्रत्येकमनुसारेण विषयाणां सङ्ख्या",
+            btn_back1: "⬅ प्रथमसोपानस्य संशोधनम्",
+            btn_step2: "✨ अग्रेसरतु: विषयनामानि अङ्काः च ✨",
+            step3_title: "तृतीयः सोपानः: विषयनामानि अङ्काः च",
+            btn_back2: "⬅ द्वितीयसोपानस्य संशोधनम्",
+            btn_step3: "📊 गणनां कुरुत परिणामं च पश्यन्तु 📊",
+            btn_back3: "⬅ विवरणस्य संशोधनम् (तृतीयसोपानः)",
+            btn_reset: "🔄 पुनः प्रारभताम्",
+            btn_print: "🖨️ मुद्रणम् कुरुत",
+            person: "जनः",
+            num_courses: "विषयाणां सङ्ख्या:",
+            fullname: "पूर्णं नाम:",
+            stt: "क्र.",
+            subject_name: "विषयस्य नाम",
+            credits: "क्रेडिट्-अङ्काः",
+            score: "प्राप्ताङ्काः",
+            bonus: "+ बोनस-अङ्काः:",
+            dtb_avg: "सामान्य-औसत-अङ्कः",
+            dtb_tc: "क्रेडिट-आधारित-औसत-अङ्कः",
+            res_title: "अङ्कपत्रम्",
+            prev_user: "⬅ पूर्वतनः",
+            next_user: "अग्रिमः ➡"
+        },
+        ar: {
+            title: "حاسبة نتائج البيانات الأكاديمية",
+            intro: "مرحبًا، أنا <b>valeriebui</b>. ستساعدك هذه الأداة في حساب نتائجك الأكاديمية!",
+            lbl_obj: "يرجى تحديد فئة الحساب:",
+            opt1: "1. طلاب المدارس والمتدربون (المعدل التراكمي العام)",
+            opt2: "2. طلاب الجامعات والدراسات العليا (نظام الساعات المعتمدة)",
+            lbl_num: "أدخل عدد الأشخاص:",
+            btn_step1: "✨ المتابعة: إدخال عدد المواد ✨",
+            step2_title: "الخطوة 2: إدخال عدد المواد لكل شخص",
+            btn_back1: "⬅ تعديل الخطوة 1",
+            btn_step2: "✨ المتابعة: إدخال أسماء المواد والدرجات ✨",
+            step3_title: "الخطوة 3: قائمة أسماء المواد والدرجات",
+            btn_back2: "⬅ تعديل الخطوة 2",
+            btn_step3: "📊 حساب النتائج وإخراج الجدول 📊",
+            btn_back3: "⬅ تعديل البيانات (الخطوة 3)",
+            btn_reset: "🔄 البدء من جديد",
+            btn_print: "🖨️ طباعة النتائج",
+            person: "الشخص رقم",
+            num_courses: "عدد المواد في الفصل الدراسي:",
+            fullname: "الاسم الكامل:",
+            stt: "م",
+            subject_name: "اسم المادة",
+            credits: "الساعات المعتمدة",
+            score: "الدرجة",
+            bonus: "+ نقاط مكافأة (إن وجدت):",
+            dtb_avg: "المعدل العام",
+            dtb_tc: "المعدل التراكمي (بالساعات)",
+            res_title: "كشف الدرجات الأكاديمي",
+            prev_user: "⬅ السابق",
+            next_user: "التالي ➡"
+        }
+    };
+
+    // QUẢN LÝ POPUP GÓC DƯỚI BÊN TRÁI
+    function togglePopup(popupId) {
+        let bgP = document.getElementById('bgPopup');
+        let langP = document.getElementById('langPopup');
+
+        if (popupId === 'bgPopup') {
+            langP.style.display = 'none';
+            bgP.style.display = (bgP.style.display === 'flex') ? 'none' : 'flex';
+        } else {
+            bgP.style.display = 'none';
+            langP.style.display = (langP.style.display === 'flex') ? 'none' : 'flex';
+        }
+    }
+
+    // ĐÓNG POPUP KHI CLICK RA NGOÀI
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.tool-btn-wrapper')) {
+            document.getElementById('bgPopup').style.display = 'none';
+            document.getElementById('langPopup').style.display = 'none';
+        }
+    });
+
+    // CÀI ĐẶT HÌNH NỀN
+    function setBgImage(fileName) {
+        document.body.style.backgroundImage = `url('${fileName}')`;
+        document.getElementById('bgPopup').style.display = 'none';
+    }
+
+    function setBgColor(colorHex) {
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = colorHex;
+        document.getElementById('bgPopup').style.display = 'none';
+    }
+
+    // DỊCH GIAO DIỆN SANG NGÔN NGỮ ĐƯỢC CHỌN
+    function translateLang(langCode) {
+        currentLang = langCode;
+        let t = i18n[langCode] || i18n['vi'];
+
+        document.getElementById('txt_title').innerText = t.title;
+        document.getElementById('txt_intro').innerHTML = t.intro;
+        document.getElementById('txt_lbl_obj').innerText = t.lbl_obj;
+        document.getElementById('txt_opt1').innerText = t.opt1;
+        document.getElementById('txt_opt2').innerText = t.opt2;
+        document.getElementById('txt_lbl_num').innerText = t.lbl_num;
+        document.getElementById('txt_btn_step1').innerText = t.btn_step1;
+        document.getElementById('txt_step2_title').innerText = t.step2_title;
+        document.getElementById('txt_btn_back1').innerText = t.btn_back1;
+        document.getElementById('txt_btn_step2').innerText = t.btn_step2;
+        document.getElementById('txt_step3_title').innerText = t.step3_title;
+        document.getElementById('txt_btn_back2').innerText = t.btn_back2;
+        document.getElementById('txt_btn_step3').innerText = t.btn_step3;
+        document.getElementById('txt_btn_back3').innerText = t.btn_back3;
+        document.getElementById('txt_btn_reset').innerText = t.btn_reset;
+        document.getElementById('btnPrint').innerText = t.btn_print;
+
+        // Xử lý hướng viết chữ cho Tiếng Ả Rập (RTL)
+        if (langCode === 'ar') {
+            document.body.style.direction = 'rtl';
+        } else {
+            document.body.style.direction = 'ltr';
+        }
+
+        // Tải lại nội dung các trang đang hoạt động
+        if (!document.getElementById('step2').classList.contains('hidden')) chuyenSangTrang2();
+        if (!document.getElementById('step3').classList.contains('hidden')) chuyenSangTrang3();
+        if (!document.getElementById('step4').classList.contains('hidden')) capNhatBangKetQuaUser(currentUserIndex);
+
+        document.getElementById('langPopup').style.display = 'none';
+    }
 
     // --- CHUYỂN SANG TRANG 2 ---
     function chuyenSangTrang2() {
         loaiTinhVal = parseInt(document.getElementById('loai_tinh').value);
         soNguoiVal = parseInt(document.getElementById('so_nguoi').value);
+        let t = i18n[currentLang] || i18n['vi'];
 
         if (isNaN(soNguoiVal) || soNguoiVal <= 0) {
             alert('Vui lòng nhập số lượng người hợp lệ!');
@@ -394,7 +888,7 @@
             card.className = 'card';
             card.innerHTML = `
                 <div class="form-group">
-                    <label>👤 Người thứ ${i + 1} - Số lượng môn học trong học kỳ:</label>
+                    <label>👤 ${t.person} ${i + 1} - ${t.num_courses}</label>
                     <input type="number" id="so_mon_nguoi_${i}" min="1" value="${valCu}">
                 </div>
             `;
@@ -407,6 +901,8 @@
     // --- CHUYỂN SANG TRANG 3 ---
     function chuyenSangTrang3() {
         dsSoMonTungNguoi = [];
+        let t = i18n[currentLang] || i18n['vi'];
+
         for (let i = 0; i < soNguoiVal; i++) {
             let sm = parseInt(document.getElementById(`so_mon_nguoi_${i}`).value);
             if (isNaN(sm) || sm <= 0) {
@@ -424,19 +920,18 @@
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>👤 Nhập thông tin người số ${i + 1}</h4>`;
+            let html = `<h4>👤 ${t.person} ${i + 1}</h4>`;
             let tenCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].ten) ? dsThongTinNguoiDung[i].ten : '';
-            html += `<div class="form-group"><label>Họ và tên:</label><input type="text" id="ten_user_${i}" value="${tenCu}" placeholder="Nhập họ và tên"></div>`;
+            html += `<div class="form-group"><label>${t.fullname}</label><input type="text" id="ten_user_${i}" value="${tenCu}" placeholder="${t.fullname}"></div>`;
 
-            // Lập bảng điền môn học
             html += `
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 10%;">STT</th>
-                            <th style="width: ${loaiTinhVal === 2 ? '55%' : '70%'};">Tên môn học</th>
-                            ${loaiTinhVal === 2 ? '<th style="width: 15%;">Số tín chỉ</th>' : ''}
-                            <th style="width: 20%;">Điểm số</th>
+                            <th style="width: 10%;">${t.stt}</th>
+                            <th style="width: ${loaiTinhVal === 2 ? '45%' : '50%'};">${t.subject_name}</th>
+                            ${loaiTinhVal === 2 ? `<th style="width: 15%;">${t.credits}</th>` : ''}
+                            <th style="width: ${loaiTinhVal === 2 ? '30%' : '40%'};">${t.score}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -453,7 +948,7 @@
                 html += `
                     <tr>
                         <td><b>${m}</b></td>
-                        <td class="ten-mon-col"><input type="text" id="ten_mon_${i}_${m}" value="${tenMonCu}" placeholder="Nhập tên môn thứ ${m}"></td>
+                        <td class="ten-mon-col"><input type="text" id="ten_mon_${i}_${m}" value="${tenMonCu}" placeholder="${t.subject_name} ${m}"></td>
                         ${loaiTinhVal === 2 ? `<td><input type="number" min="1" id="tc_${i}_${m}" value="${tcCu}"></td>` : ''}
                         <td><input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" value="${diemCu}" placeholder="0 - 10"></td>
                     </tr>
@@ -468,7 +963,7 @@
             let thuongCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].thuong !== undefined) ? dsThongTinNguoiDung[i].thuong : 0;
             html += `
                 <div class="form-group" style="margin-top: 15px;">
-                    <label>+ Điểm thưởng (nếu có):</label>
+                    <label>${t.bonus}</label>
                     <input type="number" step="0.1" min="0" id="thuong_${i}" value="${thuongCu}">
                 </div>
             `;
@@ -509,7 +1004,6 @@
                 dsMon.push({ tenMon: tenMon, tc: tc, diem: diem });
             }
 
-            // Tính điểm trung bình
             let dtb = 0;
             if (loaiTinhVal === 1) {
                 dtb = (tongDiemOrProduct / sm) + thuong;
@@ -529,7 +1023,6 @@
         currentUserIndex = 0;
         capNhatBangKetQuaUser(currentUserIndex);
 
-        // Hiển thị bộ chuyển trang nếu người >= 2
         let paginationNav = document.getElementById('paginationNav');
         if (soNguoiVal >= 2) {
             paginationNav.classList.remove('hidden');
@@ -540,24 +1033,25 @@
         hienThiTrang(4);
     }
 
-    // --- CẬP NHẬT GIAO DIỆN BẢNG KẾT QUẢ CHO NGƯỜI ĐƯỢC CHỌN ---
+    // --- CẬP NHẬT GIAO DIỆN BẢNG KẾT QUẢ ---
     function capNhatBangKetQuaUser(index) {
         let u = dsThongTinNguoiDung[index];
         let card = document.getElementById('resultCard');
+        let t = i18n[currentLang] || i18n['vi'];
 
-        let labelDTB = (loaiTinhVal === 1) ? 'ĐIỂM TRUNG BÌNH CỘNG' : 'ĐIỂM TRUNG BÌNH TÍN CHỈ';
+        let labelDTB = (loaiTinhVal === 1) ? t.dtb_avg : t.dtb_tc;
 
         let html = `
-            <h3 style="text-align: center; margin-bottom: 5px;">BẢNG KẾT QUẢ HỌC TẬP</h3>
-            <p style="text-align: center; margin-top: 0;"><b>Họ và tên:</b> <span style="color: #8e44ad; font-size: 16px;">${u.ten}</span></p>
+            <h3 style="text-align: center; margin-bottom: 5px;">${t.res_title}</h3>
+            <p style="text-align: center; margin-top: 0;"><b>${t.fullname}</b> <span style="color: #8e44ad; font-size: 16px;">${u.ten}</span></p>
             
             <table>
                 <thead>
                     <tr>
-                        <th style="width: 10%;">STT</th>
-                        <th style="width: ${loaiTinhVal === 2 ? '55%' : '70%'};">Tên môn học</th>
-                        ${loaiTinhVal === 2 ? '<th style="width: 15%;">Số tín chỉ</th>' : ''}
-                        <th style="width: 20%;">Điểm số</th>
+                        <th style="width: 10%;">${t.stt}</th>
+                        <th style="width: ${loaiTinhVal === 2 ? '45%' : '50%'};">${t.subject_name}</th>
+                        ${loaiTinhVal === 2 ? `<th style="width: 15%;">${t.credits}</th>` : ''}
+                        <th style="width: ${loaiTinhVal === 2 ? '30%' : '40%'};">${t.score}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -575,11 +1069,10 @@
             `;
         }
 
-        // HÀNG ĐIỂM TRUNG BÌNH NẰM Ở DÒNG CUỐI
         html += `
                 <tr class="row-dtb">
                     <td colspan="${loaiTinhVal === 2 ? '3' : '2'}" style="text-align: right; padding-right: 15px;">
-                        <b>${labelDTB} ${u.thuong > 0 ? `(Đã cộng +${u.thuong} điểm thưởng)` : ''}:</b>
+                        <b>${labelDTB} ${u.thuong > 0 ? `(+${u.thuong})` : ''}:</b>
                     </td>
                     <td><b>${u.dtb.toFixed(2)}</b></td>
                 </tr>
@@ -589,15 +1082,16 @@
 
         card.innerHTML = html;
 
-        // Cập nhật thông tin thanh điều hướng chuyển trang
         if (soNguoiVal >= 2) {
-            document.getElementById('userPageIndicator').innerText = `Người ${index + 1} / ${soNguoiVal}`;
+            document.getElementById('userPageIndicator').innerText = `${t.person} ${index + 1} / ${soNguoiVal}`;
+            document.getElementById('btnPrevUser').innerText = t.prev_user;
+            document.getElementById('btnNextUser').innerText = t.next_user;
             document.getElementById('btnPrevUser').disabled = (index === 0);
             document.getElementById('btnNextUser').disabled = (index === soNguoiVal - 1);
         }
     }
 
-    // --- ĐIỀU HƯỚNG BẤM CHUYỂN NGƯỜI TRONG TRANG KẾT QUẢ ---
+    // --- CHUYỂN NGƯỜI TRONG TRANG KẾT QUẢ ---
     function chuyenNguoiDisplay(direction) {
         currentUserIndex += direction;
         if (currentUserIndex < 0) currentUserIndex = 0;
@@ -605,7 +1099,7 @@
         capNhatBangKetQuaUser(currentUserIndex);
     }
 
-    // --- QUAY LẠI TRANG TRƯỚC ĐỂ SỬA THÔNG TIN ---
+    // --- QUAY LẠI TRANG TRƯỚC ---
     function quayLaiTrang(stepNumber) {
         hienThiTrang(stepNumber);
     }
@@ -619,7 +1113,6 @@
 
         document.getElementById(`step${stepNumber}`).classList.remove('hidden');
 
-        // CHỈ HIỆN NÚT IN Ở TRANG CUỐI (TRANG 4)
         let btnPrint = document.getElementById('btnPrint');
         if (stepNumber === 4) {
             btnPrint.style.display = 'block';
