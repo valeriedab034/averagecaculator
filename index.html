@@ -137,7 +137,7 @@
             background-color: #1f618d;
         }
 
-        /* NÚT PHÁT NHẠC (GÓC DƯỚI PHẢI, MÀU TÍM VÀNG) */
+        /* NÚT PHÁT NHẠC (GÓC DƯỚI PHẢI, MÀU TÍM) */
         .btn-music-picker {
             background-color: #9b59b6;
             color: #ffffff;
@@ -422,7 +422,7 @@
 <body>
 
 <!-- TRÌNH PHÁT NHẠC CHẠY ẨN -->
-<audio id="bgAudio" loop></audio>
+<audio id="bgAudio" src="eveningland.mp3" loop></audio>
 
 <!-- MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH GÓC PHẢI MÀN HÌNH -->
 <div class="qr-box">
@@ -472,7 +472,6 @@
 <div class="bottom-right-tools">
     <div class="tool-btn-wrapper">
         <button class="btn-music-picker" onclick="togglePopup('musicPopup')">
-            <!-- Icon nốt nhạc -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M9 18V5l12-2v13"></path>
                 <circle cx="6" cy="18" r="3"></circle>
@@ -561,6 +560,23 @@
     let dsThongTinNguoiDung = [];
     let currentUserIndex = 0;
     let currentLang = 'vi';
+
+    // TỰ ĐỘNG PHÁT NHẠC EVENINGLAND - ESCAPE NGAY KHI LOAD TRANG
+    window.addEventListener('DOMContentLoaded', function() {
+        let audio = document.getElementById('bgAudio');
+        audio.volume = 0.6; // Đặt âm lượng 60% vừa phải
+        
+        let playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(function(error) {
+                // Nếu trình duyệt chặn tự động phát tiếng, phát ngay khi người dùng click chuột đầu tiên
+                document.body.addEventListener('click', function startAudioOnInteraction() {
+                    audio.play();
+                    document.body.removeEventListener('click', startAudioOnInteraction);
+                }, { once: true });
+            });
+        }
+    });
 
     // BỘ DỮ LIỆU DỊCH ĐA NGÔN NGỮ
     const i18n = {
@@ -845,7 +861,7 @@
         }
     };
 
-    // PHÁT NHẠC VA TẮT NHẠC
+    // PHÁT NHẠC VÀ TẮT NHẠC
     function playMusic(fileMp3) {
         let audio = document.getElementById('bgAudio');
         audio.src = fileMp3;
