@@ -25,9 +25,9 @@
             font-family: 'Merriweather', serif;
             margin: 0;
             padding: 20px;
-            padding-bottom: 90px; /* Dành khoảng trống cho bộ công cụ góc dưới */
+            padding-bottom: 90px;
             color: #2c3e50;
-            background-color: #fce4ec; /* Mặc định hồng pastel */
+            background-color: #fce4ec;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -83,11 +83,19 @@
             z-index: 9999;
         }
 
+        /* BỘ CÔNG CỤ NỔI Ở GÓC DƯỚI BÊN TAY PHẢI (NÚT NHẠC) */
+        .bottom-right-tools {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 9999;
+        }
+
         .tool-btn-wrapper {
             position: relative;
         }
 
-        /* NÚT CHỌN HÌNH NỀN (MÀU ĐỎ, ICON NÚI TRẮNG) */
+        /* NÚT CHỌN HÌNH NỀN */
         .btn-bg-picker {
             background-color: #e74c3c;
             color: #ffffff;
@@ -108,7 +116,7 @@
             background-color: #c0392b;
         }
 
-        /* NÚT DỊCH NGÔN NGỮ (MÀU XANH DƯƠNG) */
+        /* NÚT DỊCH NGÔN NGỮ */
         .btn-lang-picker {
             background-color: #2980b9;
             color: #ffffff;
@@ -129,7 +137,28 @@
             background-color: #1f618d;
         }
 
-        /* MENU XỔ LÊN CỦA BỘ CÔNG CỤ GÓC DƯỚI TRÁI */
+        /* NÚT PHÁT NHẠC (GÓC DƯỚI PHẢI, MÀU TÍM VÀNG) */
+        .btn-music-picker {
+            background-color: #9b59b6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Merriweather', serif;
+            font-weight: bold;
+        }
+
+        .btn-music-picker:hover {
+            background-color: #8e44ad;
+        }
+
+        /* MENU XỔ LÊN CỦA BỘ CÔNG CỤ */
         .tool-popup {
             position: absolute;
             bottom: 50px;
@@ -142,6 +171,12 @@
             display: none;
             flex-direction: column;
             z-index: 10000;
+        }
+
+        /* POPUP GÓC PHẢI THÌ CĂN LỀ SANG PHẢI */
+        .tool-popup.popup-right {
+            left: auto;
+            right: 0;
         }
 
         .tool-popup button {
@@ -176,7 +211,6 @@
             backdrop-filter: blur(3px);
         }
 
-        /* TIÊU ĐỀ H2: MÀU CAM BÊN TRONG, VIỀN XANH, CĂN GIỮA */
         h2 {
             text-align: center;
             font-weight: 700;
@@ -220,7 +254,6 @@
             background-color: #fdfefe;
         }
 
-        /* NÚT BẤM CHÍNH MÀU TÍM DAO ĐỘNG */
         button.btn-main {
             width: 100%;
             padding: 14px;
@@ -243,7 +276,6 @@
             animation-duration: 0.8s;
         }
 
-        /* NÚT QUAY LẠI / SỬA LẠI THÔNG TIN */
         button.btn-back {
             background-color: #7f8c8d;
             color: white;
@@ -262,7 +294,6 @@
             background-color: #626567;
         }
 
-        /* NÚT IN CHỈ XUẤT HIỆN Ở TRANG CỦA TRANG CUỐI */
         .btn-print {
             position: absolute;
             top: 20px;
@@ -293,7 +324,6 @@
             margin-bottom: 20px;
         }
 
-        /* BẢNG ĐIỀN THÔNG TIN VÀ BẢNG KẾT QUẢ */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -325,7 +355,6 @@
             font-size: 14px;
         }
 
-        /* THANH CHUYỂN TRANG NGƯỜI DÙNG Ở TRANG CUỐI */
         .pagination-container {
             display: flex;
             justify-content: space-between;
@@ -360,13 +389,12 @@
             display: none !important;
         }
 
-        /* TỐI ƯU KHI IN TRANG */
         @media print {
             body {
                 background: white;
                 padding: 0;
             }
-            .qr-box, .bottom-left-tools, .btn-print, button, .pagination-container {
+            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container {
                 display: none !important;
             }
             .container {
@@ -393,6 +421,9 @@
 </head>
 <body>
 
+<!-- TRÌNH PHÁT NHẠC CHẠY ẨN -->
+<audio id="bgAudio" loop></audio>
+
 <!-- MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH GÓC PHẢI MÀN HÌNH -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
@@ -404,7 +435,6 @@
     <!-- NÚT ĐỔI HÌNH NỀN (MÀU ĐỎ, ICON NÚI TRẮNG) -->
     <div class="tool-btn-wrapper">
         <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">
-            <!-- Icon hình bức ảnh có núi nét chữ màu trắng -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <circle cx="8.5" cy="8.5" r="1.5"></circle>
@@ -438,8 +468,27 @@
     </div>
 </div>
 
+<!-- NÚT PHÁT NHẠC NẰM CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY PHẢI -->
+<div class="bottom-right-tools">
+    <div class="tool-btn-wrapper">
+        <button class="btn-music-picker" onclick="togglePopup('musicPopup')">
+            <!-- Icon nốt nhạc -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+        </button>
+        <div id="musicPopup" class="tool-popup popup-right">
+            <button onclick="stopMusic()">🔇 Tắt nhạc</button>
+            <button onclick="playMusic('eveningland.mp3')">🎵 1. Eveningland - Escape</button>
+            <button onclick="playMusic('escspe.mp3')">🎵 2. Disfigure - Blank</button>
+            <button onclick="playMusic('feelgood.mp3')">🎵 3. Feel Good - Syn Cole</button>
+        </div>
+    </div>
+</div>
+
 <div class="container">
-    <!-- NÚT IN NẰM Ở GÓC TRÊN BÊN PHẢI CONTAINER (CHỈ HIỆN Ở TRANG CUỐI) -->
     <button id="btnPrint" class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
 
     <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
@@ -491,7 +540,6 @@
             <!-- Nội dung bảng kết quả từng người sẽ hiển thị ở đây -->
         </div>
 
-        <!-- BỘ NÚT CHUYỂN TRANG CHO NHIỀU NGƯỜI (NẾU SỐ NGƯỜI >= 2) -->
         <div id="paginationNav" class="pagination-container hidden">
             <button id="btnPrevUser" class="btn-nav" onclick="chuyenNguoiDisplay(-1)">⬅ Người trước</button>
             <span id="userPageIndicator" style="font-weight: bold; color: #4a235a;"></span>
@@ -797,17 +845,39 @@
         }
     };
 
-    // QUẢN LÝ POPUP GÓC DƯỚI BÊN TRÁI
+    // PHÁT NHẠC VA TẮT NHẠC
+    function playMusic(fileMp3) {
+        let audio = document.getElementById('bgAudio');
+        audio.src = fileMp3;
+        audio.play();
+        document.getElementById('musicPopup').style.display = 'none';
+    }
+
+    function stopMusic() {
+        let audio = document.getElementById('bgAudio');
+        audio.pause();
+        audio.currentTime = 0;
+        document.getElementById('musicPopup').style.display = 'none';
+    }
+
+    // QUẢN LÝ POPUP
     function togglePopup(popupId) {
         let bgP = document.getElementById('bgPopup');
         let langP = document.getElementById('langPopup');
+        let musicP = document.getElementById('musicPopup');
 
         if (popupId === 'bgPopup') {
             langP.style.display = 'none';
+            musicP.style.display = 'none';
             bgP.style.display = (bgP.style.display === 'flex') ? 'none' : 'flex';
-        } else {
+        } else if (popupId === 'langPopup') {
             bgP.style.display = 'none';
+            musicP.style.display = 'none';
             langP.style.display = (langP.style.display === 'flex') ? 'none' : 'flex';
+        } else if (popupId === 'musicPopup') {
+            bgP.style.display = 'none';
+            langP.style.display = 'none';
+            musicP.style.display = (musicP.style.display === 'flex') ? 'none' : 'flex';
         }
     }
 
@@ -816,6 +886,7 @@
         if (!e.target.closest('.tool-btn-wrapper')) {
             document.getElementById('bgPopup').style.display = 'none';
             document.getElementById('langPopup').style.display = 'none';
+            document.getElementById('musicPopup').style.display = 'none';
         }
     });
 
@@ -853,14 +924,12 @@
         document.getElementById('txt_btn_reset').innerText = t.btn_reset;
         document.getElementById('btnPrint').innerText = t.btn_print;
 
-        // Xử lý hướng viết chữ cho Tiếng Ả Rập (RTL)
         if (langCode === 'ar') {
             document.body.style.direction = 'rtl';
         } else {
             document.body.style.direction = 'ltr';
         }
 
-        // Tải lại nội dung các trang đang hoạt động
         if (!document.getElementById('step2').classList.contains('hidden')) chuyenSangTrang2();
         if (!document.getElementById('step3').classList.contains('hidden')) chuyenSangTrang3();
         if (!document.getElementById('step4').classList.contains('hidden')) capNhatBangKetQuaUser(currentUserIndex);
