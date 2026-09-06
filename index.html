@@ -119,7 +119,6 @@
             color: #fff;
         }
 
-        /* TOOLTIP CHO NÚT TRÒN */
         .circle-btn::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -144,7 +143,6 @@
             position: relative;
         }
 
-        /* NÚT TÙY CHỌN BÊN TRÁI (BỎ ICON HÌNH NỀN) */
         .btn-bg-picker, .btn-lang-picker {
             background-color: #00e676;
             color: #000;
@@ -165,7 +163,6 @@
             transform: translateY(-2px);
         }
 
-        /* POPUP CỤM CÔNG CỤ */
         .tool-popup {
             position: absolute;
             bottom: 50px;
@@ -259,7 +256,6 @@
             border-color: #e74c3c;
         }
 
-        /* NÚT BẤM THEO MẪU HÌNH 2 (HOVER EFFECT) */
         button.btn-main, .btn-style-2 {
             width: 100%;
             padding: 14px 28px;
@@ -391,15 +387,15 @@
             display: none !important;
         }
 
-        /* GIAO DIỆN CỬA SỔ GAME POPUP (TOWER OF HANOI) */
+        /* POPUP GAME TOWER OF HANOI */
         .modal-game {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(5px);
             z-index: 10001;
             display: flex;
             align-items: center;
@@ -407,11 +403,11 @@
         }
 
         .game-window {
-            width: 90%;
-            max-width: 600px;
+            width: 92%;
+            max-width: 620px;
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -481,13 +477,14 @@
             font-size: 13px;
         }
 
+        /* KHUNG CHỨA CỌC & ĐĨA */
         .hanoi-container {
             display: flex;
             justify-content: space-around;
             align-items: flex-end;
-            height: 200px;
-            border-bottom: 6px solid #7f8c8d;
-            margin: 15px 0;
+            height: 220px;
+            border-bottom: 8px solid #5d6d7e;
+            margin: 15px 0 25px 0;
             position: relative;
         }
 
@@ -505,26 +502,34 @@
             content: '';
             position: absolute;
             bottom: 0;
-            width: 8px;
-            height: 160px;
-            background: #bdc3c7;
-            border-radius: 4px 4px 0 0;
+            width: 10px;
+            height: 170px;
+            background: linear-gradient(90deg, #bdc3c7, #ecf0f1, #95a5a6);
+            border-radius: 5px 5px 0 0;
             z-index: 1;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* HIỆU ỨNG ĐỘNG CHO ĐĨA */
+        /* HIỆU ỨNG ĐĨA 3D VÀ ANIMATION TRƯỢT TỰ NHIÊN */
         .disk {
-            height: 18px;
-            border-radius: 9px;
+            height: 19px;
+            border-radius: 10px;
             z-index: 2;
-            transition: transform 0.25s ease-in-out, background-color 0.2s;
             margin-bottom: 2px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            /* Gradient & Shadow tạo hình nét 3D */
+            background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.15) 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.6), inset 0 -2px 3px rgba(0,0,0,0.4);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            /* Chuyển động nâng đĩa lên 0.3s & bay trượt sang cọc 0.4s mượt mà */
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), top 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* NÂNG ĐĨA KHI BẤM TRONG 0.3s VÀO CỌC */
         .disk.selected {
-            transform: translateY(-25px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transform: translateY(-32px) scale(1.03);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.45), inset 0 1px 3px rgba(255,255,255,0.8);
+            z-index: 10;
         }
 
         @media print {
@@ -548,7 +553,7 @@
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
-<!-- CÔNG CỤ TRÁI (LOẠI BỎ TẤT CẢ ICON TRONG HÌNH NỀN) -->
+<!-- CÔNG CỤ TRÁI -->
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
         <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
@@ -578,7 +583,7 @@
     </div>
 </div>
 
-<!-- BỘ CÔNG CỤ PHẢI (SỬA TOOLTIP THÀNH Game: Tower of Hanoi) -->
+<!-- BỘ CÔNG CỤ PHẢI -->
 <div class="bottom-right-tools">
     <div class="social-group">
         <!-- Nút Trò chơi Tower of Hanoi -->
@@ -602,7 +607,7 @@
         </a>
     </div>
 
-    <!-- Nút Phát nhạc giữ nguyên vị trí -->
+    <!-- Nút Phát nhạc -->
     <div class="tool-btn-wrapper">
         <button class="circle-btn" style="background:#9b59b6; color:#fff;" onclick="togglePopup('musicPopup')">
             <i class="fa-solid fa-music"></i>
@@ -627,7 +632,6 @@
             </div>
         </div>
         <div class="game-body">
-            <!-- CẤU HÌNH NHẬP SỐ ĐĨA TÙY Ý - KHÔNG CHỨA BẤT KỲ ICON NÀO -->
             <div class="game-config">
                 <label for="diskCountInput">Số đĩa:</label>
                 <input type="number" id="diskCountInput" min="1" max="10" value="3" onchange="initHanoiGame()">
@@ -720,7 +724,6 @@
     function animateFavicon() {
         const canvas = document.getElementById('faviconCanvas');
         const ctx = canvas.getContext('2d');
-        
         ctx.clearRect(0, 0, 32, 32);
 
         ctx.fillStyle = '#ff1744';
@@ -1133,14 +1136,20 @@
         btnPrint.style.display = (stepNumber === 4) ? 'block' : 'none';
     }
 
-    /* 5. LOGIC GAME TOWER OF HANOI NÂNG CẤP */
+    /* 5. LOGIC GAME TOWER OF HANOI (ANIMATION TRƯỢT SANG CỌC MỤC TIÊU 0.4S) */
     let hanoiState = [[], [], []];
     let selectedTower = null;
     let hanoiMoves = 0;
     let totalDisks = 3;
     let isAutoPlaying = false;
+    let isAnimating = false; // Cờ khóa thao tác khi đĩa đang bay
     let autoPlayTimeouts = [];
-    const diskColors = ['#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#1abc9c', '#3498db', '#9b59b6', '#34495e', '#d35400', '#2c3e50'];
+
+    // Bảng màu gradient sắc nét 3D cho các đĩa
+    const diskColors = [
+        '#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', 
+        '#1abc9c', '#3498db', '#9b59b6', '#e84393', '#d35400', '#2c3e50'
+    ];
 
     function openGameModal() {
         document.getElementById('gameModal').classList.remove('hidden');
@@ -1161,10 +1170,10 @@
 
     function initHanoiGame() {
         stopAutoPlay();
+        isAnimating = false;
         let inputVal = parseInt(document.getElementById('diskCountInput').value);
         totalDisks = isNaN(inputVal) || inputVal < 1 ? 3 : inputVal;
 
-        // Khởi tạo trạng thái đĩa
         hanoiState = [[], [], []];
         for (let i = totalDisks; i >= 1; i--) {
             hanoiState[0].push(i);
@@ -1174,7 +1183,6 @@
         hanoiMoves = 0;
         document.getElementById('moveCount').innerText = 'Số nước đi: 0';
 
-        // Hiển thị nút chơi tự động nếu số đĩa >= 5
         let btnAuto = document.getElementById('btnAutoPlay');
         if (totalDisks >= 5) {
             btnAuto.classList.remove('hidden');
@@ -1192,10 +1200,12 @@
             hanoiState[i].forEach((diskSize) => {
                 const disk = document.createElement('div');
                 disk.className = 'disk';
-                let widthPercent = (diskSize / totalDisks) * 80 + 15;
+                disk.dataset.size = diskSize;
+                let widthPercent = (diskSize / totalDisks) * 75 + 20;
                 disk.style.width = `${widthPercent}%`;
                 disk.style.backgroundColor = diskColors[(diskSize - 1) % diskColors.length];
                 
+                // Hiệu ứng nhấc đĩa 0.3s khi chọn cọc
                 if (selectedTower === i && diskSize === hanoiState[i][hanoiState[i].length - 1]) {
                     disk.classList.add('selected');
                 }
@@ -1205,23 +1215,25 @@
     }
 
     function handleTowerClick(towerIdx) {
-        if (isAutoPlaying) return;
+        if (isAutoPlaying || isAnimating) return;
 
         if (selectedTower === null) {
             if (hanoiState[towerIdx].length > 0) {
                 selectedTower = towerIdx;
+                renderHanoiTowers();
             }
         } else {
             if (selectedTower === towerIdx) {
                 selectedTower = null;
+                renderHanoiTowers();
             } else {
                 moveDiskWithAnimation(selectedTower, towerIdx);
             }
         }
-        renderHanoiTowers();
     }
 
-    function moveDiskWithAnimation(from, to) {
+    /* HIỆU ỨNG TRƯỢT BAY SANG CỌC ĐÍCH TRONG 0.4s */
+    function moveDiskWithAnimation(from, to, callback = null) {
         const fromStack = hanoiState[from];
         const toStack = hanoiState[to];
 
@@ -1230,25 +1242,51 @@
         const diskToMove = fromStack[fromStack.length - 1];
 
         if (toStack.length === 0 || toStack[toStack.length - 1] > diskToMove) {
-            toStack.push(fromStack.pop());
-            hanoiMoves++;
-            document.getElementById('moveCount').innerText = `Số nước đi: ${hanoiMoves}`;
-            selectedTower = null;
+            isAnimating = true;
+            
+            // Lấy phần tử đĩa đang được nâng
+            const fromTowerEl = document.getElementById(`tower${from}`);
+            const toTowerEl = document.getElementById(`tower${to}`);
+            const diskEl = fromTowerEl.lastElementChild;
 
-            // KIỂM TRA ĐIỀU KIỆN THẮNG & BỎ HOÀN TOÀN ICON THÔNG BÁO
-            if (hanoiState[2].length === totalDisks) {
+            if (diskEl) {
+                // Tính tọa độ trượt từ cọc cũ sang cọc mới
+                const fromRect = diskEl.getBoundingClientRect();
+                const toRect = toTowerEl.getBoundingClientRect();
+                
+                // Khoảng cách trượt ngang
+                const deltaX = (toRect.left + toRect.width / 2) - (fromRect.left + fromRect.width / 2);
+
+                // Áp dụng animation trượt ngang và thả rơi trong 0.4s
+                diskEl.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                diskEl.style.transform = `translate(${deltaX}px, 0px) scale(1)`;
+
                 setTimeout(() => {
-                    alert(`Chúc mừng bạn đã chiến thắng trò chơi sau ${hanoiMoves} nước đi!`);
-                }, 250);
+                    toStack.push(fromStack.pop());
+                    hanoiMoves++;
+                    document.getElementById('moveCount').innerText = `Số nước đi: ${hanoiMoves}`;
+                    selectedTower = null;
+                    isAnimating = false;
+                    renderHanoiTowers();
+
+                    if (callback) callback();
+
+                    // Kiểm tra điều kiện thắng
+                    if (hanoiState[2].length === totalDisks && !isAutoPlaying) {
+                        setTimeout(() => {
+                            alert(`Chúc mừng bạn đã chiến thắng trò chơi sau ${hanoiMoves} nước đi!`);
+                        }, 100);
+                    }
+                }, 400); // 0.4s trượt hoàn tất
             }
         } else {
-            // BỎ HOÀN TOÀN ICON KHI THÔNG BÁO SAI LUẬT
             alert('Bạn chơi sai luật! Không thể đặt đĩa lớn hơn lên trên đĩa nhỏ hơn.');
             selectedTower = null;
+            renderHanoiTowers();
         }
     }
 
-    /* 6. HÀM TỰ ĐỘNG CHƠI MẪU CHO SỐ ĐĨA >= 5 */
+    /* CHƠI MẪU TỰ ĐỘNG VỚI ANIMATION TRƯỢT 0.4S */
     function startAutoPlay() {
         initHanoiGame();
         isAutoPlaying = true;
@@ -1267,21 +1305,31 @@
 
         solveHanoi(totalDisks, 0, 2, 1);
 
-        movesList.forEach((m, idx) => {
-            let t = setTimeout(() => {
-                if (!isAutoPlaying) return;
-                hanoiState[m.to].push(hanoiState[m.from].pop());
-                hanoiMoves++;
-                document.getElementById('moveCount').innerText = `Số nước đi: ${hanoiMoves}`;
-                renderHanoiTowers();
-
-                if (idx === movesList.length - 1) {
+        let currentMoveIndex = 0;
+        function executeNextMove() {
+            if (!isAutoPlaying || currentMoveIndex >= movesList.length) {
+                if (isAutoPlaying) {
                     document.getElementById('autoPlayStatus').innerText = 'Hoàn thành lượt giải mẫu!';
                     isAutoPlaying = false;
                 }
-            }, (idx + 1) * 350);
+                return;
+            }
+
+            let m = movesList[currentMoveIndex];
+            selectedTower = m.from;
+            renderHanoiTowers();
+
+            let t = setTimeout(() => {
+                if (!isAutoPlaying) return;
+                moveDiskWithAnimation(m.from, m.to, () => {
+                    currentMoveIndex++;
+                    executeNextMove();
+                });
+            }, 300); // Đợi 0.3s sau khi nhấc đĩa rồi trượt sang
             autoPlayTimeouts.push(t);
-        });
+        }
+
+        executeNextMove();
     }
 </script>
 
