@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lập dữ liệu kết quả học tập - valeriebui</title>
+    <title>B.Đ.B - Lập dữ liệu kết quả học tập</title>
 
     <!-- TẢI PHÔNG CHỮ MERRIWEATHER TỪ GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
-    <style>
-        /* HIỆU ỨNG DAO ĐỘNG LẮC NHẸ CHO NÚT CHÍNH */
-        @keyframes daoDong {
-            0% { transform: rotate(0deg); }
-            20% { transform: rotate(-2deg); }
-            40% { transform: rotate(2deg); }
-            60% { transform: rotate(-1deg); }
-            80% { transform: rotate(1deg); }
-            100% { transform: rotate(0deg); }
-        }
+    <!-- ICON FONT AWESOME CHO MẠNG XÃ HỘI & GAME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
         body {
             font-family: 'Merriweather', serif;
             margin: 0;
@@ -45,7 +38,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             text-align: center;
-            z-index: 9999;
+            z-index: 9998;
             max-width: 110px;
         }
 
@@ -68,11 +61,6 @@
             word-break: break-word;
         }
 
-        .qr-box a:hover {
-            text-decoration: underline;
-            color: #c0392b;
-        }
-
         /* BỘ CÔNG CỤ CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY TRÁI */
         .bottom-left-tools {
             position: fixed;
@@ -80,85 +68,104 @@
             left: 15px;
             display: flex;
             gap: 10px;
-            z-index: 9999;
+            z-index: 9998;
         }
 
-        /* BỘ CÔNG CỤ NỔI Ở GÓC DƯỚI BÊN TAY PHẢI (NÚT NHẠC) */
+        /* BỘ CÔNG CỤ NỔI Ở GÓC DƯỚI BÊN TAY PHẢI (NHẠC + MXH + GAME) */
         .bottom-right-tools {
             position: fixed;
             bottom: 15px;
             right: 15px;
-            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+            z-index: 9998;
+        }
+
+        .social-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(155, 89, 182, 0.85);
+            padding: 10px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            backdrop-filter: blur(5px);
+        }
+
+        /* CÁC NÚT TRÒN SOCIAL & GAME (HÌNH 3) */
+        .circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            font-size: 18px;
+        }
+
+        .circle-btn:hover {
+            transform: scale(1.15) rotate(360deg);
+            background: #00e676;
+            color: #fff;
+        }
+
+        /* TOOLTIP CHO NÚT TRÒN */
+        .circle-btn::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 55px;
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: 'Merriweather', serif;
+        }
+
+        .circle-btn:hover::after {
+            opacity: 1;
         }
 
         .tool-btn-wrapper {
             position: relative;
         }
 
-        /* NÚT CHỌN HÌNH NỀN */
-        .btn-bg-picker {
-            background-color: #e74c3c;
-            color: #ffffff;
+        /* NÚT TÙY CHỌN BÊN TRÁI */
+        .btn-bg-picker, .btn-lang-picker {
+            background-color: #00e676;
+            color: #000;
             border: none;
             border-radius: 8px;
             padding: 10px 14px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             font-family: 'Merriweather', serif;
             font-weight: bold;
+            transition: all 0.3s ease;
         }
 
-        .btn-bg-picker:hover {
-            background-color: #c0392b;
+        .btn-bg-picker:hover, .btn-lang-picker:hover {
+            background-color: #00c853;
+            color: #fff;
+            transform: translateY(-2px);
         }
 
-        /* NÚT DỊCH NGÔN NGỮ */
-        .btn-lang-picker {
-            background-color: #2980b9;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Merriweather', serif;
-            font-weight: bold;
-        }
-
-        .btn-lang-picker:hover {
-            background-color: #1f618d;
-        }
-
-        /* NÚT PHÁT NHẠC (GÓC DƯỚI PHẢI, MÀU TÍM) */
-        .btn-music-picker {
-            background-color: #9b59b6;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Merriweather', serif;
-            font-weight: bold;
-        }
-
-        .btn-music-picker:hover {
-            background-color: #8e44ad;
-        }
-
-        /* MENU XỔ LÊN CỦA BỘ CÔNG CỤ */
+        /* POPUP CỤM CÔNG CỤ */
         .tool-popup {
             position: absolute;
             bottom: 50px;
@@ -173,7 +180,6 @@
             z-index: 10000;
         }
 
-        /* POPUP GÓC PHẢI THÌ CĂN LỀ SANG PHẢI */
         .tool-popup.popup-right {
             left: auto;
             right: 0;
@@ -190,13 +196,12 @@
             cursor: pointer;
             width: 100%;
             margin: 0;
-            animation: none;
             border-bottom: 1px solid #f2f2f2;
         }
 
         .tool-popup button:hover {
             background-color: #f8f9fa;
-            color: #8e44ad;
+            color: #00c853;
             font-weight: bold;
         }
 
@@ -228,10 +233,6 @@
             line-height: 1.4;
         }
 
-        p {
-            line-height: 1.6;
-        }
-
         .form-group {
             margin-bottom: 18px;
         }
@@ -254,26 +255,40 @@
             background-color: #fdfefe;
         }
 
-        button.btn-main {
-            width: 100%;
-            padding: 14px;
-            background-color: #8e44ad;
-            color: white;
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-            font-size: 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: background-color 0.3s ease;
-            animation: daoDong 2.5s infinite ease-in-out;
-            display: inline-block;
+        input:invalid {
+            border-color: #e74c3c;
         }
 
-        button.btn-main:hover {
-            background-color: #6c3483;
-            animation-duration: 0.8s;
+        /* NÚT BẤM THEO MẪU HÌNH 2 (HOVER EFFECT) */
+        button.btn-main, .btn-style-2 {
+            width: 100%;
+            padding: 14px 28px;
+            background-color: #00e676;
+            color: #000000;
+            font-family: 'Merriweather', serif;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button.btn-main:hover, .btn-style-2:hover {
+            background-color: #00c853;
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 7px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        button.btn-main:active, .btn-style-2:active {
+            transform: translateY(1px);
         }
 
         button.btn-back {
@@ -281,13 +296,14 @@
             color: white;
             font-family: 'Merriweather', serif;
             font-weight: bold;
-            padding: 10px 18px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             margin-top: 10px;
             margin-right: 10px;
             font-size: 13px;
+            transition: all 0.2s ease;
         }
 
         button.btn-back:hover {
@@ -308,12 +324,7 @@
             border-radius: 6px;
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            transition: background-color 0.3s;
             display: none;
-        }
-
-        .btn-print:hover {
-            background-color: #1e8449;
         }
 
         .card {
@@ -339,8 +350,8 @@
         }
 
         th {
-            background-color: #f2e6ff;
-            color: #4a235a;
+            background-color: #e8f5e9;
+            color: #1b5e20;
             font-weight: 700;
         }
 
@@ -376,227 +387,380 @@
             font-size: 13px;
         }
 
-        .btn-nav:hover {
-            background-color: #1a5276;
-        }
-
-        .btn-nav:disabled {
-            background-color: #bdc3c7;
-            cursor: not-allowed;
-        }
-
         .hidden {
             display: none !important;
         }
 
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container {
-                display: none !important;
-            }
-            .container {
-                box-shadow: none;
-                max-width: 100%;
-                padding: 0;
-                background: white;
-            }
+        /* GIAO DIỆN CỬA SỔ GAME POPUP (TOWER OF HANOI) */
+        .modal-game {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @media (max-width: 600px) {
-            .qr-box {
-                position: static;
-                margin: 0 auto 15px auto;
-                max-width: 120px;
-            }
-            .btn-print {
-                position: static;
-                width: 100%;
-                margin-bottom: 15px;
+        .game-window {
+            width: 90%;
+            max-width: 550px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .game-header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-header h4 {
+            margin: 0;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .game-controls button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .game-controls button:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .game-body {
+            padding: 20px;
+            text-align: center;
+            background: #fdfefe;
+        }
+
+        .hanoi-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 180px;
+            border-bottom: 6px solid #7f8c8d;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .tower {
+            width: 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .tower::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            height: 140px;
+            background: #bdc3c7;
+            border-radius: 4px 4px 0 0;
+            z-index: 1;
+        }
+
+        .disk {
+            height: 22px;
+            border-radius: 11px;
+            z-index: 2;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .disk.selected {
+            transform: translateY(-20px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+        }
+
+        @media print {
+            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container, .modal-game {
+                display: none !important;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- CANVAS ẨN VẼ FAVICON ĐỘNG "B.Đ.B" -->
+<canvas id="faviconCanvas" width="32" height="32" style="display:none;"></canvas>
+
 <!-- TRÌNH PHÁT NHẠC CHẠY ẨN -->
 <audio id="bgAudio" src="eveningland.mp3" loop></audio>
 
-<!-- MÃ QR VÀ LINK FACEBOOK CỐ ĐỊNH GÓC PHẢI MÀN HÌNH -->
+<!-- MÃ QR PHẢI MÀN HÌNH -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
-<!-- BỘ CÔNG CỤ CHỌN HÌNH NỀN VÀ DỊCH NẰM CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY TRÁI -->
+<!-- CÔNG CỤ TRÁI -->
 <div class="bottom-left-tools">
-    <!-- NÚT ĐỔI HÌNH NỀN (MÀU ĐỎ, ICON NÚI TRẮNG) -->
     <div class="tool-btn-wrapper">
-        <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-        </button>
+        <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
         <div id="bgPopup" class="tool-popup">
             <button onclick="setBgColor('#fce4ec')">🌸 Màu hồng pastel (Mặc định)</button>
-            <button onclick="setBgImage('11.jpg')">🌄 1. Thảo nguyên Nalati, Tân Cương, Trung Quốc</button>
-            <button onclick="setBgImage('12.jpg')">🏟️ 2. Stamford Bridge, London, Vương quốc Anh</button>
-            <button onclick="setBgImage('13.jpg')">⚽ 3. Trận đấu giữa Chelsea và Manchester United</button>
-            <button onclick="setBgImage('14.jpg')">🏛️ 4. Hồ Gươm, Hà Nội, Việt Nam</button>
-            <button onclick="setBgImage('15.jpg')">🏔️ 5. Dãy núi Thiên Sơn, Tân Cương, Trung Quốc</button>
+            <button onclick="setBgImage('11.jpg')">🌄 1. Thảo nguyên Nalati, Tân Cương</button>
+            <button onclick="setBgImage('12.jpg')">🏟️ 2. Stamford Bridge, London</button>
+            <button onclick="setBgImage('13.jpg')">⚽ 3. Chelsea vs Manchester United</button>
+            <button onclick="setBgImage('14.jpg')">🏛️ 4. Hồ Gươm, Hà Nội</button>
+            <button onclick="setBgImage('15.jpg')">🏔️ 5. Dãy núi Thiên Sơn</button>
         </div>
     </div>
 
-    <!-- NÚT DỊCH CÁC NGÔN NGỮ (MÀU XANH DƯƠNG) -->
     <div class="tool-btn-wrapper">
-        <button class="btn-lang-picker" onclick="togglePopup('langPopup')">🌐 Dịch</button>
+        <button class="btn-lang-picker" onclick="togglePopup('langPopup')">Dịch</button>
         <div id="langPopup" class="tool-popup">
-            <button onclick="translateLang('vi')">🇻🇳 Tiếng Việt (Gốc)</button>
-            <button onclick="translateLang('en')">🇬🇧 Tiếng Anh (English)</button>
-            <button onclick="translateLang('zh')">🇨🇳 Tiếng Trung giản thể (简体中文)</button>
-            <button onclick="translateLang('ru')">🇷🇺 Tiếng Nga (Русский)</button>
-            <button onclick="translateLang('es')">🇪🇸 Tiếng Tây Ban Nha (Español)</button>
-            <button onclick="translateLang('fr')">🇫🇷 Tiếng Pháp (Français)</button>
-            <button onclick="translateLang('pt')">🇵🇹 Tiếng Bồ Đào Nha (Português)</button>
-            <button onclick="translateLang('sa')">🇮🇳 Tiếng Phạn (संस्कृतम्)</button>
-            <button onclick="translateLang('ar')">🇸🇦 Tiếng Ả Rập (العربية)</button>
+            <button onclick="translateLang('vi')">🇻🇳 Tiếng Việt</button>
+            <button onclick="translateLang('en')">🇬🇧 English</button>
+            <button onclick="translateLang('zh')">🇨🇳 简体中文</button>
+            <button onclick="translateLang('ru')">🇷🇺 Русский</button>
+            <button onclick="translateLang('es')">🇪🇸 Español</button>
+            <button onclick="translateLang('fr')">🇫🇷 Français</button>
+            <button onclick="translateLang('pt')">🇵🇹 Português</button>
+            <button onclick="translateLang('sa')">🇮🇳 संस्कृतम्</button>
+            <button onclick="translateLang('ar')">🇸🇦 العربية</button>
         </div>
     </div>
 </div>
 
-<!-- NÚT PHÁT NHẠC NẰM CỐ ĐỊNH Ở GÓC DƯỚI BÊN TAY PHẢI -->
+<!-- BỘ CÔNG CỤ PHẢI (MẠNG XÃ HỘI HÌNH 3 + NÚT GAME + NÚT NHẠC) -->
 <div class="bottom-right-tools">
+    <div class="social-group">
+        <!-- Nút Trò chơi Tower of Hanoi -->
+        <button class="circle-btn" data-tooltip="Game Tháp Hà Nội" onclick="openGameModal()">
+            <i class="fa-solid fa-gamepad"></i>
+        </button>
+
+        <!-- Link Facebook -->
+        <a href="https://fb.com/iambuidobinh" target="_blank" class="circle-btn" data-tooltip="Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+
+        <!-- Link YouTube -->
+        <a href="https://www.youtube.com/@buiobinh5083" target="_blank" class="circle-btn" data-tooltip="YouTube">
+            <i class="fa-brands fa-youtube"></i>
+        </a>
+
+        <!-- Link Instagram -->
+        <a href="https://instagram.com/buidobinh" target="_blank" class="circle-btn" data-tooltip="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+    </div>
+
+    <!-- Nút Phát nhạc giữ nguyên vị trí -->
     <div class="tool-btn-wrapper">
-        <button class="btn-music-picker" onclick="togglePopup('musicPopup')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 18V5l12-2v13"></path>
-                <circle cx="6" cy="18" r="3"></circle>
-                <circle cx="18" cy="16" r="3"></circle>
-            </svg>
+        <button class="circle-btn" style="background:#9b59b6; color:#fff;" onclick="togglePopup('musicPopup')">
+            <i class="fa-solid fa-music"></i>
         </button>
         <div id="musicPopup" class="tool-popup popup-right">
-            <button onclick="stopMusic()">🔇 Tắt nhạc</button>
-            <button onclick="playMusic('eveningland.mp3')">🎵 1. Eveningland - Escape</button>
-            <button onclick="playMusic('escspe.mp3')">🎵 2. Disfigure - Blank</button>
-            <button onclick="playMusic('feelgood.mp3')">🎵 3. Feel Good - Syn Cole</button>
+            <button onclick="stopMusic()">Tắt nhạc</button>
+            <button onclick="playMusic('eveningland.mp3')">1. Eveningland - Escape</button>
+            <button onclick="playMusic('escspe.mp3')">2. Disfigure - Blank</button>
+            <button onclick="playMusic('feelgood.mp3')">3. Feel Good - Syn Cole</button>
+        </div>
+    </div>
+</div>
+
+<!-- CỬA SỔ POPUP GAME THÁP HÀ NỘI -->
+<div id="gameModal" class="modal-game hidden">
+    <div class="game-window">
+        <div class="game-header">
+            <h4>Tháp Hà Nội - B.Đ.B Game</h4>
+            <div class="game-controls">
+                <button title="Thu nhỏ" onclick="closeGameModal()">-</button>
+                <button title="Đóng" onclick="closeGameModal()">x</button>
+            </div>
+        </div>
+        <div class="game-body">
+            <p style="font-size: 12px; margin-0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả sang cọc 3!</p>
+            <div class="hanoi-container">
+                <div class="tower" id="tower0" onclick="handleTowerClick(0)"></div>
+                <div class="tower" id="tower1" onclick="handleTowerClick(1)"></div>
+                <div class="tower" id="tower2" onclick="handleTowerClick(2)"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span id="moveCount" style="font-size:13px; font-weight:bold;">Số nước đi: 0</span>
+                <button class="btn-style-2" style="width:auto; padding:6px 15px; font-size:12px;" onclick="initHanoiGame()">Chơi lại</button>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <button id="btnPrint" class="btn-print" onclick="window.print()">🖨️ In kết quả</button>
+    <button id="btnPrint" class="btn-print" onclick="window.print()">In kết quả</button>
 
     <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
     <p id="txt_intro" style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
-    <!-- ================= TRANG 1: CẤU HÌNH BAN ĐẦU ================= -->
+    <!-- TRANG 1 -->
     <div id="step1">
         <div class="form-group">
             <label id="txt_lbl_obj" for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
             <select id="loai_tinh">
-                <option value="1" id="txt_opt1">1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)</option>
+                <option value="1" id="txt_opt1">1. Học sinh TH-THCS-THPT & Học viên K01, K02 (Cộng trung bình các môn)</option>
                 <option value="2" id="txt_opt2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
             </select>
         </div>
 
         <div class="form-group">
             <label id="txt_lbl_num" for="so_nguoi">Nhập số lượng người cần tính điểm:</label>
-            <input type="number" id="so_nguoi" min="1" value="1">
+            <input type="number" id="so_nguoi" min="1" value="1" required>
         </div>
 
-        <button id="txt_btn_step1" class="btn-main" onclick="chuyenSangTrang2()">✨ Tiếp tục: Nhập số môn học ✨</button>
+        <!-- BÀN BẤM KHÔNG ICON THEO HÌNH 2 -->
+        <button id="txt_btn_step1" class="btn-main" onclick="chuyenSangTrang2()">Nhập số môn học</button>
     </div>
 
-    <!-- ================= TRANG 2: NHẬP SỐ MÔN HỌC TỪNG NGƯỜI ================= -->
+    <!-- TRANG 2 -->
     <div id="step2" class="hidden">
         <h3 id="txt_step2_title">Bước 2: Nhập số lượng môn học của từng người</h3>
         <div id="form-so-mon-container"></div>
         
         <div>
-            <button id="txt_btn_back1" class="btn-back" onclick="quayLaiTrang(1)">⬅ Sửa lại Trang 1</button>
-            <button id="txt_btn_step2" class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang3()">✨ Tiếp tục: Nhập tên môn & điểm ✨</button>
+            <button id="txt_btn_back1" class="btn-back" onclick="quayLaiTrang(1)">Sửa lại Trang 1</button>
+            <button id="txt_btn_step2" class="btn-main" style="width: auto;" onclick="chuyenSangTrang3()">Nhập tên Môn và Điểm</button>
         </div>
     </div>
 
-    <!-- ================= TRANG 3: ĐIỀN TÊN MÔN HỌC & ĐIỂM ================= -->
+    <!-- TRANG 3 -->
     <div id="step3" class="hidden">
         <h3 id="txt_step3_title">Bước 3: Lập danh sách tên môn học & Điểm số</h3>
         <div id="form-chi-tiet-container"></div>
 
         <div>
-            <button id="txt_btn_back2" class="btn-back" onclick="quayLaiTrang(2)">⬅ Sửa lại Trang 2</button>
-            <button id="txt_btn_step3" class="btn-main" style="width: auto; padding: 12px 24px;" onclick="chuyenSangTrang4()">📊 Tính điểm & Xuất Bảng Kết Quả 📊</button>
+            <button id="txt_btn_back2" class="btn-back" onclick="quayLaiTrang(2)">Sửa lại Trang 2</button>
+            <button id="txt_btn_step3" class="btn-main" style="width: auto;" onclick="chuyenSangTrang4()">Tính điểm & Xuất bảng kết quả</button>
         </div>
     </div>
 
-    <!-- ================= TRANG 4: BẢNG KẾT QUẢ CUỐI CÙNG ================= -->
+    <!-- TRANG 4 -->
     <div id="step4" class="hidden">
-        <div id="resultCard" class="card">
-            <!-- Nội dung bảng kết quả từng người sẽ hiển thị ở đây -->
-        </div>
+        <div id="resultCard" class="card"></div>
 
         <div id="paginationNav" class="pagination-container hidden">
-            <button id="btnPrevUser" class="btn-nav" onclick="chuyenNguoiDisplay(-1)">⬅ Người trước</button>
+            <button id="btnPrevUser" class="btn-nav" onclick="chuyenNguoiDisplay(-1)">Người trước</button>
             <span id="userPageIndicator" style="font-weight: bold; color: #4a235a;"></span>
-            <button id="btnNextUser" class="btn-nav" onclick="chuyenNguoiDisplay(1)">Người tiếp theo ➡</button>
+            <button id="btnNextUser" class="btn-nav" onclick="chuyenNguoiDisplay(1)">Người tiếp theo</button>
         </div>
 
         <div style="margin-top: 20px;">
-            <button id="txt_btn_back3" class="btn-back" onclick="quayLaiTrang(3)">⬅ Sửa lại thông tin nhập liệu (Trang 3)</button>
-            <button id="txt_btn_reset" class="btn-back" style="background-color: #c0392b;" onclick="location.reload()">🔄 Nhập lại từ đầu</button>
+            <button id="txt_btn_back3" class="btn-back" onclick="quayLaiTrang(3)">Sửa lại thông tin nhập liệu (Trang 3)</button>
+            <button id="txt_btn_reset" class="btn-main" style="width: auto; background-color: #e74c3c;" onclick="location.reload()">Nhập lại từ đầu</button>
         </div>
     </div>
 </div>
 
 <script>
-    // CÁC BIẾN TOÀN CỤC LƯU TRỮ DỮ LIỆU
-    let loaiTinhVal = 1;
-    let soNguoiVal = 1;
-    let dsSoMonTungNguoi = [];
-    let dsThongTinNguoiDung = [];
-    let currentUserIndex = 0;
-    let currentLang = 'vi';
+    /* 1. KHỞI TẠO FAVICON ĐỘNG VÀ TITLE ĐỘNG "B.Đ.B" */
+    let faviconAngle = 0;
+    function animateFavicon() {
+        const canvas = document.getElementById('faviconCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        ctx.clearRect(0, 0, 32, 32);
 
-    // TỰ ĐỘNG PHÁT NHẠC EVENINGLAND - ESCAPE NGAY KHI LOAD TRANG
+        // Nền bo góc
+        ctx.fillStyle = '#ff1744';
+        ctx.beginPath();
+        ctx.roundRect(0, 0, 32, 32, 6);
+        ctx.fill();
+
+        // Chữ "B.Đ.B" lắc lư động
+        ctx.save();
+        ctx.translate(16, 16);
+        ctx.rotate((Math.sin(faviconAngle) * 12 * Math.PI) / 180);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 10px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('B.Đ.B', 0, 1);
+        ctx.restore();
+
+        // Cập nhật thẻ favicon
+        let link = document.querySelector("link[rel*='icon']");
+        if (!link) {
+            link = document.createElement('link');
+            link.rel = 'shortcut icon';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+        link.href = canvas.toDataURL('image/png');
+
+        faviconAngle += 0.1;
+        requestAnimationFrame(animateFavicon);
+    }
+    animateFavicon();
+
+    /* 2. LOGIC TỰ ĐỘNG PHÁT NHẠC */
     window.addEventListener('DOMContentLoaded', function() {
         let audio = document.getElementById('bgAudio');
-        audio.volume = 0.6; // Đặt âm lượng 60% vừa phải
-        
+        audio.volume = 0.5;
         let playPromise = audio.play();
         if (playPromise !== undefined) {
-            playPromise.catch(function(error) {
-                // Nếu trình duyệt chặn tự động phát tiếng, phát ngay khi người dùng click chuột đầu tiên
-                document.body.addEventListener('click', function startAudioOnInteraction() {
+            playPromise.catch(function() {
+                document.body.addEventListener('click', function startAudio() {
                     audio.play();
-                    document.body.removeEventListener('click', startAudioOnInteraction);
+                    document.body.removeEventListener('click', startAudio);
                 }, { once: true });
             });
         }
     });
 
-    // BỘ DỮ LIỆU DỊCH ĐA NGÔN NGỮ
+    let loaiTinhVal = 1, soNguoiVal = 1;
+    let dsSoMonTungNguoi = [], dsThongTinNguoiDung = [];
+    let currentUserIndex = 0, currentLang = 'vi';
+
     const i18n = {
         vi: {
             title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
             intro: "Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!",
             lbl_obj: "Mời bạn chọn đối tượng tính điểm:",
-            opt1: "1. Học sinh TH-THCS-THPT & Học viên hệ đại học huấn luyện đầu khóa tại K01, K02 (Cộng trung bình các môn)",
+            opt1: "1. Học sinh TH-THCS-THPT & Học viên K01, K02 (Cộng trung bình các môn)",
             opt2: "2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)",
             lbl_num: "Nhập số lượng người cần tính điểm:",
-            btn_step1: "✨ Tiếp tục: Nhập số môn học ✨",
+            btn_step1: "Nhập số môn học",
             step2_title: "Bước 2: Nhập số lượng môn học của từng người",
-            btn_back1: "⬅ Sửa lại Trang 1",
-            btn_step2: "✨ Tiếp tục: Nhập tên môn & điểm ✨",
+            btn_back1: "Sửa lại Trang 1",
+            btn_step2: "Nhập tên Môn và Điểm",
             step3_title: "Bước 3: Lập danh sách tên môn học & Điểm số",
-            btn_back2: "⬅ Sửa lại Trang 2",
-            btn_step3: "📊 Tính điểm & Xuất Bảng Kết Quả 📊",
-            btn_back3: "⬅ Sửa lại thông tin nhập liệu (Trang 3)",
-            btn_reset: "🔄 Nhập lại từ đầu",
-            btn_print: "🖨️ In kết quả",
+            btn_back2: "Sửa lại Trang 2",
+            btn_step3: "Tính điểm & Xuất bảng kết quả",
+            btn_back3: "Sửa lại thông tin nhập liệu (Trang 3)",
+            btn_reset: "Nhập lại từ đầu",
+            btn_print: "In kết quả",
             person: "Người thứ",
             num_courses: "Số lượng môn học trong học kỳ:",
             fullname: "Họ và tên:",
@@ -608,260 +772,11 @@
             dtb_avg: "ĐIỂM TRUNG BÌNH CỘNG",
             dtb_tc: "ĐIỂM TRUNG BÌNH TÍN CHỈ",
             res_title: "BẢNG KẾT QUẢ HỌC TẬP",
-            prev_user: "⬅ Người trước",
-            next_user: "Người tiếp theo ➡"
-        },
-        en: {
-            title: "ACADEMIC RESULT DATA CALCULATOR",
-            intro: "Hello, I am <b>valeriebui</b>. This tool will help you calculate your semester results!",
-            lbl_obj: "Select calculation target:",
-            opt1: "1. High School & Basic Training Academy Cadets (Average of subjects)",
-            opt2: "2. University / Postgraduate Students (Credit-based system)",
-            lbl_num: "Enter number of people:",
-            btn_step1: "✨ Continue: Enter number of subjects ✨",
-            step2_title: "Step 2: Enter number of subjects for each person",
-            btn_back1: "⬅ Edit Step 1",
-            btn_step2: "✨ Continue: Enter subject names & scores ✨",
-            step3_title: "Step 3: Enter subject names & scores",
-            btn_back2: "⬅ Edit Step 2",
-            btn_step3: "📊 Calculate & Export Results 📊",
-            btn_back3: "⬅ Edit input data (Step 3)",
-            btn_reset: "🔄 Start over",
-            btn_print: "🖨️ Print Results",
-            person: "Person #",
-            num_courses: "Number of subjects in semester:",
-            fullname: "Full Name:",
-            stt: "No.",
-            subject_name: "Subject Name",
-            credits: "Credits",
-            score: "Score",
-            bonus: "+ Bonus Points (if any):",
-            dtb_avg: "GPA (AVERAGE)",
-            dtb_tc: "GPA (CREDIT-BASED)",
-            res_title: "ACADEMIC RESULT SHEET",
-            prev_user: "⬅ Previous Person",
-            next_user: "Next Person ➡"
-        },
-        zh: {
-            title: "学期学习成绩数据计算器",
-            intro: "你好，我是 <b>valeriebui</b>。以下工具将帮助您计算学期成绩！",
-            lbl_obj: "请选择计算对象：",
-            opt1: "1. 中小学生及初级培训学员（各科平均分）",
-            opt2: "2. 本科生或研究生（按学分计算）",
-            lbl_num: "请输入需要计算的人数：",
-            btn_step1: "✨ 继续：输入科目数量 ✨",
-            step2_title: "第二步：输入每个人的科目数量",
-            btn_back1: "⬅ 修改第一步",
-            btn_step2: "✨ 继续：输入科目名称和分数 ✨",
-            step3_title: "第三步：填写科目名称和分数列表",
-            btn_back2: "⬅ 修改第二步",
-            btn_step3: "📊 计算分值并输出结果表 📊",
-            btn_back3: "⬅ 修改输入数据（第三步）",
-            btn_reset: "🔄 重新开始",
-            btn_print: "🖨️ 打印结果",
-            person: "第几位：",
-            num_courses: "本学期科目数量：",
-            fullname: "姓名：",
-            stt: "序号",
-            subject_name: "科目名称",
-            credits: "学分",
-            score: "分数",
-            bonus: "+ 奖励分（如有）：",
-            dtb_avg: "平均分 (GPA)",
-            dtb_tc: "学分加权平均分",
-            res_title: "学习成绩表",
-            prev_user: "⬅ 上一位",
-            next_user: "下一位 ➡"
-        },
-        ru: {
-            title: "КАЛЬКУЛЯТОР УЧЕБНЫХ РЕЗУЛЬТАТОВ ЗА СЕМЕСТР",
-            intro: "Привет, я <b>valeriebui</b>. Этот инструмент поможет вам рассчитать успеваемость!",
-            lbl_obj: "Выберите категорию обучающихся:",
-            opt1: "1. Школьники и курсанты начальной подготовки (Средний балл)",
-            opt2: "2. Студенты вузов и аспиранты (Зачетные единицы/кредиты)",
-            lbl_num: "Введите количество человек:",
-            btn_step1: "✨ Далее: Ввести количество предметов ✨",
-            step2_title: "Шаг 2: Введите количество предметов для каждого",
-            btn_back1: "⬅ Изменить Шаг 1",
-            btn_step2: "✨ Далее: Названия предметов и оценки ✨",
-            step3_title: "Шаг 3: Введите названия предметов и оценки",
-            btn_back2: "⬅ Изменить Шаг 2",
-            btn_step3: "📊 Рассчитать и вывести результаты 📊",
-            btn_back3: "⬅ Изменить данные (Шаг 3)",
-            btn_reset: "🔄 Начать заново",
-            btn_print: "🖨️ Печать результатов",
-            person: "Человек №",
-            num_courses: "Количество предметов в семестре:",
-            fullname: "ФИО:",
-            stt: "№",
-            subject_name: "Предмет",
-            credits: "Кредиты",
-            score: "Оценка",
-            bonus: "+ Бонусные баллы:",
-            dtb_avg: "СРЕДНИЙ БАЛЛ",
-            dtb_tc: "СРЕДНИЙ БАЛЛ (КРЕДИТНЫЙ)",
-            res_title: "ВЕДОМОСТЬ УСПЕВАЕМОСТИ",
-            prev_user: "⬅ Предыдущий",
-            next_user: "Следующий ➡"
-        },
-        es: {
-            title: "CALCULADORA DE RESULTADOS ACADÉMICOS",
-            intro: "Hola, soy <b>valeriebui</b>. ¡Esta herramienta te ayudará a calcular tus resultados!",
-            lbl_obj: "Selecciona el objeto de cálculo:",
-            opt1: "1. Estudiantes de secundaria y cadetes (Promedio simple)",
-            opt2: "2. Estudiantes universitarios / posgrado (Sistema de créditos)",
-            lbl_num: "Ingrese el número de personas:",
-            btn_step1: "✨ Continuar: Número de asignaturas ✨",
-            step2_title: "Paso 2: Ingrese número de asignaturas por persona",
-            btn_back1: "⬅ Modificar Paso 1",
-            btn_step2: "✨ Continuar: Nombres y notas ✨",
-            step3_title: "Paso 3: Lista de asignaturas y calificaciones",
-            btn_back2: "⬅ Modificar Paso 2",
-            btn_step3: "📊 Calcular y exportar resultados 📊",
-            btn_back3: "⬅ Modificar datos (Paso 3)",
-            btn_reset: "🔄 Reiniciar",
-            btn_print: "🖨️ Imprimir resultados",
-            person: "Persona N°",
-            num_courses: "Cantidad de asignaturas:",
-            fullname: "Nombre completo:",
-            stt: "N°",
-            subject_name: "Asignatura",
-            credits: "Créditos",
-            score: "Nota",
-            bonus: "+ Puntos de bonificación:",
-            dtb_avg: "PROMEDIO GENERAL",
-            dtb_tc: "PROMEDIO POR CRÉDITOS",
-            res_title: "BOLETÍN DE CALIFICACIONES",
-            prev_user: "⬅ Anterior",
-            next_user: "Siguiente ➡"
-        },
-        fr: {
-            title: "CALCULATEUR DE RÉSULTATS ACADÉMIQUES",
-            intro: "Bonjour, je suis <b>valeriebui</b>. Cet outil vous aidera à calculer vos résultats!",
-            lbl_obj: "Sélectionnez la catégorie:",
-            opt1: "1. Élèves du secondaire et cadets (Moyenne simple)",
-            opt2: "2. Étudiants universitaires / post-grade (Système de crédits)",
-            lbl_num: "Entrez le nombre de personnes:",
-            btn_step1: "✨ Continuer: Nombre de matières ✨",
-            step2_title: "Étape 2: Nombre de matières pour chaque personne",
-            btn_back1: "⬅ Modifier Étape 1",
-            btn_step2: "✨ Continuer: Noms des matières & notes ✨",
-            step3_title: "Étape 3: Noms des matières et notes",
-            btn_back2: "⬅ Modifier Étape 2",
-            btn_step3: "📊 Calculer & afficher les résultats 📊",
-            btn_back3: "⬅ Modifier les données (Étape 3)",
-            btn_reset: "🔄 Recommencer",
-            btn_print: "🖨️ Imprimer les résultats",
-            person: "Personne N°",
-            num_courses: "Nombre de matières dans le semestre:",
-            fullname: "Nom et prénom:",
-            stt: "N°",
-            subject_name: "Matière",
-            credits: "Crédits",
-            score: "Note",
-            bonus: "+ Points bonus:",
-            dtb_avg: "MOYENNE GÉNÉRALE",
-            dtb_tc: "MOYENNE PONDÉRÉE (CRÉDITS)",
-            res_title: "RELEVÉ DE NOTES",
-            prev_user: "⬅ Précédent",
-            next_user: "Suivant ➡"
-        },
-        pt: {
-            title: "CALCULADORA DE RESULTADOS ACADÊMICOS",
-            intro: "Olá, eu sou <b>valeriebui</b>. Esta ferramenta ajudará a calcular seus resultados!",
-            lbl_obj: "Selecione o perfil de cálculo:",
-            opt1: "1. Ensino Fundamental/Médio e Cadetes (Média simples)",
-            opt2: "2. Estudantes Universitários (Sistema de créditos)",
-            lbl_num: "Insira a quantidade de pessoas:",
-            btn_step1: "✨ Continuar: Inserir quantidade de disciplinas ✨",
-            step2_title: "Passo 2: Inserir quantidade de disciplinas por pessoa",
-            btn_back1: "⬅ Editar Passo 1",
-            btn_step2: "✨ Continuar: Nomes das disciplinas e notas ✨",
-            step3_title: "Passo 3: Lista de disciplinas e notas",
-            btn_back2: "⬅ Editar Passo 2",
-            btn_step3: "📊 Calcular e exibir resultados 📊",
-            btn_back3: "⬅ Editar dados (Passo 3)",
-            btn_reset: "🔄 Recomeçar",
-            btn_print: "🖨️ Imprimir resultados",
-            person: "Pessoa N°",
-            num_courses: "Quantidade de disciplinas:",
-            fullname: "Nome completo:",
-            stt: "N°",
-            subject_name: "Disciplina",
-            credits: "Créditos",
-            score: "Nota",
-            bonus: "+ Pontos bônus:",
-            dtb_avg: "MÉDIA GERAL",
-            dtb_tc: "MÉDIA PONDERADA (CRÉDITOS)",
-            res_title: "BOLETIM ACADÊMICO",
-            prev_user: "⬅ Anterior",
-            next_user: "Próximo ➡"
-        },
-        sa: {
-            title: "शैक्षणिक-परिणाम-गणकम्",
-            intro: "नमस्ते, अहम् <b>valeriebui</b> अस्मि। एतत् साधनं भवतां परिणामगणने सहायं करिष्यति!",
-            lbl_obj: "गणनावर्गं चिनोतु:",
-            opt1: "1. विद्यालयछात्राः (साधारण-औसतम्)",
-            opt2: "2. विश्वविद्यालयछात्राः (क्रेडिट-प्रणाली)",
-            lbl_num: "जनानां सङ्ख्यां लिखतु:",
-            btn_step1: "✨ अग्रेसरतु: विषयाणां सङ्ख्या ✨",
-            step2_title: "द्वितीयः सोपानः: प्रत्येकमनुसारेण विषयाणां सङ्ख्या",
-            btn_back1: "⬅ प्रथमसोपानस्य संशोधनम्",
-            btn_step2: "✨ अग्रेसरतु: विषयनामानि अङ्काः च ✨",
-            step3_title: "तृतीयः सोपानः: विषयनामानि अङ्काः च",
-            btn_back2: "⬅ द्वितीयसोपानस्य संशोधनम्",
-            btn_step3: "📊 गणनां कुरुत परिणामं च पश्यन्तु 📊",
-            btn_back3: "⬅ विवरणस्य संशोधनम् (तृतीयसोपानः)",
-            btn_reset: "🔄 पुनः प्रारभताम्",
-            btn_print: "🖨️ मुद्रणम् कुरुत",
-            person: "जनः",
-            num_courses: "विषयाणां सङ्ख्या:",
-            fullname: "पूर्णं नाम:",
-            stt: "क्र.",
-            subject_name: "विषयस्य नाम",
-            credits: "क्रेडिट्-अङ्काः",
-            score: "प्राप्ताङ्काः",
-            bonus: "+ बोनस-अङ्काः:",
-            dtb_avg: "सामान्य-औसत-अङ्कः",
-            dtb_tc: "क्रेडिट-आधारित-औसत-अङ्कः",
-            res_title: "अङ्कपत्रम्",
-            prev_user: "⬅ पूर्वतनः",
-            next_user: "अग्रिमः ➡"
-        },
-        ar: {
-            title: "حاسبة نتائج البيانات الأكاديمية",
-            intro: "مرحبًا، أنا <b>valeriebui</b>. ستساعدك هذه الأداة في حساب نتائجك الأكاديمية!",
-            lbl_obj: "يرجى تحديد فئة الحساب:",
-            opt1: "1. طلاب المدارس والمتدربون (المعدل التراكمي العام)",
-            opt2: "2. طلاب الجامعات والدراسات العليا (نظام الساعات المعتمدة)",
-            lbl_num: "أدخل عدد الأشخاص:",
-            btn_step1: "✨ المتابعة: إدخال عدد المواد ✨",
-            step2_title: "الخطوة 2: إدخال عدد المواد لكل شخص",
-            btn_back1: "⬅ تعديل الخطوة 1",
-            btn_step2: "✨ المتابعة: إدخال أسماء المواد والدرجات ✨",
-            step3_title: "الخطوة 3: قائمة أسماء المواد والدرجات",
-            btn_back2: "⬅ تعديل الخطوة 2",
-            btn_step3: "📊 حساب النتائج وإخراج الجدول 📊",
-            btn_back3: "⬅ تعديل البيانات (الخطوة 3)",
-            btn_reset: "🔄 البدء من جديد",
-            btn_print: "🖨️ طباعة النتائج",
-            person: "الشخص رقم",
-            num_courses: "عدد المواد في الفصل الدراسي:",
-            fullname: "الاسم الكامل:",
-            stt: "م",
-            subject_name: "اسم المادة",
-            credits: "الساعات المعتمدة",
-            score: "الدرجة",
-            bonus: "+ نقاط مكافأة (إن وجدت):",
-            dtb_avg: "المعدل العام",
-            dtb_tc: "المعدل التراكمي (بالساعات)",
-            res_title: "كشف الدرجات الأكاديمي",
-            prev_user: "⬅ السابق",
-            next_user: "التالي ➡"
+            prev_user: "Người trước",
+            next_user: "Người tiếp theo"
         }
     };
 
-    // PHÁT NHẠC VÀ TẮT NHẠC
     function playMusic(fileMp3) {
         let audio = document.getElementById('bgAudio');
         audio.src = fileMp3;
@@ -876,28 +791,23 @@
         document.getElementById('musicPopup').style.display = 'none';
     }
 
-    // QUẢN LÝ POPUP
     function togglePopup(popupId) {
         let bgP = document.getElementById('bgPopup');
         let langP = document.getElementById('langPopup');
         let musicP = document.getElementById('musicPopup');
 
         if (popupId === 'bgPopup') {
-            langP.style.display = 'none';
-            musicP.style.display = 'none';
+            langP.style.display = 'none'; musicP.style.display = 'none';
             bgP.style.display = (bgP.style.display === 'flex') ? 'none' : 'flex';
         } else if (popupId === 'langPopup') {
-            bgP.style.display = 'none';
-            musicP.style.display = 'none';
+            bgP.style.display = 'none'; musicP.style.display = 'none';
             langP.style.display = (langP.style.display === 'flex') ? 'none' : 'flex';
         } else if (popupId === 'musicPopup') {
-            bgP.style.display = 'none';
-            langP.style.display = 'none';
+            bgP.style.display = 'none'; langP.style.display = 'none';
             musicP.style.display = (musicP.style.display === 'flex') ? 'none' : 'flex';
         }
     }
 
-    // ĐÓNG POPUP KHI CLICK RA NGOÀI
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.tool-btn-wrapper')) {
             document.getElementById('bgPopup').style.display = 'none';
@@ -906,7 +816,6 @@
         }
     });
 
-    // CÀI ĐẶT HÌNH NỀN
     function setBgImage(fileName) {
         document.body.style.backgroundImage = `url('${fileName}')`;
         document.getElementById('bgPopup').style.display = 'none';
@@ -918,11 +827,9 @@
         document.getElementById('bgPopup').style.display = 'none';
     }
 
-    // DỊCH GIAO DIỆN SANG NGÔN NGỮ ĐƯỢC CHỌN
     function translateLang(langCode) {
         currentLang = langCode;
         let t = i18n[langCode] || i18n['vi'];
-
         document.getElementById('txt_title').innerText = t.title;
         document.getElementById('txt_intro').innerHTML = t.intro;
         document.getElementById('txt_lbl_obj').innerText = t.lbl_obj;
@@ -939,33 +846,24 @@
         document.getElementById('txt_btn_back3').innerText = t.btn_back3;
         document.getElementById('txt_btn_reset').innerText = t.btn_reset;
         document.getElementById('btnPrint').innerText = t.btn_print;
-
-        if (langCode === 'ar') {
-            document.body.style.direction = 'rtl';
-        } else {
-            document.body.style.direction = 'ltr';
-        }
-
-        if (!document.getElementById('step2').classList.contains('hidden')) chuyenSangTrang2();
-        if (!document.getElementById('step3').classList.contains('hidden')) chuyenSangTrang3();
-        if (!document.getElementById('step4').classList.contains('hidden')) capNhatBangKetQuaUser(currentUserIndex);
-
         document.getElementById('langPopup').style.display = 'none';
     }
 
-    // --- CHUYỂN SANG TRANG 2 ---
+    /* 4. ĐIỀU KIỆN BẮT BUỘC NHẬP FORM (VALIDATION) */
     function chuyenSangTrang2() {
         loaiTinhVal = parseInt(document.getElementById('loai_tinh').value);
-        soNguoiVal = parseInt(document.getElementById('so_nguoi').value);
-        let t = i18n[currentLang] || i18n['vi'];
+        let inputSoNguoi = document.getElementById('so_nguoi');
+        soNguoiVal = parseInt(inputSoNguoi.value);
 
-        if (isNaN(soNguoiVal) || soNguoiVal <= 0) {
+        if (!inputSoNguoi.value || isNaN(soNguoiVal) || soNguoiVal <= 0) {
             alert('Vui lòng nhập số lượng người hợp lệ!');
+            inputSoNguoi.focus();
             return;
         }
 
         let container = document.getElementById('form-so-mon-container');
         container.innerHTML = '';
+        let t = i18n[currentLang] || i18n['vi'];
 
         for (let i = 0; i < soNguoiVal; i++) {
             let valCu = dsSoMonTungNguoi[i] || 5;
@@ -973,25 +871,25 @@
             card.className = 'card';
             card.innerHTML = `
                 <div class="form-group">
-                    <label>👤 ${t.person} ${i + 1} - ${t.num_courses}</label>
-                    <input type="number" id="so_mon_nguoi_${i}" min="1" value="${valCu}">
+                    <label>${t.person} ${i + 1} - ${t.num_courses}</label>
+                    <input type="number" id="so_mon_nguoi_${i}" min="1" value="${valCu}" required>
                 </div>
             `;
             container.appendChild(card);
         }
-
         hienThiTrang(2);
     }
 
-    // --- CHUYỂN SANG TRANG 3 ---
     function chuyenSangTrang3() {
         dsSoMonTungNguoi = [];
         let t = i18n[currentLang] || i18n['vi'];
 
         for (let i = 0; i < soNguoiVal; i++) {
-            let sm = parseInt(document.getElementById(`so_mon_nguoi_${i}`).value);
-            if (isNaN(sm) || sm <= 0) {
-                alert(`Vui lòng nhập số môn hợp lệ cho người thứ ${i + 1}!`);
+            let el = document.getElementById(`so_mon_nguoi_${i}`);
+            let sm = parseInt(el.value);
+            if (!el.value || isNaN(sm) || sm <= 0) {
+                alert(`Vui lòng điền số môn học cho người thứ ${i + 1}!`);
+                el.focus();
                 return;
             }
             dsSoMonTungNguoi.push(sm);
@@ -1005,37 +903,30 @@
             let card = document.createElement('div');
             card.className = 'card';
             
-            let html = `<h4>👤 ${t.person} ${i + 1}</h4>`;
+            let html = `<h4>${t.person} ${i + 1}</h4>`;
             let tenCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].ten) ? dsThongTinNguoiDung[i].ten : '';
-            html += `<div class="form-group"><label>${t.fullname}</label><input type="text" id="ten_user_${i}" value="${tenCu}" placeholder="${t.fullname}"></div>`;
+            html += `<div class="form-group"><label>${t.fullname} (*)</label><input type="text" id="ten_user_${i}" value="${tenCu}" placeholder="${t.fullname}" required></div>`;
 
             html += `
                 <table>
                     <thead>
                         <tr>
                             <th style="width: 10%;">${t.stt}</th>
-                            <th style="width: ${loaiTinhVal === 2 ? '45%' : '50%'};">${t.subject_name}</th>
-                            ${loaiTinhVal === 2 ? `<th style="width: 15%;">${t.credits}</th>` : ''}
-                            <th style="width: ${loaiTinhVal === 2 ? '30%' : '40%'};">${t.score}</th>
+                            <th style="width: ${loaiTinhVal === 2 ? '45%' : '50%'};">${t.subject_name} (*)</th>
+                            ${loaiTinhVal === 2 ? `<th style="width: 15%;">${t.credits} (*)</th>` : ''}
+                            <th style="width: ${loaiTinhVal === 2 ? '30%' : '40%'};">${t.score} (*)</th>
                         </tr>
                     </thead>
                     <tbody>
             `;
 
             for (let m = 1; m <= sm; m++) {
-                let tenMonCu = '', tcCu = 1, diemCu = '';
-                if (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].dsMon && dsThongTinNguoiDung[i].dsMon[m-1]) {
-                    tenMonCu = dsThongTinNguoiDung[i].dsMon[m-1].tenMon || '';
-                    tcCu = dsThongTinNguoiDung[i].dsMon[m-1].tc || 1;
-                    diemCu = dsThongTinNguoiDung[i].dsMon[m-1].diem !== undefined ? dsThongTinNguoiDung[i].dsMon[m-1].diem : '';
-                }
-
                 html += `
                     <tr>
                         <td><b>${m}</b></td>
-                        <td class="ten-mon-col"><input type="text" id="ten_mon_${i}_${m}" value="${tenMonCu}" placeholder="${t.subject_name} ${m}"></td>
-                        ${loaiTinhVal === 2 ? `<td><input type="number" min="1" id="tc_${i}_${m}" value="${tcCu}"></td>` : ''}
-                        <td><input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" value="${diemCu}" placeholder="0 - 10"></td>
+                        <td class="ten-mon-col"><input type="text" id="ten_mon_${i}_${m}" placeholder="${t.subject_name} ${m}" required></td>
+                        ${loaiTinhVal === 2 ? `<td><input type="number" min="1" id="tc_${i}_${m}" value="1" required></td>` : ''}
+                        <td><input type="number" step="0.1" min="0" max="10" id="diem_${i}_${m}" placeholder="0 - 10" required></td>
                     </tr>
                 `;
             }
@@ -1045,11 +936,10 @@
                 </table>
             `;
 
-            let thuongCu = (dsThongTinNguoiDung[i] && dsThongTinNguoiDung[i].thuong !== undefined) ? dsThongTinNguoiDung[i].thuong : 0;
             html += `
                 <div class="form-group" style="margin-top: 15px;">
                     <label>${t.bonus}</label>
-                    <input type="number" step="0.1" min="0" id="thuong_${i}" value="${thuongCu}">
+                    <input type="number" step="0.1" min="0" id="thuong_${i}" value="0">
                 </div>
             `;
 
@@ -1060,12 +950,49 @@
         hienThiTrang(3);
     }
 
-    // --- CHUYỂN SANG TRANG 4 (TÍNH ĐIỂM & IN KẾT QUẢ) ---
     function chuyenSangTrang4() {
         dsThongTinNguoiDung = [];
 
+        // Kiểm tra bắt buộc điền đầy đủ
         for (let i = 0; i < soNguoiVal; i++) {
-            let ten = document.getElementById(`ten_user_${i}`).value.trim() || `Người số ${i + 1}`;
+            let tenEl = document.getElementById(`ten_user_${i}`);
+            if (!tenEl.value.trim()) {
+                alert(`Vui lòng nhập Họ và tên cho Người thứ ${i + 1}!`);
+                tenEl.focus();
+                return;
+            }
+
+            let sm = dsSoMonTungNguoi[i];
+            for (let m = 1; m <= sm; m++) {
+                let monEl = document.getElementById(`ten_mon_${i}_${m}`);
+                let diemEl = document.getElementById(`diem_${i}_${m}`);
+                
+                if (!monEl.value.trim()) {
+                    alert(`Vui lòng nhập Tên môn học thứ ${m} của ${tenEl.value}!`);
+                    monEl.focus();
+                    return;
+                }
+
+                if (diemEl.value === "" || isNaN(parseFloat(diemEl.value))) {
+                    alert(`Vui lòng nhập Điểm số hợp lệ môn ${monEl.value}!`);
+                    diemEl.focus();
+                    return;
+                }
+
+                if (loaiTinhVal === 2) {
+                    let tcEl = document.getElementById(`tc_${i}_${m}`);
+                    if (!tcEl.value || parseInt(tcEl.value) <= 0) {
+                        alert(`Vui lòng nhập Số tín chỉ môn ${monEl.value}!`);
+                        tcEl.focus();
+                        return;
+                    }
+                }
+            }
+        }
+
+        // Đã hợp lệ -> Tính toán kết quả
+        for (let i = 0; i < soNguoiVal; i++) {
+            let ten = document.getElementById(`ten_user_${i}`).value.trim();
             let thuong = parseFloat(document.getElementById(`thuong_${i}`).value) || 0;
             let sm = dsSoMonTungNguoi[i];
             
@@ -1074,12 +1001,12 @@
             let tongTC = 0;
 
             for (let m = 1; m <= sm; m++) {
-                let tenMon = document.getElementById(`ten_mon_${i}_${m}`).value.trim() || `Môn ${m}`;
-                let diem = parseFloat(document.getElementById(`diem_${i}_${m}`).value) || 0;
+                let tenMon = document.getElementById(`ten_mon_${i}_${m}`).value.trim();
+                let diem = parseFloat(document.getElementById(`diem_${i}_${m}`).value);
                 let tc = 1;
 
                 if (loaiTinhVal === 2) {
-                    tc = parseInt(document.getElementById(`tc_${i}_${m}`).value) || 1;
+                    tc = parseInt(document.getElementById(`tc_${i}_${m}`).value);
                     tongDiemOrProduct += (diem * tc);
                     tongTC += tc;
                 } else {
@@ -1089,36 +1016,22 @@
                 dsMon.push({ tenMon: tenMon, tc: tc, diem: diem });
             }
 
-            let dtb = 0;
-            if (loaiTinhVal === 1) {
-                dtb = (tongDiemOrProduct / sm) + thuong;
-            } else {
-                dtb = (tongTC > 0 ? (tongDiemOrProduct / tongTC) : 0) + thuong;
-            }
+            let dtb = (loaiTinhVal === 1) ? ((tongDiemOrProduct / sm) + thuong) : (((tongTC > 0 ? tongDiemOrProduct / tongTC : 0)) + thuong);
             if (dtb > 10.0) dtb = 10.0;
 
-            dsThongTinNguoiDung.push({
-                ten: ten,
-                dsMon: dsMon,
-                thuong: thuong,
-                dtb: dtb
-            });
+            dsThongTinNguoiDung.push({ ten: ten, dsMon: dsMon, thuong: thuong, dtb: dtb });
         }
 
         currentUserIndex = 0;
         capNhatBangKetQuaUser(currentUserIndex);
 
         let paginationNav = document.getElementById('paginationNav');
-        if (soNguoiVal >= 2) {
-            paginationNav.classList.remove('hidden');
-        } else {
-            paginationNav.classList.add('hidden');
-        }
+        if (soNguoiVal >= 2) paginationNav.classList.remove('hidden');
+        else paginationNav.classList.add('hidden');
 
         hienThiTrang(4);
     }
 
-    // --- CẬP NHẬT GIAO DIỆN BẢNG KẾT QUẢ ---
     function capNhatBangKetQuaUser(index) {
         let u = dsThongTinNguoiDung[index];
         let card = document.getElementById('resultCard');
@@ -1128,7 +1041,7 @@
 
         let html = `
             <h3 style="text-align: center; margin-bottom: 5px;">${t.res_title}</h3>
-            <p style="text-align: center; margin-top: 0;"><b>${t.fullname}</b> <span style="color: #8e44ad; font-size: 16px;">${u.ten}</span></p>
+            <p style="text-align: center; margin-top: 0;"><b>${t.fullname}</b> <span style="color: #00c853; font-size: 16px;">${u.ten}</span></p>
             
             <table>
                 <thead>
@@ -1169,14 +1082,11 @@
 
         if (soNguoiVal >= 2) {
             document.getElementById('userPageIndicator').innerText = `${t.person} ${index + 1} / ${soNguoiVal}`;
-            document.getElementById('btnPrevUser').innerText = t.prev_user;
-            document.getElementById('btnNextUser').innerText = t.next_user;
             document.getElementById('btnPrevUser').disabled = (index === 0);
             document.getElementById('btnNextUser').disabled = (index === soNguoiVal - 1);
         }
     }
 
-    // --- CHUYỂN NGƯỜI TRONG TRANG KẾT QUẢ ---
     function chuyenNguoiDisplay(direction) {
         currentUserIndex += direction;
         if (currentUserIndex < 0) currentUserIndex = 0;
@@ -1184,12 +1094,8 @@
         capNhatBangKetQuaUser(currentUserIndex);
     }
 
-    // --- QUAY LẠI TRANG TRƯỚC ---
-    function quayLaiTrang(stepNumber) {
-        hienThiTrang(stepNumber);
-    }
+    function quayLaiTrang(stepNumber) { hienThiTrang(stepNumber); }
 
-    // --- HÀM ẨN/HIỆN TRANG VÀ NÚT IN ---
     function hienThiTrang(stepNumber) {
         document.getElementById('step1').classList.add('hidden');
         document.getElementById('step2').classList.add('hidden');
@@ -1199,11 +1105,80 @@
         document.getElementById(`step${stepNumber}`).classList.remove('hidden');
 
         let btnPrint = document.getElementById('btnPrint');
-        if (stepNumber === 4) {
-            btnPrint.style.display = 'block';
-        } else {
-            btnPrint.style.display = 'none';
+        btnPrint.style.display = (stepNumber === 4) ? 'block' : 'none';
+    }
+
+    /* 5. GAME THÁP HÀ NỘI TRÊN POPUP CỬA SỔ WEB */
+    let hanoiState = [[3, 2, 1], [], []];
+    let selectedTower = null;
+    let hanoiMoves = 0;
+    const diskColors = ['#e74c3c', '#f1c40f', '#2ecc71'];
+
+    function openGameModal() {
+        document.getElementById('gameModal').classList.remove('hidden');
+        initHanoiGame();
+    }
+
+    function closeGameModal() {
+        document.getElementById('gameModal').classList.add('hidden');
+    }
+
+    function initHanoiGame() {
+        hanoiState = [[3, 2, 1], [], []];
+        selectedTower = null;
+        hanoiMoves = 0;
+        document.getElementById('moveCount').innerText = 'Số nước đi: 0';
+        renderHanoiTowers();
+    }
+
+    function renderHanoiTowers() {
+        for (let i = 0; i < 3; i++) {
+            const towerEl = document.getElementById(`tower${i}`);
+            towerEl.innerHTML = '';
+            hanoiState[i].forEach((diskSize) => {
+                const disk = document.createElement('div');
+                disk.className = 'disk';
+                disk.style.width = `${diskSize * 25 + 25}%`;
+                disk.style.backgroundColor = diskColors[diskSize - 1];
+                if (selectedTower === i && diskSize === hanoiState[i][hanoiState[i].length - 1]) {
+                    disk.classList.add('selected');
+                }
+                towerEl.appendChild(disk);
+            });
         }
+    }
+
+    function handleTowerClick(towerIdx) {
+        if (selectedTower === null) {
+            if (hanoiState[towerIdx].length > 0) {
+                selectedTower = towerIdx;
+            }
+        } else {
+            if (selectedTower === towerIdx) {
+                selectedTower = null;
+            } else {
+                const fromStack = hanoiState[selectedTower];
+                const toStack = hanoiState[towerIdx];
+                const diskToMove = fromStack[fromStack.length - 1];
+
+                if (toStack.length === 0 || toStack[toStack.length - 1] > diskToMove) {
+                    toStack.push(fromStack.pop());
+                    hanoiMoves++;
+                    document.getElementById('moveCount').innerText = `Số nước đi: ${hanoiMoves}`;
+                    selectedTower = null;
+
+                    if (hanoiState[2].length === 3) {
+                        setTimeout(() => {
+                            alert(`🎉 CHÚC MỪNG BẠN ĐÃ THẮNG TRÒ CHƠI SAU ${hanoiMoves} NƯỚC ĐI!`);
+                        }, 200);
+                    }
+                } else {
+                    alert(' Đĩa lớn hơn không thể đặt lên đĩa nhỏ hơn!');
+                    selectedTower = null;
+                }
+            }
+        }
+        renderHanoiTowers();
     }
 </script>
 
