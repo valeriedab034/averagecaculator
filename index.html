@@ -94,7 +94,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* CÁC NÚT TRÒN SOCIAL & GAME: BỎ XOAY, PHÓNG TO KHI RÊ CHUỘT SÁT */
+        /* CÁC NÚT TRÒN SOCIAL & GAME: PHÓNG TO KHI RÊ CHUỘT, KHÔNG XOAY */
         .circle-btn {
             width: 44px;
             height: 44px;
@@ -113,7 +113,6 @@
             font-size: 18px;
         }
 
-        /* PHÓNG TO NÚT MƯỢT MÀ VÀ ĐỔI MÀU (KHÔNG XOAY) */
         .circle-btn:hover {
             transform: scale(1.2);
             background: #00e676;
@@ -126,7 +125,7 @@
             content: attr(data-tooltip);
             position: absolute;
             top: 50%;
-            right: 100%; /* Căn từ cạnh trái (tâm) của nút sang bên trái */
+            right: 100%;
             transform: translateY(-50%) translateX(-8px);
             background: #2c3e50;
             color: #fff;
@@ -143,7 +142,7 @@
 
         .circle-btn:hover::after {
             opacity: 1;
-            transform: translateY(-50%) translateX(-12px); /* Trượt nhẹ sang trái khi hiện */
+            transform: translateY(-50%) translateX(-12px);
         }
 
         .tool-btn-wrapper {
@@ -484,7 +483,6 @@
             font-size: 13px;
         }
 
-        /* KHUNG CHỨA CỌC & ĐĨA */
         .hanoi-container {
             display: flex;
             justify-content: space-around;
@@ -517,7 +515,6 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* HIỆU ỨNG ĐĨA 3D VÀ ANIMATION TRƯỢT TỰ NHIÊN */
         .disk {
             height: 19px;
             border-radius: 10px;
@@ -560,7 +557,7 @@
 <!-- CÔNG CỤ TRÁI -->
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
-        <button class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
+        <button id="lbl_btn_bg" class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
         <div id="bgPopup" class="tool-popup">
             <button onclick="setBgColor('#fce4ec')">Màu hồng pastel (Mặc định)</button>
             <button onclick="setBgImage('11.jpg')">1. Thảo nguyên Nalati, Tân Cương</button>
@@ -572,7 +569,7 @@
     </div>
 
     <div class="tool-btn-wrapper">
-        <button class="btn-lang-picker" onclick="togglePopup('langPopup')">Dịch</button>
+        <button id="lbl_btn_lang" class="btn-lang-picker" onclick="togglePopup('langPopup')">Dịch</button>
         <div id="langPopup" class="tool-popup">
             <button onclick="translateLang('vi')">Tiếng Việt</button>
             <button onclick="translateLang('en')">English</button>
@@ -587,37 +584,32 @@
     </div>
 </div>
 
-<!-- BỘ CÔNG CỤ PHẢI: PHÓNG TO KHI RÊ CHUỘT SÁT, CHÚ THÍCH HIỆN TỪ TÂM SANG TRÁI -->
+<!-- BỘ CÔNG CỤ PHẢI -->
 <div class="bottom-right-tools">
     <div class="social-group">
-        <!-- Nút Trò chơi Tower of Hanoi -->
         <button class="circle-btn" data-tooltip="Game: Tower of Hanoi" onclick="openGameModal()">
             <i class="fa-solid fa-gamepad"></i>
         </button>
 
-        <!-- Link Facebook -->
         <a href="https://fb.com/iambuidobinh" target="_blank" class="circle-btn" data-tooltip="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
         </a>
 
-        <!-- Link YouTube -->
         <a href="https://www.youtube.com/@buiobinh5083" target="_blank" class="circle-btn" data-tooltip="YouTube">
             <i class="fa-brands fa-youtube"></i>
         </a>
 
-        <!-- Link Instagram -->
         <a href="https://instagram.com/buidobinh" target="_blank" class="circle-btn" data-tooltip="Instagram">
             <i class="fa-brands fa-instagram"></i>
         </a>
     </div>
 
-    <!-- Nút Phát nhạc -->
     <div class="tool-btn-wrapper">
         <button class="circle-btn" style="background:#9b59b6; color:#fff;" onclick="togglePopup('musicPopup')">
             <i class="fa-solid fa-music"></i>
         </button>
         <div id="musicPopup" class="tool-popup popup-right">
-            <button onclick="stopMusic()">Tắt nhạc</button>
+            <button id="lbl_music_off" onclick="stopMusic()">Tắt nhạc</button>
             <button onclick="playMusic('eveningland.mp3')">1. Eveningland - Escape</button>
             <button onclick="playMusic('escspe.mp3')">2. Disfigure - Blank</button>
             <button onclick="playMusic('feelgood.mp3')">3. Feel Good - Syn Cole</button>
@@ -637,13 +629,13 @@
         </div>
         <div class="game-body">
             <div class="game-config">
-                <label for="diskCountInput">Số đĩa:</label>
+                <label id="lbl_game_disks" for="diskCountInput">Số đĩa:</label>
                 <input type="number" id="diskCountInput" min="1" max="10" value="3" onchange="initHanoiGame()">
-                <button class="btn-style-2" style="width:auto; padding:6px 14px; font-size:12px; margin:0;" onclick="initHanoiGame()">Bắt đầu lại</button>
+                <button id="lbl_btn_restart" class="btn-style-2" style="width:auto; padding:6px 14px; font-size:12px; margin:0;" onclick="initHanoiGame()">Bắt đầu lại</button>
                 <button id="btnAutoPlay" class="btn-style-2 hidden" style="width:auto; padding:6px 14px; font-size:12px; margin:0; background-color:#3498db; color:#fff;" onclick="startAutoPlay()">Chơi mẫu tự động</button>
             </div>
 
-            <p style="font-size: 12px; margin: 5px 0 0 0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!</p>
+            <p id="lbl_game_guide" style="font-size: 12px; margin: 5px 0 0 0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!</p>
             
             <div class="hanoi-container">
                 <div class="tower" id="tower0" onclick="handleTowerClick(0)"></div>
@@ -777,6 +769,7 @@
     let dsSoMonTungNguoi = [], dsThongTinNguoiDung = [];
     let currentUserIndex = 0, currentLang = 'vi';
 
+    /* BỘ TỪ ĐIỂN DỊCH ĐA NGÔN NGỮ HOÀN CHỈNH */
     const i18n = {
         vi: {
             title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
@@ -807,7 +800,318 @@
             dtb_tc: "ĐIỂM TRUNG BÌNH TÍN CHỈ",
             res_title: "BẢNG KẾT QUẢ HỌC TẬP",
             prev_user: "Người trước",
-            next_user: "Người tiếp theo"
+            next_user: "Người tiếp theo",
+            btn_bg: "Hình nền",
+            btn_lang: "Dịch",
+            music_off: "Tắt nhạc",
+            game_disks: "Số đĩa:",
+            game_restart: "Bắt đầu lại",
+            game_auto: "Chơi mẫu tự động",
+            game_guide: "Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!"
+        },
+        en: {
+            title: "ACADEMIC RESULT DATA CALCULATOR",
+            intro: "Hello, I am <b>valeriebui</b>. This tool will help you calculate your semester results!",
+            lbl_obj: "Select calculation target:",
+            opt1: "1. High School & Basic Training Cadets (Average of subjects)",
+            opt2: "2. University / Postgraduate Students (Credit-based system)",
+            lbl_num: "Enter number of people:",
+            btn_step1: "Enter number of subjects",
+            step2_title: "Step 2: Enter number of subjects for each person",
+            btn_back1: "Edit Step 1",
+            btn_step2: "Enter subject names & scores",
+            step3_title: "Step 3: Enter subject names & scores",
+            btn_back2: "Edit Step 2",
+            btn_step3: "Calculate & Export Results",
+            btn_back3: "Edit input data (Step 3)",
+            btn_reset: "Start over",
+            btn_print: "Print Results",
+            person: "Person #",
+            num_courses: "Number of subjects in semester:",
+            fullname: "Full Name:",
+            stt: "No.",
+            subject_name: "Subject Name",
+            credits: "Credits",
+            score: "Score",
+            bonus: "+ Bonus Points:",
+            dtb_avg: "GPA (AVERAGE)",
+            dtb_tc: "GPA (CREDIT-BASED)",
+            res_title: "ACADEMIC RESULT SHEET",
+            prev_user: "Previous Person",
+            next_user: "Next Person",
+            btn_bg: "Background",
+            btn_lang: "Language",
+            music_off: "Mute Music",
+            game_disks: "Disks:",
+            game_restart: "Restart",
+            game_auto: "Auto Solution",
+            game_guide: "Click a tower to lift/drop disk. Move all disks from Tower 1 to 3!"
+        },
+        zh: {
+            title: "学期学习成绩数据计算器",
+            intro: "你好，我是 <b>valeriebui</b>。以下工具将帮助您计算学期成绩！",
+            lbl_obj: "请选择计算对象：",
+            opt1: "1. 中小学生及初级培训学员（各科平均分）",
+            opt2: "2. 本科生或研究生（按学分计算）",
+            lbl_num: "请输入需要计算的人数：",
+            btn_step1: "输入科目数量",
+            step2_title: "第二步：输入每个人的科目数量",
+            btn_back1: "修改第一步",
+            btn_step2: "输入科目名称和分数",
+            step3_title: "第三步：填写科目名称和分数列表",
+            btn_back2: "修改第二步",
+            btn_step3: "计算分值并输出结果表",
+            btn_back3: "修改输入数据（第三步）",
+            btn_reset: "重新开始",
+            btn_print: "打印结果",
+            person: "第几位：",
+            num_courses: "本学期科目数量：",
+            fullname: "姓名：",
+            stt: "序号",
+            subject_name: "科目名称",
+            credits: "学分",
+            score: "分数",
+            bonus: "+ 奖励分：",
+            dtb_avg: "平均分 (GPA)",
+            dtb_tc: "学分加权平均分",
+            res_title: "学习成绩表",
+            prev_user: "上一位",
+            next_user: "下一位",
+            btn_bg: "背景",
+            btn_lang: "语言",
+            music_off: "关闭音乐",
+            game_disks: "圆盘数量：",
+            game_restart: "重新开始",
+            game_auto: "自动演示",
+            game_guide: "点击柱子拾取/放下圆盘。将所有圆盘从柱子1移动到柱子3！"
+        },
+        ru: {
+            title: "КАЛЬКУЛЯТОР УЧЕБНЫХ РЕЗУЛЬТАТОВ ЗА СЕМЕСТР",
+            intro: "Привет, я <b>valeriebui</b>. Этот инструмент поможет вам рассчитать успеваемость!",
+            lbl_obj: "Выберите категорию обучающихся:",
+            opt1: "1. Школьники и курсанты начальной подготовки (Средний балл)",
+            opt2: "2. Студенты вузов и аспиранты (Зачетные единицы/кредиты)",
+            lbl_num: "Введите количество человек:",
+            btn_step1: "Ввести количество предметов",
+            step2_title: "Шаг 2: Введите количество предметов для каждого",
+            btn_back1: "Изменить Шаг 1",
+            btn_step2: "Названия предметов и оценки",
+            step3_title: "Шаг 3: Введите названия предметов и оценки",
+            btn_back2: "Изменить Шаг 2",
+            btn_step3: "Рассчитать и вывести результаты",
+            btn_back3: "Изменить данные (Шаг 3)",
+            btn_reset: "Начать заново",
+            btn_print: "Печать результатов",
+            person: "Человек №",
+            num_courses: "Количество предметов в семестре:",
+            fullname: "ФИО:",
+            stt: "№",
+            subject_name: "Предмет",
+            credits: "Кредиты",
+            score: "Оценка",
+            bonus: "+ Бонусные баллы:",
+            dtb_avg: "СРЕДНИЙ БАЛЛ",
+            dtb_tc: "СРЕДНИЙ БАЛЛ (КРЕДИТНЫЙ)",
+            res_title: "ВЕДОМОСТЬ УСПЕВАЕМОСТИ",
+            prev_user: "Предыдущий",
+            next_user: "Следующий",
+            btn_bg: "Фон",
+            btn_lang: "Язык",
+            music_off: "Выкл. музыку",
+            game_disks: "Диски:",
+            game_restart: "Заново",
+            game_auto: "Авто-показ",
+            game_guide: "Кликните на башню, чтобы поднять/опустить диск. Переместите все диски с 1 на 3!"
+        },
+        es: {
+            title: "CALCULADORA DE RESULTADOS ACADÉMICOS",
+            intro: "Hola, soy <b>valeriebui</b>. ¡Esta herramienta te ayudará a calcular tus resultados!",
+            lbl_obj: "Selecciona el objeto de cálculo:",
+            opt1: "1. Estudiantes de secundaria y cadetes (Promedio simple)",
+            opt2: "2. Estudiantes universitarios / posgrado (Sistema de créditos)",
+            lbl_num: "Ingrese el número de personas:",
+            btn_step1: "Número de asignaturas",
+            step2_title: "Paso 2: Ingrese número de asignaturas por persona",
+            btn_back1: "Modificar Paso 1",
+            btn_step2: "Nombres y notas",
+            step3_title: "Paso 3: Lista de asignaturas y calificaciones",
+            btn_back2: "Modificar Paso 2",
+            btn_step3: "Calcular y exportar resultados",
+            btn_back3: "Modificar datos (Paso 3)",
+            btn_reset: "Reiniciar",
+            btn_print: "Imprimir resultados",
+            person: "Persona N°",
+            num_courses: "Cantidad de asignaturas:",
+            fullname: "Nombre completo:",
+            stt: "N°",
+            subject_name: "Asignatura",
+            credits: "Créditos",
+            score: "Nota",
+            bonus: "+ Puntos bonus:",
+            dtb_avg: "PROMEDIO GENERAL",
+            dtb_tc: "PROMEDIO POR CRÉDITOS",
+            res_title: "BOLETÍN DE CALIFICACIONES",
+            prev_user: "Anterior",
+            next_user: "Siguiente",
+            btn_bg: "Fondo",
+            btn_lang: "Idioma",
+            music_off: "Mute",
+            game_disks: "Discos:",
+            game_restart: "Reiniciar",
+            game_auto: "Solución auto",
+            game_guide: "Haz clic en una torre para mover. ¡Pasa todos los discos de la torre 1 a la 3!"
+        },
+        fr: {
+            title: "CALCULATEUR DE RÉSULTATS ACADÉMIQUES",
+            intro: "Bonjour, je suis <b>valeriebui</b>. Cet outil vous aidera à calculer vos résultats!",
+            lbl_obj: "Sélectionnez la catégorie:",
+            opt1: "1. Élèves du secondaire et cadets (Moyenne simple)",
+            opt2: "2. Étudiants universitaires / post-grade (Système de crédits)",
+            lbl_num: "Entrez le nombre de personnes:",
+            btn_step1: "Nombre de matières",
+            step2_title: "Étape 2: Nombre de matières pour chaque personne",
+            btn_back1: "Modifier Étape 1",
+            btn_step2: "Noms des matières & notes",
+            step3_title: "Étape 3: Noms des matières et notes",
+            btn_back2: "Modifier Étape 2",
+            btn_step3: "Calculer & afficher les résultats",
+            btn_back3: "Modifier les données (Étape 3)",
+            btn_reset: "Recommencer",
+            btn_print: "Imprimer les résultats",
+            person: "Personne N°",
+            num_courses: "Nombre de matières:",
+            fullname: "Nom et prénom:",
+            stt: "N°",
+            subject_name: "Matière",
+            credits: "Crédits",
+            score: "Note",
+            bonus: "+ Points bonus:",
+            dtb_avg: "MOYENNE GÉNÉRALE",
+            dtb_tc: "MOYENNE PONDÉRÉE (CRÉDITS)",
+            res_title: "RELEVÉ DE NOTES",
+            prev_user: "Précédent",
+            next_user: "Suivant",
+            btn_bg: "Fond",
+            btn_lang: "Langue",
+            music_off: "Couper musique",
+            game_disks: "Disques:",
+            game_restart: "Recommencer",
+            game_auto: "Auto solution",
+            game_guide: "Cliquez sur une tour pour déplacer un disque de la tour 1 vers la 3!"
+        },
+        pt: {
+            title: "CALCULADORA DE RESULTADOS ACADÊMICOS",
+            intro: "Olá, eu sou <b>valeriebui</b>. Esta ferramenta ajudará a calcular seus resultados!",
+            lbl_obj: "Selecione o perfil de cálculo:",
+            opt1: "1. Ensino Fundamental/Médio e Cadetes (Média simples)",
+            opt2: "2. Estudantes Universitários (Sistema de créditos)",
+            lbl_num: "Insira a quantidade de pessoas:",
+            btn_step1: "Quantidade de disciplinas",
+            step2_title: "Passo 2: Inserir quantidade de disciplinas por pessoa",
+            btn_back1: "Editar Passo 1",
+            btn_step2: "Nomes das disciplinas e notas",
+            step3_title: "Passo 3: Lista de disciplinas e notas",
+            btn_back2: "Editar Passo 2",
+            btn_step3: "Calcular e exibir resultados",
+            btn_back3: "Editar dados (Passo 3)",
+            btn_reset: "Recomeçar",
+            btn_print: "Imprimir resultados",
+            person: "Pessoa N°",
+            num_courses: "Quantidade de disciplinas:",
+            fullname: "Nome completo:",
+            stt: "N°",
+            subject_name: "Disciplina",
+            credits: "Créditos",
+            score: "Nota",
+            bonus: "+ Pontos bônus:",
+            dtb_avg: "MÉDIA GERAL",
+            dtb_tc: "MÉDIA PONDERADA (CRÉDITOS)",
+            res_title: "BOLETIM ACADÊMICO",
+            prev_user: "Anterior",
+            next_user: "Próximo",
+            btn_bg: "Fundo",
+            btn_lang: "Idioma",
+            music_off: "Sem som",
+            game_disks: "Discos:",
+            game_restart: "Recomeçar",
+            game_auto: "Modo auto",
+            game_guide: "Clique na torre para mover. Mova todos os discos da torre 1 para a 3!"
+        },
+        sa: {
+            title: "शैक्षणिक-परिणाम-गणकम्",
+            intro: "नमस्ते, अहम् <b>valeriebui</b> अस्मि। एतत् साधनं भवतां परिणामगणने सहायं करिष्यति!",
+            lbl_obj: "गणनावर्गं चिनोतु:",
+            opt1: "1. विद्यालयछात्राः (साधारण-औसतम्)",
+            opt2: "2. विश्वविद्यालयछात्राः (क्रेडिट-प्रणाली)",
+            lbl_num: "जनानां सङ्ख्यां लिखतु:",
+            btn_step1: "विषयाणां सङ्ख्या",
+            step2_title: "द्वितीयः सोपानः: प्रत्येकमनुसारेण विषयाणां सङ्ख्या",
+            btn_back1: "प्रथमसोपानस्य संशोधनम्",
+            btn_step2: "विषयनामानि अङ्काः च",
+            step3_title: "तृतीयः सोपानः: विषयनामानि अङ्काः च",
+            btn_back2: "द्वितीयसोपानस्य संशोधनम्",
+            btn_step3: "गणनां कुरुत परिणामं च पश्यन्तु",
+            btn_back3: "विवरणस्य संशोधनम् (तृतीयसोपानः)",
+            btn_reset: "पुनः प्रारभताम्",
+            btn_print: "मुद्रणम् कुरुत",
+            person: "जनः",
+            num_courses: "विषयाणां सङ्ख्या:",
+            fullname: "पूर्णं नाम:",
+            stt: "क्र.",
+            subject_name: "विषयस्य नाम",
+            credits: "क्रेडिट्-अङ्काः",
+            score: "प्राप्ताङ्काः",
+            bonus: "+ बोनस-अङ्काः:",
+            dtb_avg: "सामान्य-औसत-अङ्कः",
+            dtb_tc: "क्रेडिट-आधारित-औसत-अङ्कः",
+            res_title: "अङ्कपत्रम्",
+            prev_user: "पूर्वतनः",
+            next_user: "अग्रिमः",
+            btn_bg: "पृष्ठभूमिः",
+            btn_lang: "भाषा",
+            music_off: "संगीतं स्थगयतु",
+            game_disks: "चक्राणि:",
+            game_restart: "पुनः प्रारम्भः",
+            game_auto: "स्वचालित-प्रदर्शनम्",
+            game_guide: "चक्रं चालयितुं स्तम्भं स्पृशतु। सर्वचक्राणि स्तम्भ १ तः स्तम्भ ३ प्रति नयतु!"
+        },
+        ar: {
+            title: "حاسبة نتائج البيانات الأكاديمية",
+            intro: "مرحبًا، أنا <b>valeriebui</b>. ستساعدك هذه الأداة في حساب نتائجك الأكاديمية!",
+            lbl_obj: "يرجى تحديد فئة الحساب:",
+            opt1: "1. طلاب المدارس والمتدربون (المعدل التراكمي العام)",
+            opt2: "2. طلاب الجامعات والدراسات العليا (نظام الساعات المعتمدة)",
+            lbl_num: "أدخل عدد الأشخاص:",
+            btn_step1: "إدخال عدد المواد",
+            step2_title: "الخطوة 2: إدخال عدد المواد لكل شخص",
+            btn_back1: "تعديل الخطوة 1",
+            btn_step2: "إدخال أسماء المواد والدرجات",
+            step3_title: "الخطوة 3: قائمة أسماء المواد والدرجات",
+            btn_back2: "تعديل الخطوة 2",
+            btn_step3: "حساب النتائج وإخراج الجدول",
+            btn_back3: "تعديل البيانات (الخطوة 3)",
+            btn_reset: "البدء من جديد",
+            btn_print: "طباعة النتائج",
+            person: "الشخص رقم",
+            num_courses: "عدد المواد في الفصل الدراسي:",
+            fullname: "الاسم الكامل:",
+            stt: "م",
+            subject_name: "اسم المادة",
+            credits: "الساعات المعتمدة",
+            score: "الدرجة",
+            bonus: "+ نقاط مكافأة:",
+            dtb_avg: "المعدل العام",
+            dtb_tc: "المعدل التراكمي (بالساعات)",
+            res_title: "كشف الدرجات الأكاديمي",
+            prev_user: "السابق",
+            next_user: "التالي",
+            btn_bg: "الخلفية",
+            btn_lang: "اللغة",
+            music_off: "إيقاف الموسيقى",
+            game_disks: "الأقراص:",
+            game_restart: "إعادة البدء",
+            game_auto: "عرض تلقائي",
+            game_guide: "انقر على البرج لنقل القرص. انقول كافة الأقراص من البرج 1 إلى 3!"
         }
     };
 
@@ -861,9 +1165,11 @@
         document.getElementById('bgPopup').style.display = 'none';
     }
 
+    /* HÀM DỊCH GIAO DIỆN CHUẨN XÁC */
     function translateLang(langCode) {
         currentLang = langCode;
         let t = i18n[langCode] || i18n['vi'];
+
         document.getElementById('txt_title').innerText = t.title;
         document.getElementById('txt_intro').innerHTML = t.intro;
         document.getElementById('txt_lbl_obj').innerText = t.lbl_obj;
@@ -880,6 +1186,26 @@
         document.getElementById('txt_btn_back3').innerText = t.btn_back3;
         document.getElementById('txt_btn_reset').innerText = t.btn_reset;
         document.getElementById('btnPrint').innerText = t.btn_print;
+
+        // Dịch các nhãn công cụ & game
+        document.getElementById('lbl_btn_bg').innerText = t.btn_bg;
+        document.getElementById('lbl_btn_lang').innerText = t.btn_lang;
+        document.getElementById('lbl_music_off').innerText = t.music_off;
+        document.getElementById('lbl_game_disks').innerText = t.game_disks;
+        document.getElementById('lbl_btn_restart').innerText = t.game_restart;
+        document.getElementById('btnAutoPlay').innerText = t.game_auto;
+        document.getElementById('lbl_game_guide').innerText = t.game_guide;
+
+        if (langCode === 'ar') {
+            document.body.style.direction = 'rtl';
+        } else {
+            document.body.style.direction = 'ltr';
+        }
+
+        if (!document.getElementById('step2').classList.contains('hidden')) chuyenSangTrang2();
+        if (!document.getElementById('step3').classList.contains('hidden')) chuyenSangTrang3();
+        if (!document.getElementById('step4').classList.contains('hidden')) capNhatBangKetQuaUser(currentUserIndex);
+
         document.getElementById('langPopup').style.display = 'none';
     }
 
