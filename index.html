@@ -94,7 +94,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* CÁC NÚT TRÒN SOCIAL & GAME */
+        /* CÁC NÚT TRÒN SOCIAL & GAME: BỎ XOAY, PHÓNG TO KHI RÊ CHUỘT SÁT */
         .circle-btn {
             width: 44px;
             height: 44px;
@@ -108,35 +108,42 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.25s ease, color 0.25s ease;
             position: relative;
             font-size: 18px;
         }
 
+        /* PHÓNG TO NÚT MƯỢT MÀ VÀ ĐỔI MÀU (KHÔNG XOAY) */
         .circle-btn:hover {
-            transform: scale(1.15) rotate(360deg);
+            transform: scale(1.2);
             background: #00e676;
             color: #fff;
+            box-shadow: 0 6px 15px rgba(0,230,118,0.4);
         }
 
+        /* CHÚ THÍCH (TOOLTIP) MỞ TỪ TÂM NÚT BẤM SANG TRÁI */
         .circle-btn::after {
             content: attr(data-tooltip);
             position: absolute;
-            right: 55px;
-            background: #333;
+            top: 50%;
+            right: 100%; /* Căn từ cạnh trái (tâm) của nút sang bên trái */
+            transform: translateY(-50%) translateX(-8px);
+            background: #2c3e50;
             color: #fff;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s;
+            transition: opacity 0.25s ease, transform 0.25s ease;
             font-family: 'Merriweather', serif;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .circle-btn:hover::after {
             opacity: 1;
+            transform: translateY(-50%) translateX(-12px); /* Trượt nhẹ sang trái khi hiện */
         }
 
         .tool-btn-wrapper {
@@ -517,15 +524,12 @@
             z-index: 2;
             margin-bottom: 2px;
             position: relative;
-            /* Gradient & Shadow tạo hình nét 3D */
             background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.15) 100%);
             box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.6), inset 0 -2px 3px rgba(0,0,0,0.4);
             border: 1px solid rgba(0, 0, 0, 0.2);
-            /* Chuyển động nâng đĩa lên 0.3s & bay trượt sang cọc 0.4s mượt mà */
             transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), top 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* NÂNG ĐĨA KHI BẤM TRONG 0.3s VÀO CỌC */
         .disk.selected {
             transform: translateY(-32px) scale(1.03);
             box-shadow: 0 12px 20px rgba(0,0,0,0.45), inset 0 1px 3px rgba(255,255,255,0.8);
@@ -583,7 +587,7 @@
     </div>
 </div>
 
-<!-- BỘ CÔNG CỤ PHẢI -->
+<!-- BỘ CÔNG CỤ PHẢI: PHÓNG TO KHI RÊ CHUỘT SÁT, CHÚ THÍCH HIỆN TỪ TÂM SANG TRÁI -->
 <div class="bottom-right-tools">
     <div class="social-group">
         <!-- Nút Trò chơi Tower of Hanoi -->
@@ -1136,16 +1140,15 @@
         btnPrint.style.display = (stepNumber === 4) ? 'block' : 'none';
     }
 
-    /* 5. LOGIC GAME TOWER OF HANOI (ANIMATION TRƯỢT SANG CỌC MỤC TIÊU 0.4S) */
+    /* 5. LOGIC GAME TOWER OF HANOI (ANIMATION TRƯỢT 0.4S) */
     let hanoiState = [[], [], []];
     let selectedTower = null;
     let hanoiMoves = 0;
     let totalDisks = 3;
     let isAutoPlaying = false;
-    let isAnimating = false; // Cờ khóa thao tác khi đĩa đang bay
+    let isAnimating = false;
     let autoPlayTimeouts = [];
 
-    // Bảng màu gradient sắc nét 3D cho các đĩa
     const diskColors = [
         '#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', 
         '#1abc9c', '#3498db', '#9b59b6', '#e84393', '#d35400', '#2c3e50'
@@ -1205,7 +1208,6 @@
                 disk.style.width = `${widthPercent}%`;
                 disk.style.backgroundColor = diskColors[(diskSize - 1) % diskColors.length];
                 
-                // Hiệu ứng nhấc đĩa 0.3s khi chọn cọc
                 if (selectedTower === i && diskSize === hanoiState[i][hanoiState[i].length - 1]) {
                     disk.classList.add('selected');
                 }
@@ -1232,7 +1234,6 @@
         }
     }
 
-    /* HIỆU ỨNG TRƯỢT BAY SANG CỌC ĐÍCH TRONG 0.4s */
     function moveDiskWithAnimation(from, to, callback = null) {
         const fromStack = hanoiState[from];
         const toStack = hanoiState[to];
@@ -1244,20 +1245,16 @@
         if (toStack.length === 0 || toStack[toStack.length - 1] > diskToMove) {
             isAnimating = true;
             
-            // Lấy phần tử đĩa đang được nâng
             const fromTowerEl = document.getElementById(`tower${from}`);
             const toTowerEl = document.getElementById(`tower${to}`);
             const diskEl = fromTowerEl.lastElementChild;
 
             if (diskEl) {
-                // Tính tọa độ trượt từ cọc cũ sang cọc mới
                 const fromRect = diskEl.getBoundingClientRect();
                 const toRect = toTowerEl.getBoundingClientRect();
                 
-                // Khoảng cách trượt ngang
                 const deltaX = (toRect.left + toRect.width / 2) - (fromRect.left + fromRect.width / 2);
 
-                // Áp dụng animation trượt ngang và thả rơi trong 0.4s
                 diskEl.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                 diskEl.style.transform = `translate(${deltaX}px, 0px) scale(1)`;
 
@@ -1271,13 +1268,12 @@
 
                     if (callback) callback();
 
-                    // Kiểm tra điều kiện thắng
                     if (hanoiState[2].length === totalDisks && !isAutoPlaying) {
                         setTimeout(() => {
                             alert(`Chúc mừng bạn đã chiến thắng trò chơi sau ${hanoiMoves} nước đi!`);
                         }, 100);
                     }
-                }, 400); // 0.4s trượt hoàn tất
+                }, 400);
             }
         } else {
             alert('Bạn chơi sai luật! Không thể đặt đĩa lớn hơn lên trên đĩa nhỏ hơn.');
@@ -1286,7 +1282,6 @@
         }
     }
 
-    /* CHƠI MẪU TỰ ĐỘNG VỚI ANIMATION TRƯỢT 0.4S */
     function startAutoPlay() {
         initHanoiGame();
         isAutoPlaying = true;
@@ -1325,7 +1320,7 @@
                     currentMoveIndex++;
                     executeNextMove();
                 });
-            }, 300); // Đợi 0.3s sau khi nhấc đĩa rồi trượt sang
+            }, 300);
             autoPlayTimeouts.push(t);
         }
 
