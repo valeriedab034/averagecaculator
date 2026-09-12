@@ -94,7 +94,7 @@
             backdrop-filter: blur(5px);
         }
 
-        /* CÁC NÚT TRÒN SOCIAL & GAME: PHÓNG TO KHI RÊ CHUỘT, KHÔNG XOAY */
+        /* CÁC NÚT TRÒN SOCIAL & GAME */
         .circle-btn {
             width: 44px;
             height: 44px;
@@ -208,6 +208,7 @@
             font-weight: bold;
         }
 
+        /* KHUNG CHÍNH VỚI HIỆU ỨNG HIỆN TỪ TRÊN XUỐNG VÀ MỜ DẦN */
         .container {
             max-width: 850px;
             margin: 0 auto;
@@ -217,6 +218,20 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             position: relative;
             backdrop-filter: blur(3px);
+            
+            /* ANIMATION TRƯỢT TỪ TRÊN XUỐNG VÀ NỔI LÊN */
+            animation: fadeInDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-35px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
@@ -533,8 +548,120 @@
             z-index: 10;
         }
 
+        /* EFFECT ANIMATION BUTTON: MÁY TÍNH & DẤU BẰNG RUNG CHỐT ĐIỂM */
+        #txt_btn_step3 {
+            position: relative;
+            min-width: 250px;
+            height: 50px;
+            padding: 0 28px;
+            transition: width 0.4s ease, padding 0.4s ease, background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #txt_btn_step3.animating {
+            width: 220px !important;
+            padding: 0 !important;
+            pointer-events: none;
+        }
+
+        .btn-text {
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-text.hidden-text {
+            opacity: 0;
+        }
+
+        .calc-anim-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        #txt_btn_step3.animating .calc-anim-wrapper {
+            opacity: 1;
+        }
+
+        .calc-icon {
+            font-size: 24px;
+            color: #2c3e50;
+            position: absolute;
+            left: 20px;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        #txt_btn_step3.animating .calc-icon {
+            animation: calcAppear 0.4s forwards ease-out 0.2s, calcShake 0.4s 1.2s ease-in-out;
+        }
+
+        .equal-icon {
+            font-size: 22px;
+            font-weight: 900;
+            color: #0056b3;
+            position: absolute;
+            right: 25px;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        #txt_btn_step3.animating .equal-icon {
+            animation: equalMoveBig 0.9s forwards ease-in-out 0.3s;
+        }
+
+        @keyframes calcAppear {
+            0% { opacity: 0; transform: scale(0.3) translateX(-10px); }
+            100% { opacity: 1; transform: scale(1) translateX(0); }
+        }
+
+        @keyframes equalMoveBig {
+            0% { opacity: 0; right: 25px; transform: scale(0.8); }
+            50% { opacity: 1; right: 85px; transform: scale(1.8); color: #27ae60; }
+            80% { opacity: 1; right: 110px; transform: scale(2.2); color: #e74c3c; }
+            100% { opacity: 0; right: 130px; transform: scale(0.5); }
+        }
+
+        @keyframes calcShake {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            20% { transform: scale(1.25) rotate(-12deg); color: #d35400; }
+            40% { transform: scale(1.25) rotate(12deg); color: #27ae60; }
+            60% { transform: scale(1.15) rotate(-8deg); }
+            80% { transform: scale(1.1) rotate(4deg); }
+        }
+
+        /* KHUNG ĐỒNG HỒ & LỊCH Ở CUỐI TRANG WEB */
+        .footer-clock-box {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #bdc3c7;
+            text-align: center;
+            font-size: 13px;
+            color: #34495e;
+            font-family: 'Merriweather', serif;
+        }
+
+        .footer-clock-box i {
+            margin-right: 6px;
+            color: #8e44ad;
+        }
+
+        .footer-clock-box span.time-highlight {
+            font-weight: bold;
+            color: #c0392b;
+        }
+
         @media print {
-            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container, .modal-game {
+            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container, .modal-game, .footer-clock-box {
                 display: none !important;
             }
         }
@@ -662,8 +789,8 @@
         <div class="form-group">
             <label id="txt_lbl_obj" for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
             <select id="loai_tinh">
-                <option value="1" id="txt_opt1">1. Học sinh TH-THCS-THPT & Học viên K01, K02 (Cộng trung bình các môn)</option>
-                <option value="2" id="txt_opt2">2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)</option>
+                <option value="1" id="txt_opt1">1. Tính điểm trung bình (hệ số môn như nhau, dành cho Học sinh phổ thông)</option>
+                <option value="2" id="txt_opt2">2. Sinh viên hệ đại học hoặc cao hơn</option>
             </select>
         </div>
 
@@ -693,7 +820,15 @@
 
         <div>
             <button id="txt_btn_back2" class="btn-back" onclick="quayLaiTrang(2)">Sửa lại Trang 2</button>
-            <button id="txt_btn_step3" class="btn-main" style="width: auto;" onclick="chuyenSangTrang4()">Tính điểm & Xuất bảng kết quả</button>
+            
+            <!-- NÚT ANIMATION MÁY TÍNH & DẤU BẰNG -->
+            <button id="txt_btn_step3" class="btn-main" style="width: auto;" onclick="triggerCalcAnimationAndProceed()">
+                <span class="btn-text">Tính điểm & Xuất bảng kết quả</span>
+                <div class="calc-anim-wrapper">
+                    <i class="fa-solid fa-calculator calc-icon"></i>
+                    <span class="equal-icon">=</span>
+                </div>
+            </button>
         </div>
     </div>
 
@@ -711,6 +846,13 @@
             <button id="txt_btn_back3" class="btn-back" onclick="quayLaiTrang(3)">Sửa lại thông tin nhập liệu (Trang 3)</button>
             <button id="txt_btn_reset" class="btn-main" style="width: auto; background-color: #e74c3c;" onclick="location.reload()">Nhập lại từ đầu</button>
         </div>
+    </div>
+
+    <!-- ĐỒNG HỒ & LỊCH Ở CUỐI KHUNG CONTAINER -->
+    <div class="footer-clock-box">
+        <i class="fa-regular fa-clock"></i> <span id="realtimeClock" class="time-highlight">--:--:--</span> | 
+        <i class="fa-regular fa-calendar-days"></i> <span id="realtimeDate">--/--/----</span> 
+        <span style="font-weight: bold; color: #2980b9;">(GMT +7)</span>
     </div>
 </div>
 
@@ -750,7 +892,23 @@
     }
     animateFavicon();
 
-    /* 2. NHẠC NỀN */
+    /* 2. NHẠC NỀN & LỊCH THỜI GIAN THỰC GMT+7 */
+    function updateRealtimeClock() {
+        const now = new Date();
+        // Định dạng thời gian theo múi giờ Vietnam (GMT+7)
+        const timeOptions = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const dateOptions = { timeZone: 'Asia/Ho_Chi_Minh', day: '2-digit', month: '2-digit', year: 'numeric' };
+
+        const timeStr = now.toLocaleTimeString('vi-VN', timeOptions);
+        const dateStr = now.toLocaleDateString('vi-VN', dateOptions);
+
+        const clockEl = document.getElementById('realtimeClock');
+        const dateEl = document.getElementById('realtimeDate');
+
+        if (clockEl) clockEl.innerText = timeStr;
+        if (dateEl) dateEl.innerText = dateStr;
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
         let audio = document.getElementById('bgAudio');
         audio.volume = 0.5;
@@ -763,20 +921,24 @@
                 }, { once: true });
             });
         }
+
+        // Cập nhật lịch mỗi giây
+        updateRealtimeClock();
+        setInterval(updateRealtimeClock, 1000);
     });
 
     let loaiTinhVal = 1, soNguoiVal = 1;
     let dsSoMonTungNguoi = [], dsThongTinNguoiDung = [];
     let currentUserIndex = 0, currentLang = 'vi';
 
-    /* BỘ TỪ ĐIỂN DỊCH ĐA NGÔN NGỮ HOÀN CHỈNH */
+    /* BỘ TỪ ĐIỂN DỊCH ĐA NGÔN NGỮ */
     const i18n = {
         vi: {
             title: "LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ",
             intro: "Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!",
             lbl_obj: "Mời bạn chọn đối tượng tính điểm:",
-            opt1: "1. Học sinh TH-THCS-THPT & Học viên K01, K02 (Cộng trung bình các môn)",
-            opt2: "2. Sinh viên hệ đại học hoặc sau đại học (Tính theo tín chỉ)",
+            opt1: "1. Tính điểm trung bình (hệ số môn như nhau, dành cho Học sinh phổ thông)",
+            opt2: "2. Sinh viên hệ đại học hoặc cao hơn",
             lbl_num: "Nhập số lượng người cần tính điểm:",
             btn_step1: "Nhập số môn học",
             step2_title: "Bước 2: Nhập số lượng môn học của từng người",
@@ -813,8 +975,8 @@
             title: "ACADEMIC RESULT DATA CALCULATOR",
             intro: "Hello, I am <b>valeriebui</b>. This tool will help you calculate your semester results!",
             lbl_obj: "Select calculation target:",
-            opt1: "1. High School & Basic Training Cadets (Average of subjects)",
-            opt2: "2. University / Postgraduate Students (Credit-based system)",
+            opt1: "1. Calculate average score (equal course weight, for High School students)",
+            opt2: "2. University students or higher",
             lbl_num: "Enter number of people:",
             btn_step1: "Enter number of subjects",
             step2_title: "Step 2: Enter number of subjects for each person",
@@ -851,8 +1013,8 @@
             title: "学期学习成绩数据计算器",
             intro: "你好，我是 <b>valeriebui</b>。以下工具将帮助您计算学期成绩！",
             lbl_obj: "请选择计算对象：",
-            opt1: "1. 中小学生及初级培训学员（各科平均分）",
-            opt2: "2. 本科生或研究生（按学分计算）",
+            opt1: "1. 计算平均分（科目权重相同，适用于普通高中生）",
+            opt2: "2. 本科生或更高学历者",
             lbl_num: "请输入需要计算的人数：",
             btn_step1: "输入科目数量",
             step2_title: "第二步：输入每个人的科目数量",
@@ -889,8 +1051,8 @@
             title: "КАЛЬКУЛЯТОР УЧЕБНЫХ РЕЗУЛЬТАТОВ ЗА СЕМЕСТР",
             intro: "Привет, я <b>valeriebui</b>. Этот инструмент поможет вам рассчитать успеваемость!",
             lbl_obj: "Выберите категорию обучающихся:",
-            opt1: "1. Школьники и курсанты начальной подготовки (Средний балл)",
-            opt2: "2. Студенты вузов и аспиранты (Зачетные единицы/кредиты)",
+            opt1: "1. Расчет среднего балла (для школьников)",
+            opt2: "2. Студенты вузов и выше",
             lbl_num: "Введите количество человек:",
             btn_step1: "Ввести количество предметов",
             step2_title: "Шаг 2: Введите количество предметов для каждого",
@@ -927,8 +1089,8 @@
             title: "CALCULADORA DE RESULTADOS ACADÉMICOS",
             intro: "Hola, soy <b>valeriebui</b>. ¡Esta herramienta te ayudará a calcular tus resultados!",
             lbl_obj: "Selecciona el objeto de cálculo:",
-            opt1: "1. Estudiantes de secundaria y cadetes (Promedio simple)",
-            opt2: "2. Estudiantes universitarios / posgrado (Sistema de créditos)",
+            opt1: "1. Calcular promedio (mismo peso por materia, para estudiantes de secundaria)",
+            opt2: "2. Estudiantes universitarios o superior",
             lbl_num: "Ingrese el número de personas:",
             btn_step1: "Número de asignaturas",
             step2_title: "Paso 2: Ingrese número de asignaturas por persona",
@@ -965,8 +1127,8 @@
             title: "CALCULATEUR DE RÉSULTATS ACADÉMIQUES",
             intro: "Bonjour, je suis <b>valeriebui</b>. Cet outil vous aidera à calculer vos résultats!",
             lbl_obj: "Sélectionnez la catégorie:",
-            opt1: "1. Élèves du secondaire et cadets (Moyenne simple)",
-            opt2: "2. Étudiants universitaires / post-grade (Système de crédits)",
+            opt1: "1. Calculer la moyenne (poids égal par matière, pour élèves du secondaire)",
+            opt2: "2. Étudiants universitaires ou supérieur",
             lbl_num: "Entrez le nombre de personnes:",
             btn_step1: "Nombre de matières",
             step2_title: "Étape 2: Nombre de matières pour chaque personne",
@@ -1003,8 +1165,8 @@
             title: "CALCULADORA DE RESULTADOS ACADÊMICOS",
             intro: "Olá, eu sou <b>valeriebui</b>. Esta ferramenta ajudará a calcular seus resultados!",
             lbl_obj: "Selecione o perfil de cálculo:",
-            opt1: "1. Ensino Fundamental/Médio e Cadetes (Média simples)",
-            opt2: "2. Estudantes Universitários (Sistema de créditos)",
+            opt1: "1. Calcular média (mesmo peso por matéria, para estudantes do ensino médio)",
+            opt2: "2. Estudantes Universitários ou superior",
             lbl_num: "Insira a quantidade de pessoas:",
             btn_step1: "Quantidade de disciplinas",
             step2_title: "Passo 2: Inserir quantidade de disciplinas por pessoa",
@@ -1041,8 +1203,8 @@
             title: "शैक्षणिक-परिणाम-गणकम्",
             intro: "नमस्ते, अहम् <b>valeriebui</b> अस्मि। एतत् साधनं भवतां परिणामगणने सहायं करिष्यति!",
             lbl_obj: "गणनावर्गं चिनोतु:",
-            opt1: "1. विद्यालयछात्राः (साधारण-औसतम्)",
-            opt2: "2. विश्वविद्यालयछात्राः (क्रेडिट-प्रणाली)",
+            opt1: "1. सामान्य-औसत-गणना (माध्यमिक-छात्रेभ्यः)",
+            opt2: "2. विश्वविद्यालय-छात्राः",
             lbl_num: "जनानां सङ्ख्यां लिखतु:",
             btn_step1: "विषयाणां सङ्ख्या",
             step2_title: "द्वितीयः सोपानः: प्रत्येकमनुसारेण विषयाणां सङ्ख्या",
@@ -1079,8 +1241,8 @@
             title: "حاسبة نتائج البيانات الأكاديمية",
             intro: "مرحبًا، أنا <b>valeriebui</b>. ستساعدك هذه الأداة في حساب نتائجك الأكاديمية!",
             lbl_obj: "يرجى تحديد فئة الحساب:",
-            opt1: "1. طلاب المدارس والمتدربون (المعدل التراكمي العام)",
-            opt2: "2. طلاب الجامعات والدراسات العليا (نظام الساعات المعتمدة)",
+            opt1: "1. حساب المعدل العام (لطلاب المدارس)",
+            opt2: "2. طلاب الجامعات أو أعلى",
             lbl_num: "أدخل عدد الأشخاص:",
             btn_step1: "إدخال عدد المواد",
             step2_title: "الخطوة 2: إدخال عدد المواد لكل شخص",
@@ -1182,12 +1344,14 @@
         document.getElementById('txt_btn_step2').innerText = t.btn_step2;
         document.getElementById('txt_step3_title').innerText = t.step3_title;
         document.getElementById('txt_btn_back2').innerText = t.btn_back2;
-        document.getElementById('txt_btn_step3').innerText = t.btn_step3;
+        
+        const btnTextEl = document.querySelector('#txt_btn_step3 .btn-text');
+        if (btnTextEl) btnTextEl.innerText = t.btn_step3;
+
         document.getElementById('txt_btn_back3').innerText = t.btn_back3;
         document.getElementById('txt_btn_reset').innerText = t.btn_reset;
         document.getElementById('btnPrint').innerText = t.btn_print;
 
-        // Dịch các nhãn công cụ & game
         document.getElementById('lbl_btn_bg').innerText = t.btn_bg;
         document.getElementById('lbl_btn_lang').innerText = t.btn_lang;
         document.getElementById('lbl_music_off').innerText = t.music_off;
@@ -1310,9 +1474,8 @@
         hienThiTrang(3);
     }
 
-    function chuyenSangTrang4() {
-        dsThongTinNguoiDung = [];
-
+    /* KÍCH HOẠT ANIMATION MÁY TÍNH & DẤU BẰNG RUNG CHỐT ĐIỂM KHI BẤM NÚT TÍNH ĐIỂM */
+    function triggerCalcAnimationAndProceed() {
         for (let i = 0; i < soNguoiVal; i++) {
             let tenEl = document.getElementById(`ten_user_${i}`);
             if (!tenEl.value.trim()) {
@@ -1348,6 +1511,22 @@
                 }
             }
         }
+
+        const btn = document.getElementById('txt_btn_step3');
+        const btnText = btn.querySelector('.btn-text');
+        
+        btn.classList.add('animating');
+        btnText.classList.add('hidden-text');
+
+        setTimeout(() => {
+            btn.classList.remove('animating');
+            btnText.classList.remove('hidden-text');
+            chuyenSangTrang4();
+        }, 1700);
+    }
+
+    function chuyenSangTrang4() {
+        dsThongTinNguoiDung = [];
 
         for (let i = 0; i < soNguoiVal; i++) {
             let ten = document.getElementById(`ten_user_${i}`).value.trim();
