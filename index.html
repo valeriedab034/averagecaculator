@@ -25,7 +25,7 @@
             background-position: center;
             background-attachment: fixed;
             background-repeat: no-repeat;
-            transition: background 0.3s ease;
+            transition: background 0.4s ease;
         }
 
         /* KHUNG CHỨA MÃ QR CỐ ĐỊNH Ở GÓC TRÊN BÊN PHẢI MÀN HÌNH */
@@ -176,7 +176,9 @@
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-            width: 280px;
+            width: 300px;
+            max-height: 380px;
+            overflow-y: auto;
             padding: 8px 0;
             display: none;
             flex-direction: column;
@@ -200,12 +202,38 @@
             width: 100%;
             margin: 0;
             border-bottom: 1px solid #f2f2f2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .tool-popup button:hover {
             background-color: #f8f9fa;
             color: #00c853;
             font-weight: bold;
+        }
+
+        /* KHUNG HIỂN THỊ THỦY THỦ/MÀU MẪU TRONG POPUP CHỌN MÀU */
+        .color-preview-box {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.15);
+            display: inline-block;
+            flex-shrink: 0;
+        }
+
+        /* ANIMATION NỀN CẦU VỒNG 7 SẮC */
+        @keyframes rainbowBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body.rainbow-active {
+            background: linear-gradient(124deg, #ff2400, #e81e63, #9c27b0, #3f51b5, #2196f3, #009688, #4caf50, #ffeb3b, #ff9800);
+            background-size: 1800% 1800%;
+            animation: rainbowBg 12s ease infinite;
         }
 
         /* KHUNG CHÍNH VỚI HIỆU ỨNG HIỆN TỪ TRÊN XUỐNG VÀ MỜ DẦN */
@@ -685,13 +713,68 @@
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
         <button id="lbl_btn_bg" class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
+        <!-- MENU POPUP 20 MÀU NỀN CỰC ĐẸP (KHÔNG DÙNG ẢNH CHỤP) -->
         <div id="bgPopup" class="tool-popup">
-            <button onclick="setBgColor('#fce4ec')">Màu hồng pastel (Mặc định)</button>
-            <button onclick="setBgImage('11.jpg')">1. Thảo nguyên Nalati, Tân Cương</button>
-            <button onclick="setBgImage('12.jpg')">2. Stamford Bridge, London</button>
-            <button onclick="setBgImage('13.jpg')">3. Chelsea vs Manchester United</button>
-            <button onclick="setBgImage('14.jpg')">4. Hồ Gươm, Hà Nội</button>
-            <button onclick="setBgImage('15.jpg')">5. Dãy núi Thiên Sơn</button>
+            <button onclick="setBgColor('#fce4ec')">
+                <span class="color-preview-box" style="background:#fce4ec;"></span> 1. Hồng Pastel (Mặc định)
+            </button>
+            <button onclick="setBgColor('linear-gradient(124deg, #ff2400, #e81e63, #9c27b0, #3f51b5, #2196f3, #009688, #4caf50, #ffeb3b, #ff9800)', true)">
+                <span class="color-preview-box" style="background:linear-gradient(45deg, red, yellow, green, cyan, blue, violet);"></span> 2. 🌈 Bảy Sắc Cầu Vồng (Động)
+            </button>
+            <button onclick="setBgColor('#e8f8f5')">
+                <span class="color-preview-box" style="background:#e8f8f5;"></span> 3. Xanh Xanh Mint Pastel
+            </button>
+            <button onclick="setBgColor('#eaf2f8')">
+                <span class="color-preview-box" style="background:#eaf2f8;"></span> 4. Xanh Dương Nhạt Soft
+            </button>
+            <button onclick="setBgColor('#fef9e7')">
+                <span class="color-preview-box" style="background:#fef9e7;"></span> 5. Vàng Vani Ấm Áp
+            </button>
+            <button onclick="setBgColor('#f3e5f5')">
+                <span class="color-preview-box" style="background:#f3e5f5;"></span> 6. Tím Oải Hương Lavender
+            </button>
+            <button onclick="setBgColor('#efebe9')">
+                <span class="color-preview-box" style="background:#efebe9;"></span> 7. Xám Cát Vang Mịn
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #a8edd9 0%, #fed6e3 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #a8edd9, #fed6e3);"></span> 8. Hoàng Hôn Ngọt Ngào (Gradient)
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #ff9a9e, #fecfef);"></span> 9. Kẹo Bông Hồng (Gradient)
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #84fab0, #8fd3f4);"></span> 10. Biển Xanh Tươi Mát (Gradient)
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #cfd9df, #e2ebf0);"></span> 11. Mây Trắng Bạch Kim (Gradient)
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #f6d365 0%, #fda085 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #f6d365, #fda085);"></span> 12. Nắng Ban Mai Rạng Rỡ (Gradient)
+            </button>
+            <button onclick="setBgColor('#1a5276')">
+                <span class="color-preview-box" style="background:#1a5276;"></span> 13. Xanh Đêm Deep Ocean
+            </button>
+            <button onclick="setBgColor('#1e8449')">
+                <span class="color-preview-box" style="background:#1e8449;"></span> 14. Xanh Rừng Nhiệt Đới
+            </button>
+            <button onclick="setBgColor('#6c3483')">
+                <span class="color-preview-box" style="background:#6c3483;"></span> 15. Tím Hoàng Gia Royal
+            </button>
+            <button onclick="setBgColor('#b9770e')">
+                <span class="color-preview-box" style="background:#b9770e;"></span> 16. Vàng Đồng Cổ Điển
+            </button>
+            <button onclick="setBgColor('#212f3d')">
+                <span class="color-preview-box" style="background:#212f3d;"></span> 17. Đen Xám Midnight
+            </button>
+            <button onclick="setBgColor('#922b21')">
+                <span class="color-preview-box" style="background:#922b21;"></span> 18. Đỏ Rượu Burgundy
+            </button>
+            <button onclick="setBgColor('linear-gradient(135deg, #30cfd0 0%, #330867 100%)')">
+                <span class="color-preview-box" style="background:linear-gradient(135deg, #30cfd0, #330867);"></span> 19. Huyền Diệu Vũ Trụ (Gradient)
+            </button>
+            <button onclick="setBgColor('#ffffff')">
+                <span class="color-preview-box" style="background:#ffffff;"></span> 20. Trắng Tinh Khôi Pure White
+            </button>
         </div>
     </div>
 
@@ -895,7 +978,6 @@
     /* 2. NHẠC NỀN & LỊCH THỜI GIAN THỰC GMT+7 */
     function updateRealtimeClock() {
         const now = new Date();
-        // Định dạng thời gian theo múi giờ Vietnam (GMT+7)
         const timeOptions = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
         const dateOptions = { timeZone: 'Asia/Ho_Chi_Minh', day: '2-digit', month: '2-digit', year: 'numeric' };
 
@@ -922,7 +1004,6 @@
             });
         }
 
-        // Cập nhật lịch mỗi giây
         updateRealtimeClock();
         setInterval(updateRealtimeClock, 1000);
     });
@@ -1316,14 +1397,20 @@
         }
     });
 
-    function setBgImage(fileName) {
-        document.body.style.backgroundImage = `url('${fileName}')`;
-        document.getElementById('bgPopup').style.display = 'none';
-    }
-
-    function setBgColor(colorHex) {
+    /* HÀM THIẾT LẬP 20 MÀU NỀN VÀ NỀN BẢY SẮC CẦU VỒNG (CSS ONLY, NO IMAGE) */
+    function setBgColor(colorVal, isRainbow = false) {
         document.body.style.backgroundImage = 'none';
-        document.body.style.backgroundColor = colorHex;
+        
+        if (isRainbow) {
+            document.body.classList.add('rainbow-active');
+        } else {
+            document.body.classList.remove('rainbow-active');
+            if (colorVal.startsWith('linear-gradient')) {
+                document.body.style.background = colorVal;
+            } else {
+                document.body.style.backgroundColor = colorVal;
+            }
+        }
         document.getElementById('bgPopup').style.display = 'none';
     }
 
