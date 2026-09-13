@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B.Đ.B - Lập dữ liệu kết quả học tập</title>
 
-    <!-- TẢI PHÔNG CHỮ MERRIWEATHER TỪ GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
 
-    <!-- ICON FONT AWESOME CHO MẠNG XÃ HỘI & GAME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -213,7 +211,6 @@
             font-weight: bold;
         }
 
-        /* KHUNG HIỂN THỊ MÀU MẪU TRONG POPUP CHỌN MÀU */
         .color-preview-box {
             width: 18px;
             height: 18px;
@@ -236,7 +233,6 @@
             animation: rainbowBg 10s ease infinite !important;
         }
 
-        /* KHUNG CHÍNH VỚI HIỆU ỨNG HIỆN TỪ TRÊN XUỐNG VÀ MỜ DẦN */
         .container {
             max-width: 850px;
             margin: 0 auto;
@@ -391,7 +387,6 @@
             transform: scale(1);
         }
 
-        /* TÍNH NĂNG MINIMIZE WINDOW */
         .game-window.minimized {
             position: fixed;
             bottom: 15px;
@@ -441,7 +436,7 @@
             display: flex;
             justify-content: space-around;
             align-items: flex-end;
-            height: 275px; /* Chiều cao tăng 25% từ 220px lên 275px */
+            height: 275px;
             border-bottom: 8px solid #5d6d7e;
             margin: 15px 0 20px 0;
             position: relative;
@@ -455,7 +450,7 @@
 
         .tower::before {
             content: ''; position: absolute; bottom: 0;
-            width: 10px; height: 220px; /* Tăng từ 170px lên 220px */
+            width: 10px; height: 220px;
             background: linear-gradient(90deg, #bdc3c7, #ecf0f1, #95a5a6);
             border-radius: 5px 5px 0 0; z-index: 1;
         }
@@ -466,11 +461,10 @@
             background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.15) 100%);
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             border: 1px solid rgba(0, 0, 0, 0.2);
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
         }
 
         .disk.selected {
-            transform: translateY(-30px) scale(1.04);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             z-index: 10;
         }
@@ -542,7 +536,6 @@
         }
         .light-bulb.on { background: #f1c40f; box-shadow: 0 0 12px #f1c40f; }
 
-        /* EFFECT ANIMATION BUTTON MÁY TÍNH */
         #txt_btn_step3 {
             position: relative; min-width: 250px; height: 50px; padding: 0 28px;
             transition: width 0.4s ease, padding 0.4s ease, background-color 0.3s ease;
@@ -565,7 +558,6 @@
         @keyframes equalMoveBig { 0% { opacity: 0; right: 25px; transform: scale(0.8); } 50% { opacity: 1; right: 85px; transform: scale(1.8); color: #27ae60; } 80% { opacity: 1; right: 110px; transform: scale(2.2); color: #e74c3c; } 100% { opacity: 0; right: 130px; transform: scale(0.5); } }
         @keyframes calcShake { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.25) rotate(-12deg); color: #d35400; } 40% { transform: scale(1.25) rotate(12deg); color: #27ae60; } 60% { transform: scale(1.15) rotate(-8deg); } 80% { transform: scale(1.1) rotate(4deg); } }
 
-        /* KHUNG ĐỒNG HỒ & LỊCH */
         .footer-clock-box {
             margin-top: 25px; padding-top: 15px; border-top: 1px dashed #bdc3c7;
             text-align: center; font-size: 13px; color: #34495e; font-family: 'Merriweather', serif;
@@ -580,23 +572,18 @@
 </head>
 <body>
 
-<!-- CANVAS ẨN VẼ FAVICON ĐỘNG "B.Đ.B" -->
 <canvas id="faviconCanvas" width="32" height="32" style="display:none;"></canvas>
 
-<!-- TRÌNH PHÁT NHẠC CHẠY ẨN -->
 <audio id="bgAudio" src="eveningland.mp3" loop></audio>
 
-<!-- MÃ QR PHẢI MÀN HÌNH -->
 <div class="qr-box">
     <img src="fbcuatui.jpg" alt="Mã QR Facebook">
     <a href="https://www.facebook.com/iambuidobinh" target="_blank">Facebook cá nhân</a>
 </div>
 
-<!-- CÔNG CỤ TRÁI -->
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
         <button id="lbl_btn_bg" class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
-        <!-- MENU POPUP 20 MÀU NỀN -->
         <div id="bgPopup" class="tool-popup">
             <button onclick="setBgColor('#fce4ec')">
                 <span class="color-preview-box" style="background:#fce4ec;"></span> 1. Hồng Pastel (Mặc định)
@@ -641,15 +628,12 @@
     </div>
 </div>
 
-<!-- BỘ CÔNG CỤ PHẢI -->
 <div class="bottom-right-tools">
     <div class="social-group">
-        <!-- NÚT TRÒN CHƠI GAME & TOOLTIP "GAME" -->
         <div class="tool-btn-wrapper">
             <button class="circle-btn" data-tooltip="Game" onclick="togglePopup('gameSelectorPopup')">
                 <i class="fa-solid fa-gamepad"></i>
             </button>
-            <!-- MENU POPUP LỰA CHỌN GAME -->
             <div id="gameSelectorPopup" class="tool-popup popup-right">
                 <button onclick="switchAndOpenGame('hanoi')"><i class="fa-solid fa-layer-group"></i> 1. Tower of Hanoi</button>
                 <button onclick="switchAndOpenGame('watersort')"><i class="fa-solid fa-flask"></i> 2. Water Sort Puzzle</button>
@@ -686,7 +670,6 @@
     </div>
 </div>
 
-<!-- CỬA SỔ POPUP GAME TỔNG HỢP (WINDOWS-STYLE CHUYỂN ĐỘNG & MINIMIZE MƯỢT MÀ) -->
 <div id="gameModal" class="modal-game">
     <div id="gameWindow" class="game-window">
         <div class="game-header" onclick="restoreGameModal()">
@@ -698,7 +681,6 @@
         </div>
         
         <div class="game-body">
-            <!-- 1. TOWER OF HANOI -->
             <div id="game_hanoi_section">
                 <div class="game-config">
                     <label id="lbl_game_disks" for="diskCountInput">Số đĩa:</label>
@@ -725,35 +707,30 @@
                 </div>
             </div>
 
-            <!-- 2. WATER SORT PUZZLE -->
             <div id="game_watersort_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Phân loại màu sao cho mỗi ống nghiệm chỉ chứa 1 màu duy nhất!</p>
                 <div class="water-sort-container" id="waterSortContainer"></div>
                 <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initWaterSort()">Chơi lại</button>
             </div>
 
-            <!-- 3. 15-PUZZLE -->
             <div id="game_puzzle15_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Trượt các ô số để sắp xếp tăng dần từ 1 đến 15!</p>
                 <div class="puzzle-grid" id="puzzleGrid"></div>
                 <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="init15Puzzle()">Chơi mới</button>
             </div>
 
-            <!-- 4. MEMORY MATCH -->
             <div id="game_memory_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Lật hình để tìm các cặp biểu tượng trùng nhau!</p>
                 <div class="memory-grid" id="memoryGrid"></div>
                 <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initMemoryGame()">Làm mới bài</button>
             </div>
 
-            <!-- 5. TIC-TAC-TOE -->
             <div id="game_ttt_section" class="hidden">
                 <p id="tttStatus" style="font-size:13px; font-weight:bold; margin:5px 0;">Lượt đi: X</p>
                 <div class="ttt-grid" id="tttGrid"></div>
                 <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initTTT()">Ván mới</button>
             </div>
 
-            <!-- 6. LIGHTS OUT -->
             <div id="game_lights_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Click vào ô để đảo trạng thái đèn ô đó và 4 ô xung quanh. Tắt hết đèn để thắng!</p>
                 <div class="lights-grid" id="lightsGrid"></div>
@@ -769,7 +746,6 @@
     <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
     <p id="txt_intro" style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
-    <!-- TRANG 1 -->
     <div id="step1">
         <div class="form-group">
             <label id="txt_lbl_obj" for="loai_tinh">Mời bạn chọn đối tượng tính điểm:</label>
@@ -787,7 +763,6 @@
         <button id="txt_btn_step1" class="btn-main" onclick="chuyenSangTrang2()">Nhập số môn học</button>
     </div>
 
-    <!-- TRANG 2 -->
     <div id="step2" class="hidden">
         <h3 id="txt_step2_title">Bước 2: Nhập số lượng môn học của từng người</h3>
         <div id="form-so-mon-container"></div>
@@ -798,7 +773,6 @@
         </div>
     </div>
 
-    <!-- TRANG 3 -->
     <div id="step3" class="hidden">
         <h3 id="txt_step3_title">Bước 3: Lập danh sách tên môn học & Điểm số</h3>
         <div id="form-chi-tiet-container"></div>
@@ -816,7 +790,6 @@
         </div>
     </div>
 
-    <!-- TRANG 4 -->
     <div id="step4" class="hidden">
         <div id="resultCard" class="card"></div>
 
@@ -832,7 +805,6 @@
         </div>
     </div>
 
-    <!-- ĐỒNG HỒ & LỊCH Ở CUỐI KHUNG CONTAINER -->
     <div class="footer-clock-box">
         <i class="fa-regular fa-clock"></i> <span id="realtimeClock" class="time-highlight">--:--:--</span> | 
         <i class="fa-regular fa-calendar-days"></i> <span id="realtimeDate">--/--/----</span> 
@@ -1301,7 +1273,6 @@
         }
     });
 
-    /* HÀM THIẾT LẬP 20 MÀU NỀN VÀ BẢY SẮC CẦU VỒNG ĐỘNG LUNG LINH 24/7 */
     function setBgColor(colorVal, isRainbow = false) {
         document.body.style.backgroundImage = 'none';
         
@@ -1639,12 +1610,10 @@
         currentGameType = gameType;
         document.getElementById('gameSelectorPopup').style.display = 'none';
         
-        // Hide all game sections
         ['hanoi', 'watersort', 'puzzle15', 'memory', 'ttt', 'lights'].forEach(g => {
             document.getElementById(`game_${g}_section`).classList.add('hidden');
         });
 
-        // Show active section & update title
         document.getElementById(`game_${gameType}_section`).classList.remove('hidden');
         const titles = {
             hanoi: "Tower of Hanoi - B.Đ.B Game",
@@ -1656,7 +1625,6 @@
         };
         document.getElementById('gameWindowTitle').innerText = titles[gameType];
 
-        // Init target game
         if (gameType === 'hanoi') initHanoiGame();
         else if (gameType === 'watersort') initWaterSort();
         else if (gameType === 'puzzle15') init15Puzzle();
@@ -1686,7 +1654,7 @@
         const win = document.getElementById('gameWindow');
         const modal = document.getElementById('gameModal');
         win.classList.add('minimized');
-        modal.style.pointerEvents = 'none'; // Cho phép click xuyên qua lớp phủ khi đang minimize
+        modal.style.pointerEvents = 'none';
     }
 
     function restoreGameModal() {
@@ -1697,7 +1665,7 @@
         }
     }
 
-    /* 1. GAME TOWER OF HANOI NÂNG CẤP TỐC ĐỘ DYNAMIC */
+    /* 1. GAME TOWER OF HANOI NÂNG CẤP ANIMATION 3 GIAI ĐOẠN ĐỘNG CHUẨN VIDEO */
     let hanoiState = [[], [], []];
     let selectedTower = null;
     let hanoiMoves = 0;
@@ -1825,15 +1793,35 @@
             const diskEl = fromTowerEl.lastElementChild;
 
             if (diskEl) {
-                const fromRect = diskEl.getBoundingClientRect();
-                const toRect = toTowerEl.getBoundingClientRect();
-                const deltaX = (toRect.left + toRect.width / 2) - (fromRect.left + fromRect.width / 2);
+                const diskRect = diskEl.getBoundingClientRect();
+                const fromTowerRect = fromTowerEl.getBoundingClientRect();
+                const toTowerRect = toTowerEl.getBoundingClientRect();
 
-                let duration = 350 / hanoiSpeedFactor;
-                diskEl.style.transition = `transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
-                diskEl.style.transform = `translate(${deltaX}px, -35px) scale(1)`;
+                // Tính toán chính xác vị trí 3 giai đoạn animation theo đúng Video tham khảo
+                const deltaX = (toTowerRect.left + toTowerRect.width / 2) - (diskRect.left + diskRect.width / 2);
+                const towerTopY = fromTowerRect.top + 15;
+                const liftY = -(diskRect.top - towerTopY + 30); // Rút thẳng lên qua đỉnh cọc
 
-                setTimeout(() => {
+                const diskHeight = 20;
+                const destStackHeight = toStack.length * diskHeight;
+                const destTopY = (toTowerRect.bottom - destStackHeight - 18);
+                const destY = destTopY - diskRect.top;
+
+                let duration = Math.max(200, 600 / hanoiSpeedFactor);
+
+                // ANIMATION 3 BƯỚC: NHẮC THẲNG LÊN -> TRƯỢT NGANG -> RƠI VÀO CỌC
+                const anim = diskEl.animate([
+                    { transform: 'translate(0px, 0px)', offset: 0 },
+                    { transform: `translate(0px, ${liftY}px)`, offset: 0.35 },
+                    { transform: `translate(${deltaX}px, ${liftY}px)`, offset: 0.7 },
+                    { transform: `translate(${deltaX}px, ${destY}px)`, offset: 1 }
+                ], {
+                    duration: duration,
+                    easing: 'ease-in-out',
+                    fill: 'forwards'
+                });
+
+                anim.onfinish = () => {
                     toStack.push(fromStack.pop());
                     hanoiMoves++;
                     document.getElementById('moveCount').innerText = `Số nước đi: ${hanoiMoves}`;
@@ -1848,7 +1836,7 @@
                             alert(`Chúc mừng bạn đã chiến thắng trò chơi sau ${hanoiMoves} nước đi!`);
                         }, 100);
                     }
-                }, duration);
+                };
             }
         } else {
             alert('Bạn chơi sai luật! Không thể đặt đĩa lớn hơn lên trên đĩa nhỏ hơn.');
@@ -1889,7 +1877,7 @@
             selectedTower = m.from;
             renderHanoiTowers();
 
-            let delay = 250 / hanoiSpeedFactor;
+            let delay = Math.max(80, 200 / hanoiSpeedFactor);
             let t = setTimeout(() => {
                 if (!isAutoPlaying) return;
                 moveDiskWithAnimation(m.from, m.to, () => {
@@ -1906,7 +1894,6 @@
     /* 2. WATER SORT PUZZLE LOGIC */
     let waterTubes = [];
     let selectedTube = null;
-    const waterColors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f'];
 
     function initWaterSort() {
         selectedTube = null;
