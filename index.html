@@ -213,7 +213,7 @@
             font-weight: bold;
         }
 
-        /* KHUNG HIỂN THỊ THỦY THỦ/MÀU MẪU TRONG POPUP CHỌN MÀU */
+        /* KHUNG HIỂN THỊ MÀU MẪU TRONG POPUP CHỌN MÀU */
         .color-preview-box {
             width: 18px;
             height: 18px;
@@ -223,7 +223,7 @@
             flex-shrink: 0;
         }
 
-        /* ANIMATION NỀN CẦU VỒNG 7 SẮC */
+        /* ANIMATION NỀN CẦU VỒNG 7 SẮC ĐỘNG CHUẨN XÁC */
         @keyframes rainbowBg {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -231,9 +231,9 @@
         }
 
         body.rainbow-active {
-            background: linear-gradient(124deg, #ff2400, #e81e63, #9c27b0, #3f51b5, #2196f3, #009688, #4caf50, #ffeb3b, #ff9800);
-            background-size: 1800% 1800%;
-            animation: rainbowBg 12s ease infinite;
+            background: linear-gradient(124deg, #ff2400, #e81e63, #9c27b0, #3f51b5, #2196f3, #009688, #4caf50, #ffeb3b, #ff9800) !important;
+            background-size: 1000% 1000% !important;
+            animation: rainbowBg 10s ease infinite !important;
         }
 
         /* KHUNG CHÍNH VỚI HIỆU ỨNG HIỆN TỪ TRÊN XUỐNG VÀ MỜ DẦN */
@@ -246,20 +246,12 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             position: relative;
             backdrop-filter: blur(3px);
-            
-            /* ANIMATION TRƯỢT TỪ TRÊN XUỐNG VÀ NỔI LÊN */
             animation: fadeInDown 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-35px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-35px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
@@ -273,22 +265,9 @@
             margin-top: 10px;
         }
 
-        h3, h4 {
-            color: #4a235a;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+        h3, h4 { color: #4a235a; font-weight: 700; line-height: 1.4; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
 
         input, select {
             width: 100%;
@@ -301,9 +280,7 @@
             background-color: #fdfefe;
         }
 
-        input:invalid {
-            border-color: #e74c3c;
-        }
+        input:invalid { border-color: #e74c3c; }
 
         button.btn-main, .btn-style-2 {
             width: 100%;
@@ -332,9 +309,7 @@
             box-shadow: 0 7px 20px rgba(0, 200, 83, 0.4);
         }
 
-        button.btn-main:active, .btn-style-2:active {
-            transform: translateY(1px);
-        }
+        button.btn-main:active, .btn-style-2:active { transform: translateY(1px); }
 
         button.btn-back {
             background-color: #7f8c8d;
@@ -350,10 +325,7 @@
             font-size: 13px;
             transition: all 0.2s ease;
         }
-
-        button.btn-back:hover {
-            background-color: #626567;
-        }
+        button.btn-back:hover { background-color: #626567; }
 
         .btn-print {
             position: absolute;
@@ -372,101 +344,68 @@
             display: none;
         }
 
-        .card {
-            background: #fdfefe;
-            border: 1px solid #d6dbdf;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+        .card { background: #fdfefe; border: 1px solid #d6dbdf; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #fff; }
+        th, td { border: 1px solid #bdc3c7; padding: 10px; text-align: center; font-size: 13px; }
+        th { background-color: #e8f5e9; color: #1b5e20; font-weight: 700; }
+        td.ten-mon-col { text-align: left; }
+        .row-dtb { background-color: #fef9e7; font-weight: bold; color: #b7950b; font-size: 14px; }
+        .pagination-container { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; }
+        .btn-nav { background-color: #2980b9; color: white; padding: 10px 16px; border: none; border-radius: 6px; font-family: 'Merriweather', serif; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .hidden { display: none !important; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: #fff;
-        }
-
-        th, td {
-            border: 1px solid #bdc3c7;
-            padding: 10px;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        th {
-            background-color: #e8f5e9;
-            color: #1b5e20;
-            font-weight: 700;
-        }
-
-        td.ten-mon-col {
-            text-align: left;
-        }
-
-        .row-dtb {
-            background-color: #fef9e7;
-            font-weight: bold;
-            color: #b7950b;
-            font-size: 14px;
-        }
-
-        .pagination-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-
-        .btn-nav {
-            background-color: #2980b9;
-            color: white;
-            padding: 10px 16px;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Merriweather', serif;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* POPUP GAME TOWER OF HANOI */
+        /* ================= POPUP HỆ THỐNG GAME NÂNG CẤP ================= */
         .modal-game {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.65);
             backdrop-filter: blur(5px);
             z-index: 10001;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .modal-game.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .game-window {
             width: 92%;
-            max-width: 620px;
+            max-width: 650px;
             background: #ffffff;
             border-radius: 12px;
             box-shadow: 0 12px 35px rgba(0,0,0,0.4);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: scale(0.85);
+            transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes popUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        .modal-game.active .game-window {
+            transform: scale(1);
         }
+
+        /* TÍNH NĂNG MINIMIZE WINDOW */
+        .game-window.minimized {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            width: 280px;
+            height: 42px;
+            overflow: hidden;
+            transform: scale(1) !important;
+            z-index: 10002;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+
+        .game-window.minimized .game-body { display: none !important; }
 
         .game-header {
             background: #2c3e50;
@@ -475,223 +414,167 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            user-select: none;
         }
 
-        .game-header h4 {
-            margin: 0;
-            color: #fff;
-            font-size: 15px;
-        }
-
+        .game-header h4 { margin: 0; color: #fff; font-size: 14px; }
         .game-controls button {
             background: transparent;
             border: none;
             color: #fff;
             font-size: 16px;
             cursor: pointer;
-            margin-left: 10px;
-            width: 24px;
-            height: 24px;
+            margin-left: 8px;
+            width: 26px; height: 26px;
             border-radius: 4px;
             transition: background 0.2s;
         }
+        .game-controls button:hover { background: rgba(255,255,255,0.2); }
 
-        .game-controls button:hover {
-            background: rgba(255,255,255,0.2);
-        }
+        .game-body { padding: 20px; text-align: center; background: #fdfefe; max-height: 80vh; overflow-y: auto; }
+        .game-config { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .game-config label { margin: 0; font-size: 12px; }
+        .game-config input, .game-config select { width: auto; padding: 5px; font-size: 12px; }
 
-        .game-body {
-            padding: 20px;
-            text-align: center;
-            background: #fdfefe;
-        }
-
-        .game-config {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .game-config label {
-            margin: 0;
-            font-size: 13px;
-        }
-
-        .game-config input {
-            width: 70px;
-            padding: 6px;
-            text-align: center;
-            font-size: 13px;
-        }
-
+        /* 1. TOWER OF HANOI (TĂNG CHIỀU CAO TRỤC NÂNG CẤP 25%) */
         .hanoi-container {
             display: flex;
             justify-content: space-around;
             align-items: flex-end;
-            height: 220px;
+            height: 275px; /* Chiều cao tăng 25% từ 220px lên 275px */
             border-bottom: 8px solid #5d6d7e;
-            margin: 15px 0 25px 0;
+            margin: 15px 0 20px 0;
             position: relative;
         }
 
         .tower {
-            width: 30%;
-            height: 100%;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-            position: relative;
-            cursor: pointer;
+            width: 30%; height: 100%;
+            display: flex; flex-direction: column-reverse; align-items: center;
+            position: relative; cursor: pointer;
         }
 
         .tower::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 10px;
-            height: 170px;
+            content: ''; position: absolute; bottom: 0;
+            width: 10px; height: 220px; /* Tăng từ 170px lên 220px */
             background: linear-gradient(90deg, #bdc3c7, #ecf0f1, #95a5a6);
-            border-radius: 5px 5px 0 0;
-            z-index: 1;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            border-radius: 5px 5px 0 0; z-index: 1;
         }
 
         .disk {
-            height: 19px;
-            border-radius: 10px;
-            z-index: 2;
-            margin-bottom: 2px;
+            height: 18px; border-radius: 10px; z-index: 2; margin-bottom: 2px;
             position: relative;
             background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.15) 100%);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.6), inset 0 -2px 3px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
             border: 1px solid rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), top 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .disk.selected {
-            transform: translateY(-32px) scale(1.03);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.45), inset 0 1px 3px rgba(255,255,255,0.8);
+            transform: translateY(-30px) scale(1.04);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
-        /* EFFECT ANIMATION BUTTON: MÁY TÍNH & DẤU BẰNG RUNG CHỐT ĐIỂM */
+        /* 2. WATER SORT PUZZLE */
+        .water-sort-container { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .tube {
+            width: 44px; height: 160px; border: 3px solid #34495e; border-top: none;
+            border-radius: 0 0 22px 22px; display: flex; flex-direction: column-reverse;
+            overflow: hidden; cursor: pointer; background: rgba(255,255,255,0.6);
+            transition: transform 0.2s; position: relative;
+        }
+        .tube:hover { transform: translateY(-5px); }
+        .tube.selected { border-color: #e74c3c; transform: translateY(-10px); }
+        .liquid-unit {
+            width: 100%; height: 25%; transition: height 0.3s, background-color 0.3s;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* 3. 15-PUZZLE (SLIDING) */
+        .puzzle-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+            width: 260px; height: 260px; margin: 15px auto; background: #bdc3c7;
+            padding: 6px; border-radius: 8px;
+        }
+        .puzzle-tile {
+            background: #3498db; color: white; font-weight: bold; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 6px; cursor: pointer; transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+        .puzzle-tile:hover { background: #2980b9; }
+        .puzzle-tile.empty { background: transparent; box-shadow: none; cursor: default; }
+
+        /* 4. MEMORY MATCH GAME */
+        .memory-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+            width: 280px; margin: 15px auto;
+        }
+        .memory-card {
+            height: 65px; background: #2c3e50; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: white; cursor: pointer;
+            perspective: 1000px; transform-style: preserve-3d; transition: transform 0.4s;
+        }
+        .memory-card.flipped { transform: rotateY(180deg); background: #f39c12; }
+        .memory-card.matched { background: #2ecc71; cursor: default; }
+
+        /* 5. TIC-TAC-TOE */
+        .ttt-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+            width: 210px; margin: 15px auto;
+        }
+        .ttt-cell {
+            height: 65px; background: #ecf0f1; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: bold; cursor: pointer; transition: background 0.2s;
+        }
+        .ttt-cell:hover { background: #bdc3c7; }
+
+        /* 6. LIGHTS OUT */
+        .lights-grid {
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+            width: 250px; margin: 15px auto;
+        }
+        .light-bulb {
+            height: 44px; background: #34495e; border-radius: 6px;
+            cursor: pointer; transition: background 0.25s, box-shadow 0.25s;
+        }
+        .light-bulb.on { background: #f1c40f; box-shadow: 0 0 12px #f1c40f; }
+
+        /* EFFECT ANIMATION BUTTON MÁY TÍNH */
         #txt_btn_step3 {
-            position: relative;
-            min-width: 250px;
-            height: 50px;
-            padding: 0 28px;
+            position: relative; min-width: 250px; height: 50px; padding: 0 28px;
             transition: width 0.4s ease, padding 0.4s ease, background-color 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-flex; align-items: center; justify-content: center;
         }
-
-        #txt_btn_step3.animating {
-            width: 220px !important;
-            padding: 0 !important;
-            pointer-events: none;
-        }
-
-        .btn-text {
-            transition: opacity 0.2s ease;
-        }
-
-        .btn-text.hidden-text {
-            opacity: 0;
-        }
-
+        #txt_btn_step3.animating { width: 220px !important; padding: 0 !important; pointer-events: none; }
+        .btn-text { transition: opacity 0.2s ease; }
+        .btn-text.hidden-text { opacity: 0; }
         .calc-anim-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.2s ease;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none;
         }
+        #txt_btn_step3.animating .calc-anim-wrapper { opacity: 1; }
+        .calc-icon { font-size: 24px; color: #2c3e50; position: absolute; left: 20px; opacity: 0; transform: scale(0.5); }
+        #txt_btn_step3.animating .calc-icon { animation: calcAppear 0.4s forwards ease-out 0.2s, calcShake 0.4s 1.2s ease-in-out; }
+        .equal-icon { font-size: 22px; font-weight: 900; color: #0056b3; position: absolute; right: 25px; opacity: 0; transform: scale(0.8); }
+        #txt_btn_step3.animating .equal-icon { animation: equalMoveBig 0.9s forwards ease-in-out 0.3s; }
 
-        #txt_btn_step3.animating .calc-anim-wrapper {
-            opacity: 1;
-        }
+        @keyframes calcAppear { 0% { opacity: 0; transform: scale(0.3) translateX(-10px); } 100% { opacity: 1; transform: scale(1) translateX(0); } }
+        @keyframes equalMoveBig { 0% { opacity: 0; right: 25px; transform: scale(0.8); } 50% { opacity: 1; right: 85px; transform: scale(1.8); color: #27ae60; } 80% { opacity: 1; right: 110px; transform: scale(2.2); color: #e74c3c; } 100% { opacity: 0; right: 130px; transform: scale(0.5); } }
+        @keyframes calcShake { 0%, 100% { transform: scale(1) rotate(0deg); } 20% { transform: scale(1.25) rotate(-12deg); color: #d35400; } 40% { transform: scale(1.25) rotate(12deg); color: #27ae60; } 60% { transform: scale(1.15) rotate(-8deg); } 80% { transform: scale(1.1) rotate(4deg); } }
 
-        .calc-icon {
-            font-size: 24px;
-            color: #2c3e50;
-            position: absolute;
-            left: 20px;
-            opacity: 0;
-            transform: scale(0.5);
-        }
-
-        #txt_btn_step3.animating .calc-icon {
-            animation: calcAppear 0.4s forwards ease-out 0.2s, calcShake 0.4s 1.2s ease-in-out;
-        }
-
-        .equal-icon {
-            font-size: 22px;
-            font-weight: 900;
-            color: #0056b3;
-            position: absolute;
-            right: 25px;
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        #txt_btn_step3.animating .equal-icon {
-            animation: equalMoveBig 0.9s forwards ease-in-out 0.3s;
-        }
-
-        @keyframes calcAppear {
-            0% { opacity: 0; transform: scale(0.3) translateX(-10px); }
-            100% { opacity: 1; transform: scale(1) translateX(0); }
-        }
-
-        @keyframes equalMoveBig {
-            0% { opacity: 0; right: 25px; transform: scale(0.8); }
-            50% { opacity: 1; right: 85px; transform: scale(1.8); color: #27ae60; }
-            80% { opacity: 1; right: 110px; transform: scale(2.2); color: #e74c3c; }
-            100% { opacity: 0; right: 130px; transform: scale(0.5); }
-        }
-
-        @keyframes calcShake {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            20% { transform: scale(1.25) rotate(-12deg); color: #d35400; }
-            40% { transform: scale(1.25) rotate(12deg); color: #27ae60; }
-            60% { transform: scale(1.15) rotate(-8deg); }
-            80% { transform: scale(1.1) rotate(4deg); }
-        }
-
-        /* KHUNG ĐỒNG HỒ & LỊCH Ở CUỐI TRANG WEB */
+        /* KHUNG ĐỒNG HỒ & LỊCH */
         .footer-clock-box {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px dashed #bdc3c7;
-            text-align: center;
-            font-size: 13px;
-            color: #34495e;
-            font-family: 'Merriweather', serif;
+            margin-top: 25px; padding-top: 15px; border-top: 1px dashed #bdc3c7;
+            text-align: center; font-size: 13px; color: #34495e; font-family: 'Merriweather', serif;
         }
-
-        .footer-clock-box i {
-            margin-right: 6px;
-            color: #8e44ad;
-        }
-
-        .footer-clock-box span.time-highlight {
-            font-weight: bold;
-            color: #c0392b;
-        }
+        .footer-clock-box i { margin-right: 6px; color: #8e44ad; }
+        .footer-clock-box span.time-highlight { font-weight: bold; color: #c0392b; }
 
         @media print {
-            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container, .modal-game, .footer-clock-box {
-                display: none !important;
-            }
+            .qr-box, .bottom-left-tools, .bottom-right-tools, .btn-print, button, .pagination-container, .modal-game, .footer-clock-box { display: none !important; }
         }
     </style>
 </head>
@@ -713,68 +596,32 @@
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
         <button id="lbl_btn_bg" class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
-        <!-- MENU POPUP 20 MÀU NỀN CỰC ĐẸP (KHÔNG DÙNG ẢNH CHỤP) -->
+        <!-- MENU POPUP 20 MÀU NỀN -->
         <div id="bgPopup" class="tool-popup">
             <button onclick="setBgColor('#fce4ec')">
                 <span class="color-preview-box" style="background:#fce4ec;"></span> 1. Hồng Pastel (Mặc định)
             </button>
-            <button onclick="setBgColor('linear-gradient(124deg, #ff2400, #e81e63, #9c27b0, #3f51b5, #2196f3, #009688, #4caf50, #ffeb3b, #ff9800)', true)">
+            <button onclick="setBgColor('rainbow', true)">
                 <span class="color-preview-box" style="background:linear-gradient(45deg, red, yellow, green, cyan, blue, violet);"></span> 2. 🌈 Bảy Sắc Cầu Vồng (Động)
             </button>
-            <button onclick="setBgColor('#e8f8f5')">
-                <span class="color-preview-box" style="background:#e8f8f5;"></span> 3. Xanh Xanh Mint Pastel
-            </button>
-            <button onclick="setBgColor('#eaf2f8')">
-                <span class="color-preview-box" style="background:#eaf2f8;"></span> 4. Xanh Dương Nhạt Soft
-            </button>
-            <button onclick="setBgColor('#fef9e7')">
-                <span class="color-preview-box" style="background:#fef9e7;"></span> 5. Vàng Vani Ấm Áp
-            </button>
-            <button onclick="setBgColor('#f3e5f5')">
-                <span class="color-preview-box" style="background:#f3e5f5;"></span> 6. Tím Oải Hương Lavender
-            </button>
-            <button onclick="setBgColor('#efebe9')">
-                <span class="color-preview-box" style="background:#efebe9;"></span> 7. Xám Cát Vang Mịn
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #a8edd9 0%, #fed6e3 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #a8edd9, #fed6e3);"></span> 8. Hoàng Hôn Ngọt Ngào (Gradient)
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #ff9a9e, #fecfef);"></span> 9. Kẹo Bông Hồng (Gradient)
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #84fab0, #8fd3f4);"></span> 10. Biển Xanh Tươi Mát (Gradient)
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #cfd9df, #e2ebf0);"></span> 11. Mây Trắng Bạch Kim (Gradient)
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #f6d365 0%, #fda085 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #f6d365, #fda085);"></span> 12. Nắng Ban Mai Rạng Rỡ (Gradient)
-            </button>
-            <button onclick="setBgColor('#1a5276')">
-                <span class="color-preview-box" style="background:#1a5276;"></span> 13. Xanh Đêm Deep Ocean
-            </button>
-            <button onclick="setBgColor('#1e8449')">
-                <span class="color-preview-box" style="background:#1e8449;"></span> 14. Xanh Rừng Nhiệt Đới
-            </button>
-            <button onclick="setBgColor('#6c3483')">
-                <span class="color-preview-box" style="background:#6c3483;"></span> 15. Tím Hoàng Gia Royal
-            </button>
-            <button onclick="setBgColor('#b9770e')">
-                <span class="color-preview-box" style="background:#b9770e;"></span> 16. Vàng Đồng Cổ Điển
-            </button>
-            <button onclick="setBgColor('#212f3d')">
-                <span class="color-preview-box" style="background:#212f3d;"></span> 17. Đen Xám Midnight
-            </button>
-            <button onclick="setBgColor('#922b21')">
-                <span class="color-preview-box" style="background:#922b21;"></span> 18. Đỏ Rượu Burgundy
-            </button>
-            <button onclick="setBgColor('linear-gradient(135deg, #30cfd0 0%, #330867 100%)')">
-                <span class="color-preview-box" style="background:linear-gradient(135deg, #30cfd0, #330867);"></span> 19. Huyền Diệu Vũ Trụ (Gradient)
-            </button>
-            <button onclick="setBgColor('#ffffff')">
-                <span class="color-preview-box" style="background:#ffffff;"></span> 20. Trắng Tinh Khôi Pure White
-            </button>
+            <button onclick="setBgColor('#e8f8f5')"><span class="color-preview-box" style="background:#e8f8f5;"></span> 3. Xanh Mint Pastel</button>
+            <button onclick="setBgColor('#eaf2f8')"><span class="color-preview-box" style="background:#eaf2f8;"></span> 4. Xanh Dương Nhạt Soft</button>
+            <button onclick="setBgColor('#fef9e7')"><span class="color-preview-box" style="background:#fef9e7;"></span> 5. Vàng Vani Ấm Áp</button>
+            <button onclick="setBgColor('#f3e5f5')"><span class="color-preview-box" style="background:#f3e5f5;"></span> 6. Tím Oải Hương Lavender</button>
+            <button onclick="setBgColor('#efebe9')"><span class="color-preview-box" style="background:#efebe9;"></span> 7. Xám Cát Vang Mịn</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #a8edd9 0%, #fed6e3 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #a8edd9, #fed6e3);"></span> 8. Hoàng Hôn Ngọt Ngào (Gradient)</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #ff9a9e, #fecfef);"></span> 9. Kẹo Bông Hồng (Gradient)</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #84fab0, #8fd3f4);"></span> 10. Biển Xanh Tươi Mát (Gradient)</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #cfd9df, #e2ebf0);"></span> 11. Mây Trắng Bạch Kim (Gradient)</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #f6d365 0%, #fda085 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #f6d365, #fda085);"></span> 12. Nắng Ban Mai Rạng Rỡ (Gradient)</button>
+            <button onclick="setBgColor('#1a5276')"><span class="color-preview-box" style="background:#1a5276;"></span> 13. Xanh Đêm Deep Ocean</button>
+            <button onclick="setBgColor('#1e8449')"><span class="color-preview-box" style="background:#1e8449;"></span> 14. Xanh Rừng Nhiệt Đới</button>
+            <button onclick="setBgColor('#6c3483')"><span class="color-preview-box" style="background:#6c3483;"></span> 15. Tím Hoàng Gia Royal</button>
+            <button onclick="setBgColor('#b9770e')"><span class="color-preview-box" style="background:#b9770e;"></span> 16. Vàng Đồng Cổ Điển</button>
+            <button onclick="setBgColor('#212f3d')"><span class="color-preview-box" style="background:#212f3d;"></span> 17. Đen Xám Midnight</button>
+            <button onclick="setBgColor('#922b21')"><span class="color-preview-box" style="background:#922b21;"></span> 18. Đỏ Rượu Burgundy</button>
+            <button onclick="setBgColor('linear-gradient(135deg, #30cfd0 0%, #330867 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #30cfd0, #330867);"></span> 19. Huyền Diệu Vũ Trụ (Gradient)</button>
+            <button onclick="setBgColor('#ffffff')"><span class="color-preview-box" style="background:#ffffff;"></span> 20. Trắng Tinh Khôi Pure White</button>
         </div>
     </div>
 
@@ -797,9 +644,21 @@
 <!-- BỘ CÔNG CỤ PHẢI -->
 <div class="bottom-right-tools">
     <div class="social-group">
-        <button class="circle-btn" data-tooltip="Game: Tower of Hanoi" onclick="openGameModal()">
-            <i class="fa-solid fa-gamepad"></i>
-        </button>
+        <!-- NÚT TRÒN CHƠI GAME & TOOLTIP "GAME" -->
+        <div class="tool-btn-wrapper">
+            <button class="circle-btn" data-tooltip="Game" onclick="togglePopup('gameSelectorPopup')">
+                <i class="fa-solid fa-gamepad"></i>
+            </button>
+            <!-- MENU POPUP LỰA CHỌN GAME -->
+            <div id="gameSelectorPopup" class="tool-popup popup-right">
+                <button onclick="switchAndOpenGame('hanoi')"><i class="fa-solid fa-layer-group"></i> 1. Tower of Hanoi</button>
+                <button onclick="switchAndOpenGame('watersort')"><i class="fa-solid fa-flask"></i> 2. Water Sort Puzzle</button>
+                <button onclick="switchAndOpenGame('puzzle15')"><i class="fa-solid fa-grip-fill"></i> 3. 15-Puzzle (Khối Trượt)</button>
+                <button onclick="switchAndOpenGame('memory')"><i class="fa-solid fa-clone"></i> 4. Memory Match (Cặp Bài)</button>
+                <button onclick="switchAndOpenGame('ttt')"><i class="fa-solid fa-xmark"></i> 5. Tic-Tac-Toe (Ca-rô)</button>
+                <button onclick="switchAndOpenGame('lights')"><i class="fa-regular fa-lightbulb"></i> 6. Lights Out (Tắt Đèn)</button>
+            </div>
+        </div>
 
         <a href="https://fb.com/iambuidobinh" target="_blank" class="circle-btn" data-tooltip="Facebook">
             <i class="fa-brands fa-facebook-f"></i>
@@ -827,35 +686,78 @@
     </div>
 </div>
 
-<!-- CỬA SỔ POPUP GAME TOWER OF HANOI -->
-<div id="gameModal" class="modal-game hidden">
-    <div class="game-window">
-        <div class="game-header">
-            <h4>Tower of Hanoi - B.Đ.B Game</h4>
+<!-- CỬA SỔ POPUP GAME TỔNG HỢP (WINDOWS-STYLE CHUYỂN ĐỘNG & MINIMIZE MƯỢT MÀ) -->
+<div id="gameModal" class="modal-game">
+    <div id="gameWindow" class="game-window">
+        <div class="game-header" onclick="restoreGameModal()">
+            <h4 id="gameWindowTitle">B.Đ.B Minigames Center</h4>
             <div class="game-controls">
-                <button title="Thu nhỏ" onclick="closeGameModal()">-</button>
-                <button title="Đóng" onclick="closeGameModal()">x</button>
+                <button title="Thu nhỏ (Minimize)" onclick="minimizeGameModal(event)">-</button>
+                <button title="Đóng" onclick="closeGameModal(event)">x</button>
             </div>
         </div>
+        
         <div class="game-body">
-            <div class="game-config">
-                <label id="lbl_game_disks" for="diskCountInput">Số đĩa:</label>
-                <input type="number" id="diskCountInput" min="1" max="10" value="3" onchange="initHanoiGame()">
-                <button id="lbl_btn_restart" class="btn-style-2" style="width:auto; padding:6px 14px; font-size:12px; margin:0;" onclick="initHanoiGame()">Bắt đầu lại</button>
-                <button id="btnAutoPlay" class="btn-style-2 hidden" style="width:auto; padding:6px 14px; font-size:12px; margin:0; background-color:#3498db; color:#fff;" onclick="startAutoPlay()">Chơi mẫu tự động</button>
+            <!-- 1. TOWER OF HANOI -->
+            <div id="game_hanoi_section">
+                <div class="game-config">
+                    <label id="lbl_game_disks" for="diskCountInput">Số đĩa:</label>
+                    <input type="number" id="diskCountInput" min="1" max="35" value="3" onchange="initHanoiGame()">
+                    
+                    <label for="speedSelect">Tốc độ:</label>
+                    <select id="speedSelect" onchange="updateHanoiSpeed()"></select>
+
+                    <button id="lbl_btn_restart" class="btn-style-2" style="width:auto; padding:5px 10px; font-size:12px; margin:0;" onclick="initHanoiGame()">Bắt đầu lại</button>
+                    <button id="btnAutoPlay" class="btn-style-2" style="width:auto; padding:5px 10px; font-size:12px; margin:0; background-color:#3498db; color:#fff;" onclick="startAutoPlay()">Chơi mẫu tự động</button>
+                </div>
+
+                <p id="lbl_game_guide" style="font-size: 12px; margin: 4px 0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!</p>
+                
+                <div class="hanoi-container">
+                    <div class="tower" id="tower0" onclick="handleTowerClick(0)"></div>
+                    <div class="tower" id="tower1" onclick="handleTowerClick(1)"></div>
+                    <div class="tower" id="tower2" onclick="handleTowerClick(2)"></div>
+                </div>
+                
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span id="moveCount" style="font-size:13px; font-weight:bold;">Số nước đi: 0</span>
+                    <span id="autoPlayStatus" style="font-size:12px; color:#27ae60; font-weight:bold;"></span>
+                </div>
             </div>
 
-            <p id="lbl_game_guide" style="font-size: 12px; margin: 5px 0 0 0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!</p>
-            
-            <div class="hanoi-container">
-                <div class="tower" id="tower0" onclick="handleTowerClick(0)"></div>
-                <div class="tower" id="tower1" onclick="handleTowerClick(1)"></div>
-                <div class="tower" id="tower2" onclick="handleTowerClick(2)"></div>
+            <!-- 2. WATER SORT PUZZLE -->
+            <div id="game_watersort_section" class="hidden">
+                <p style="font-size:12px; margin:0;">Phân loại màu sao cho mỗi ống nghiệm chỉ chứa 1 màu duy nhất!</p>
+                <div class="water-sort-container" id="waterSortContainer"></div>
+                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initWaterSort()">Chơi lại</button>
             </div>
-            
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span id="moveCount" style="font-size:13px; font-weight:bold;">Số nước đi: 0</span>
-                <span id="autoPlayStatus" style="font-size:12px; color:#27ae60; font-weight:bold;"></span>
+
+            <!-- 3. 15-PUZZLE -->
+            <div id="game_puzzle15_section" class="hidden">
+                <p style="font-size:12px; margin:0;">Trượt các ô số để sắp xếp tăng dần từ 1 đến 15!</p>
+                <div class="puzzle-grid" id="puzzleGrid"></div>
+                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="init15Puzzle()">Chơi mới</button>
+            </div>
+
+            <!-- 4. MEMORY MATCH -->
+            <div id="game_memory_section" class="hidden">
+                <p style="font-size:12px; margin:0;">Lật hình để tìm các cặp biểu tượng trùng nhau!</p>
+                <div class="memory-grid" id="memoryGrid"></div>
+                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initMemoryGame()">Làm mới bài</button>
+            </div>
+
+            <!-- 5. TIC-TAC-TOE -->
+            <div id="game_ttt_section" class="hidden">
+                <p id="tttStatus" style="font-size:13px; font-weight:bold; margin:5px 0;">Lượt đi: X</p>
+                <div class="ttt-grid" id="tttGrid"></div>
+                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initTTT()">Ván mới</button>
+            </div>
+
+            <!-- 6. LIGHTS OUT -->
+            <div id="game_lights_section" class="hidden">
+                <p style="font-size:12px; margin:0;">Click vào ô để đảo trạng thái đèn ô đó và 4 ô xung quanh. Tắt hết đèn để thắng!</p>
+                <div class="lights-grid" id="lightsGrid"></div>
+                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initLightsOut()">Bật lại đèn</button>
             </div>
         </div>
     </div>
@@ -864,7 +766,7 @@
 <div class="container">
     <button id="btnPrint" class="btn-print" onclick="window.print()">In kết quả</button>
 
-    <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 01 GIAI ĐOẠN HỌC TẬP</h2>
+    <h2 id="txt_title">LẬP DỮ LIỆU KẾT QUẢ HỌC TẬP CHO 1 HỌC KỲ</h2>
     <p id="txt_intro" style="text-align: center;">Chào bạn, mình là <b>valeriebui</b>. Công cụ dưới đây sẽ giúp bạn tính kết quả học tập nhé!</p>
 
     <!-- TRANG 1 -->
@@ -904,7 +806,6 @@
         <div>
             <button id="txt_btn_back2" class="btn-back" onclick="quayLaiTrang(2)">Sửa lại Trang 2</button>
             
-            <!-- NÚT ANIMATION MÁY TÍNH & DẤU BẰNG -->
             <button id="txt_btn_step3" class="btn-main" style="width: auto;" onclick="triggerCalcAnimationAndProceed()">
                 <span class="btn-text">Tính điểm & Xuất bảng kết quả</span>
                 <div class="calc-anim-wrapper">
@@ -1376,16 +1277,18 @@
         let bgP = document.getElementById('bgPopup');
         let langP = document.getElementById('langPopup');
         let musicP = document.getElementById('musicPopup');
+        let gameP = document.getElementById('gameSelectorPopup');
 
-        if (popupId === 'bgPopup') {
-            langP.style.display = 'none'; musicP.style.display = 'none';
-            bgP.style.display = (bgP.style.display === 'flex') ? 'none' : 'flex';
-        } else if (popupId === 'langPopup') {
-            bgP.style.display = 'none'; musicP.style.display = 'none';
-            langP.style.display = (langP.style.display === 'flex') ? 'none' : 'flex';
-        } else if (popupId === 'musicPopup') {
-            bgP.style.display = 'none'; langP.style.display = 'none';
-            musicP.style.display = (musicP.style.display === 'flex') ? 'none' : 'flex';
+        let target = document.getElementById(popupId);
+        let currentDisplay = target ? target.style.display : 'none';
+
+        bgP.style.display = 'none';
+        langP.style.display = 'none';
+        musicP.style.display = 'none';
+        if (gameP) gameP.style.display = 'none';
+
+        if (target && currentDisplay !== 'flex') {
+            target.style.display = 'flex';
         }
     }
 
@@ -1394,10 +1297,11 @@
             document.getElementById('bgPopup').style.display = 'none';
             document.getElementById('langPopup').style.display = 'none';
             document.getElementById('musicPopup').style.display = 'none';
+            if (document.getElementById('gameSelectorPopup')) document.getElementById('gameSelectorPopup').style.display = 'none';
         }
     });
 
-    /* HÀM THIẾT LẬP 20 MÀU NỀN VÀ NỀN BẢY SẮC CẦU VỒNG (CSS ONLY, NO IMAGE) */
+    /* HÀM THIẾT LẬP 20 MÀU NỀN VÀ BẢY SẮC CẦU VỒNG ĐỘNG LUNG LINH 24/7 */
     function setBgColor(colorVal, isRainbow = false) {
         document.body.style.backgroundImage = 'none';
         
@@ -1414,7 +1318,6 @@
         document.getElementById('bgPopup').style.display = 'none';
     }
 
-    /* HÀM DỊCH GIAO DIỆN CHUẨN XÁC */
     function translateLang(langCode) {
         currentLang = langCode;
         let t = i18n[langCode] || i18n['vi'];
@@ -1447,11 +1350,8 @@
         document.getElementById('btnAutoPlay').innerText = t.game_auto;
         document.getElementById('lbl_game_guide').innerText = t.game_guide;
 
-        if (langCode === 'ar') {
-            document.body.style.direction = 'rtl';
-        } else {
-            document.body.style.direction = 'ltr';
-        }
+        if (langCode === 'ar') document.body.style.direction = 'rtl';
+        else document.body.style.direction = 'ltr';
 
         if (!document.getElementById('step2').classList.contains('hidden')) chuyenSangTrang2();
         if (!document.getElementById('step3').classList.contains('hidden')) chuyenSangTrang3();
@@ -1460,7 +1360,6 @@
         document.getElementById('langPopup').style.display = 'none';
     }
 
-    /* VALIDATION FORM */
     function chuyenSangTrang2() {
         loaiTinhVal = parseInt(document.getElementById('loai_tinh').value);
         let inputSoNguoi = document.getElementById('so_nguoi');
@@ -1561,7 +1460,6 @@
         hienThiTrang(3);
     }
 
-    /* KÍCH HOẠT ANIMATION MÁY TÍNH & DẤU BẰNG RUNG CHỐT ĐIỂM KHI BẤM NÚT TÍNH ĐIỂM */
     function triggerCalcAnimationAndProceed() {
         for (let i = 0; i < soNguoiVal; i++) {
             let tenEl = document.getElementById(`ten_user_${i}`);
@@ -1732,7 +1630,74 @@
         btnPrint.style.display = (stepNumber === 4) ? 'block' : 'none';
     }
 
-    /* 5. LOGIC GAME TOWER OF HANOI (ANIMATION TRƯỢT 0.4S) */
+    /* ==========================================================================
+       6 BỘ GAME ĐA DẠNG NÂNG CẤP VỚI ANIMATION VÀ QUẢN LÝ CỬA SỔ POPUP
+       ========================================================================== */
+    let currentGameType = 'hanoi';
+
+    function switchAndOpenGame(gameType) {
+        currentGameType = gameType;
+        document.getElementById('gameSelectorPopup').style.display = 'none';
+        
+        // Hide all game sections
+        ['hanoi', 'watersort', 'puzzle15', 'memory', 'ttt', 'lights'].forEach(g => {
+            document.getElementById(`game_${g}_section`).classList.add('hidden');
+        });
+
+        // Show active section & update title
+        document.getElementById(`game_${gameType}_section`).classList.remove('hidden');
+        const titles = {
+            hanoi: "Tower of Hanoi - B.Đ.B Game",
+            watersort: "Water Sort Puzzle - Xếp Chất Lỏng",
+            puzzle15: "15-Puzzle - Khối Số Trượt 4x4",
+            memory: "Memory Match - Tìm Cặp Bài Trùng",
+            ttt: "Tic-Tac-Toe - Cờ Ca-rô 3x3",
+            lights: "Lights Out - Trò Chơi Tắt Đèn"
+        };
+        document.getElementById('gameWindowTitle').innerText = titles[gameType];
+
+        // Init target game
+        if (gameType === 'hanoi') initHanoiGame();
+        else if (gameType === 'watersort') initWaterSort();
+        else if (gameType === 'puzzle15') init15Puzzle();
+        else if (gameType === 'memory') initMemoryGame();
+        else if (gameType === 'ttt') initTTT();
+        else if (gameType === 'lights') initLightsOut();
+
+        openGameModal();
+    }
+
+    function openGameModal() {
+        const modal = document.getElementById('gameModal');
+        const win = document.getElementById('gameWindow');
+        win.classList.remove('minimized');
+        modal.classList.add('active');
+    }
+
+    function closeGameModal(e) {
+        if (e) e.stopPropagation();
+        stopAutoPlay();
+        const modal = document.getElementById('gameModal');
+        modal.classList.remove('active');
+    }
+
+    function minimizeGameModal(e) {
+        if (e) e.stopPropagation();
+        const win = document.getElementById('gameWindow');
+        const modal = document.getElementById('gameModal');
+        win.classList.add('minimized');
+        modal.style.pointerEvents = 'none'; // Cho phép click xuyên qua lớp phủ khi đang minimize
+    }
+
+    function restoreGameModal() {
+        const win = document.getElementById('gameWindow');
+        if (win.classList.contains('minimized')) {
+            win.classList.remove('minimized');
+            document.getElementById('gameModal').style.pointerEvents = 'auto';
+        }
+    }
+
+    /* 1. GAME TOWER OF HANOI NÂNG CẤP TỐC ĐỘ DYNAMIC */
     let hanoiState = [[], [], []];
     let selectedTower = null;
     let hanoiMoves = 0;
@@ -1740,20 +1705,44 @@
     let isAutoPlaying = false;
     let isAnimating = false;
     let autoPlayTimeouts = [];
+    let hanoiSpeedFactor = 1;
 
     const diskColors = [
-        '#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', 
-        '#1abc9c', '#3498db', '#9b59b6', '#e84393', '#d35400', '#2c3e50'
+        '#e74c3c', '#e67e22', '#f1c40f', '#2ecc71', '#1abc9c', '#3498db', '#9b59b6', 
+        '#e84393', '#d35400', '#2c3e50', '#16a085', '#8e44ad', '#27ae60', '#f39c12'
     ];
 
-    function openGameModal() {
-        document.getElementById('gameModal').classList.remove('hidden');
-        initHanoiGame();
+    function updateSpeedDropdown() {
+        const select = document.getElementById('speedSelect');
+        select.innerHTML = '';
+        
+        let speeds = [
+            { label: 'x1', val: 1 },
+            { label: 'x1.25', val: 1.25 },
+            { label: 'x1.5', val: 1.5 },
+            { label: 'x1.75', val: 1.75 },
+            { label: 'x2', val: 2 },
+            { label: 'x3', val: 3 }
+        ];
+
+        if (totalDisks >= 10) {
+            speeds.push({ label: 'x6', val: 6 }, { label: 'x8', val: 8 });
+        }
+        if (totalDisks >= 20) {
+            speeds.push({ label: 'x10', val: 10 });
+        }
+
+        speeds.forEach(s => {
+            let opt = document.createElement('option');
+            opt.value = s.val;
+            opt.innerText = s.label;
+            select.appendChild(opt);
+        });
+        hanoiSpeedFactor = parseFloat(select.value) || 1;
     }
 
-    function closeGameModal() {
-        stopAutoPlay();
-        document.getElementById('gameModal').classList.add('hidden');
+    function updateHanoiSpeed() {
+        hanoiSpeedFactor = parseFloat(document.getElementById('speedSelect').value) || 1;
     }
 
     function stopAutoPlay() {
@@ -1769,6 +1758,8 @@
         let inputVal = parseInt(document.getElementById('diskCountInput').value);
         totalDisks = isNaN(inputVal) || inputVal < 1 ? 3 : inputVal;
 
+        updateSpeedDropdown();
+
         hanoiState = [[], [], []];
         for (let i = totalDisks; i >= 1; i--) {
             hanoiState[0].push(i);
@@ -1777,14 +1768,6 @@
         selectedTower = null;
         hanoiMoves = 0;
         document.getElementById('moveCount').innerText = 'Số nước đi: 0';
-
-        let btnAuto = document.getElementById('btnAutoPlay');
-        if (totalDisks >= 5) {
-            btnAuto.classList.remove('hidden');
-        } else {
-            btnAuto.classList.add('hidden');
-        }
-
         renderHanoiTowers();
     }
 
@@ -1844,11 +1827,11 @@
             if (diskEl) {
                 const fromRect = diskEl.getBoundingClientRect();
                 const toRect = toTowerEl.getBoundingClientRect();
-                
                 const deltaX = (toRect.left + toRect.width / 2) - (fromRect.left + fromRect.width / 2);
 
-                diskEl.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-                diskEl.style.transform = `translate(${deltaX}px, 0px) scale(1)`;
+                let duration = 350 / hanoiSpeedFactor;
+                diskEl.style.transition = `transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                diskEl.style.transform = `translate(${deltaX}px, -35px) scale(1)`;
 
                 setTimeout(() => {
                     toStack.push(fromStack.pop());
@@ -1865,7 +1848,7 @@
                             alert(`Chúc mừng bạn đã chiến thắng trò chơi sau ${hanoiMoves} nước đi!`);
                         }, 100);
                     }
-                }, 400);
+                }, duration);
             }
         } else {
             alert('Bạn chơi sai luật! Không thể đặt đĩa lớn hơn lên trên đĩa nhỏ hơn.');
@@ -1906,17 +1889,221 @@
             selectedTower = m.from;
             renderHanoiTowers();
 
+            let delay = 250 / hanoiSpeedFactor;
             let t = setTimeout(() => {
                 if (!isAutoPlaying) return;
                 moveDiskWithAnimation(m.from, m.to, () => {
                     currentMoveIndex++;
                     executeNextMove();
                 });
-            }, 300);
+            }, delay);
             autoPlayTimeouts.push(t);
         }
 
         executeNextMove();
+    }
+
+    /* 2. WATER SORT PUZZLE LOGIC */
+    let waterTubes = [];
+    let selectedTube = null;
+    const waterColors = ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f'];
+
+    function initWaterSort() {
+        selectedTube = null;
+        waterTubes = [
+            ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f'],
+            ['#f1c40f', '#2ecc71', '#3498db', '#e74c3c'],
+            ['#3498db', '#e74c3c', '#f1c40f', '#2ecc71'],
+            [], []
+        ];
+        renderWaterSort();
+    }
+
+    function renderWaterSort() {
+        const container = document.getElementById('waterSortContainer');
+        container.innerHTML = '';
+        waterTubes.forEach((tube, idx) => {
+            const tubeEl = document.createElement('div');
+            tubeEl.className = `tube ${selectedTube === idx ? 'selected' : ''}`;
+            tubeEl.onclick = () => handleTubeClick(idx);
+            
+            tube.forEach(color => {
+                const liquid = document.createElement('div');
+                liquid.className = 'liquid-unit';
+                liquid.style.backgroundColor = color;
+                tubeEl.appendChild(liquid);
+            });
+            container.appendChild(tubeEl);
+        });
+    }
+
+    function handleTubeClick(idx) {
+        if (selectedTube === null) {
+            if (waterTubes[idx].length > 0) {
+                selectedTube = idx;
+                renderWaterSort();
+            }
+        } else {
+            if (selectedTube === idx) {
+                selectedTube = null;
+                renderWaterSort();
+            } else {
+                let src = waterTubes[selectedTube];
+                let dest = waterTubes[idx];
+                if (dest.length < 4 && (dest.length === 0 || dest[dest.length - 1] === src[src.length - 1])) {
+                    dest.push(src.pop());
+                }
+                selectedTube = null;
+                renderWaterSort();
+            }
+        }
+    }
+
+    /* 3. 15-PUZZLE LOGIC */
+    let puzzleBoard = [];
+    function init15Puzzle() {
+        puzzleBoard = Array.from({length: 15}, (_, i) => i + 1);
+        puzzleBoard.push(0);
+        puzzleBoard.sort(() => Math.random() - 0.5);
+        render15Puzzle();
+    }
+
+    function render15Puzzle() {
+        const grid = document.getElementById('puzzleGrid');
+        grid.innerHTML = '';
+        puzzleBoard.forEach((val, idx) => {
+            const tile = document.createElement('div');
+            tile.className = `puzzle-tile ${val === 0 ? 'empty' : ''}`;
+            tile.innerText = val === 0 ? '' : val;
+            tile.onclick = () => movePuzzleTile(idx);
+            grid.appendChild(tile);
+        });
+    }
+
+    function movePuzzleTile(idx) {
+        let emptyIdx = puzzleBoard.indexOf(0);
+        let validMoves = [idx - 1, idx + 1, idx - 4, idx + 4];
+        if (validMoves.includes(emptyIdx)) {
+            [puzzleBoard[idx], puzzleBoard[emptyIdx]] = [puzzleBoard[emptyIdx], puzzleBoard[idx]];
+            render15Puzzle();
+        }
+    }
+
+    /* 4. MEMORY MATCH LOGIC */
+    let memoryCards = [];
+    let flippedCards = [];
+    const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'];
+
+    function initMemoryGame() {
+        let items = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
+        memoryCards = items.map((e, i) => ({ id: i, icon: e, flipped: false, matched: false }));
+        flippedCards = [];
+        renderMemoryGame();
+    }
+
+    function renderMemoryGame() {
+        const grid = document.getElementById('memoryGrid');
+        grid.innerHTML = '';
+        memoryCards.forEach((c) => {
+            const card = document.createElement('div');
+            card.className = `memory-card ${c.flipped ? 'flipped' : ''} ${c.matched ? 'matched' : ''}`;
+            card.innerText = c.flipped || c.matched ? c.icon : '❓';
+            card.onclick = () => flipMemoryCard(c);
+            grid.appendChild(card);
+        });
+    }
+
+    function flipMemoryCard(card) {
+        if (card.flipped || card.matched || flippedCards.length >= 2) return;
+        card.flipped = true;
+        flippedCards.push(card);
+        renderMemoryGame();
+
+        if (flippedCards.length === 2) {
+            setTimeout(() => {
+                if (flippedCards[0].icon === flippedCards[1].icon) {
+                    flippedCards[0].matched = true;
+                    flippedCards[1].matched = true;
+                } else {
+                    flippedCards[0].flipped = false;
+                    flippedCards[1].flipped = false;
+                }
+                flippedCards = [];
+                renderMemoryGame();
+            }, 600);
+        }
+    }
+
+    /* 5. TIC-TAC-TOE LOGIC */
+    let tttBoard = Array(9).fill('');
+    let tttPlayer = 'X';
+
+    function initTTT() {
+        tttBoard = Array(9).fill('');
+        tttPlayer = 'X';
+        document.getElementById('tttStatus').innerText = `Lượt đi: ${tttPlayer}`;
+        renderTTT();
+    }
+
+    function renderTTT() {
+        const grid = document.getElementById('tttGrid');
+        grid.innerHTML = '';
+        tttBoard.forEach((val, idx) => {
+            const cell = document.createElement('div');
+            cell.className = 'ttt-cell';
+            cell.innerText = val;
+            cell.style.color = val === 'X' ? '#e74c3c' : '#3498db';
+            cell.onclick = () => handleTTTClick(idx);
+            grid.appendChild(cell);
+        });
+    }
+
+    function handleTTTClick(idx) {
+        if (tttBoard[idx] !== '' || checkTTTWinner()) return;
+        tttBoard[idx] = tttPlayer;
+        if (checkTTTWinner()) {
+            document.getElementById('tttStatus').innerText = `Người chơi ${tttPlayer} THẮNG! 🎉`;
+        } else if (!tttBoard.includes('')) {
+            document.getElementById('tttStatus').innerText = `HÒA RỒI! 🤝`;
+        } else {
+            tttPlayer = tttPlayer === 'X' ? 'O' : 'X';
+            document.getElementById('tttStatus').innerText = `Lượt đi: ${tttPlayer}`;
+        }
+        renderTTT();
+    }
+
+    function checkTTTWinner() {
+        const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+        return wins.some(w => tttBoard[w[0]] && tttBoard[w[0]] === tttBoard[w[1]] && tttBoard[w[0]] === tttBoard[w[2]]);
+    }
+
+    /* 6. LIGHTS OUT LOGIC */
+    let lightsBoard = Array(25).fill(false);
+
+    function initLightsOut() {
+        lightsBoard = lightsBoard.map(() => Math.random() > 0.5);
+        renderLightsOut();
+    }
+
+    function renderLightsOut() {
+        const grid = document.getElementById('lightsGrid');
+        grid.innerHTML = '';
+        lightsBoard.forEach((on, idx) => {
+            const bulb = document.createElement('div');
+            bulb.className = `light-bulb ${on ? 'on' : ''}`;
+            bulb.onclick = () => toggleLight(idx);
+            grid.appendChild(bulb);
+        });
+    }
+
+    function toggleLight(idx) {
+        let toggle = (i) => { if (i >= 0 && i < 25) lightsBoard[i] = !lightsBoard[i]; };
+        toggle(idx);
+        if (idx % 5 !== 0) toggle(idx - 1);
+        if (idx % 5 !== 4) toggle(idx + 1);
+        toggle(idx - 5);
+        toggle(idx + 5);
+        renderLightsOut();
     }
 </script>
 
