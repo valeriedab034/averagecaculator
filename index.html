@@ -880,27 +880,31 @@
 </div>
 
 <script>
-    /* 1. FAVICON ĐỘNG VÀ TITLE ĐỘNG "B.Đ.B" */
-    let faviconAngle = 0;
+    /* 1. FAVICON ĐỘNG CUỘN CHỮ "B.Đ.B" TỪ PHẢI SANG TRÁI CHẠY QUẢNG CÁO */
+    let faviconX = 32;
     function animateFavicon() {
         const canvas = document.getElementById('faviconCanvas');
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, 32, 32);
 
+        // Nền giữ nguyên màu đỏ tươi (#ff1744)
         ctx.fillStyle = '#ff1744';
         ctx.beginPath();
         ctx.roundRect(0, 0, 32, 32, 6);
         ctx.fill();
 
-        ctx.save();
-        ctx.translate(16, 16);
-        ctx.rotate((Math.sin(faviconAngle) * 12 * Math.PI) / 180);
+        // Vẽ chữ B.Đ.B cuộn ngang từ phải sang trái
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 10px Arial';
-        ctx.textAlign = 'center';
+        ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
-        ctx.fillText('B.Đ.B', 0, 1);
-        ctx.restore();
+        ctx.fillText('B.Đ.B', faviconX, 16);
+
+        // Tốc độ di chuyển chữ sang trái
+        faviconX -= 0.6;
+        if (faviconX < -35) {
+            faviconX = 32;
+        }
 
         let link = document.querySelector("link[rel*='icon']");
         if (!link) {
@@ -910,7 +914,6 @@
         }
         link.href = canvas.toDataURL('image/png');
 
-        faviconAngle += 0.1;
         requestAnimationFrame(animateFavicon);
     }
     animateFavicon();
