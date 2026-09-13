@@ -370,6 +370,13 @@
             pointer-events: auto;
         }
 
+        /* KHI THU NHỎ: Modal ẩn đi để lộ rõ container bên dưới */
+        .modal-game.is-minimized {
+            background: transparent !important;
+            backdrop-filter: none !important;
+            pointer-events: none !important;
+        }
+
         .game-window {
             width: 92%;
             max-width: 650px;
@@ -387,17 +394,21 @@
             transform: scale(1);
         }
 
+        /* thanh cửa sổ thu nhỏ vị trí ở ngay bên trái của nút nhạc hình tròn */
         .game-window.minimized {
             position: fixed;
             bottom: 15px;
-            left: 15px;
+            right: 70px; /* Nút nhạc ở right:15px, rộng 44px -> right:70px đặt ngay bên trái nút nhạc */
+            left: auto;
             width: 280px;
-            height: 42px;
+            height: 44px;
             overflow: hidden;
             transform: scale(1) !important;
             z-index: 10002;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             border-radius: 8px;
+            pointer-events: auto !important;
+            cursor: pointer;
         }
 
         .game-window.minimized .game-body { display: none !important; }
@@ -410,21 +421,58 @@
             justify-content: space-between;
             align-items: center;
             user-select: none;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .game-header h4 { margin: 0; color: #fff; font-size: 14px; }
+        .game-controls { display: flex; align-items: center; gap: 4px; }
         .game-controls button {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
-            margin-left: 8px;
+            margin-left: 4px;
             width: 26px; height: 26px;
             border-radius: 4px;
             transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .game-controls button:hover { background: rgba(255,255,255,0.2); }
+
+        /* Biểu tượng 2 hình chữ nhật đứng xếp chồng lên nhau */
+        .icon-windows-stacked {
+            position: relative;
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+        }
+        .icon-windows-stacked::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 10px;
+            border: 1.5px solid #ffffff;
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
+        .icon-windows-stacked::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 8px;
+            height: 10px;
+            border: 1.5px solid #ffffff;
+            background-color: #2c3e50;
+            border-radius: 1px;
+            box-sizing: border-box;
+        }
 
         .game-body { padding: 20px; text-align: center; background: #fdfefe; max-height: 80vh; overflow-y: auto; }
         .game-config { display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -484,34 +532,51 @@
             border-top: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 3. 15-PUZZLE (SLIDING) */
+        /* 3. 15-PUZZLE (SLIDING WITH ANIMATION TRƯỢT SANG TRÁI, PHẢI, TRÊN, DƯỚI) */
         .puzzle-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
             width: 260px; height: 260px; margin: 15px auto; background: #bdc3c7;
-            padding: 6px; border-radius: 8px;
+            padding: 6px; border-radius: 8px; position: relative;
         }
         .puzzle-tile {
             background: #3498db; color: white; font-weight: bold; font-size: 18px;
             display: flex; align-items: center; justify-content: center;
-            border-radius: 6px; cursor: pointer; transition: transform 0.2s, background 0.2s;
+            border-radius: 6px; cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), background 0.2s;
             box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            user-select: none;
+            position: relative;
+            z-index: 1;
         }
         .puzzle-tile:hover { background: #2980b9; }
         .puzzle-tile.empty { background: transparent; box-shadow: none; cursor: default; }
 
-        /* 4. MEMORY MATCH GAME */
+        /* 4. MEMORY MATCH GAME (LẬT BÀI ANIMATION 3D) */
         .memory-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
             width: 280px; margin: 15px auto;
         }
         .memory-card {
-            height: 65px; background: #2c3e50; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px; color: white; cursor: pointer;
-            perspective: 1000px; transform-style: preserve-3d; transition: transform 0.4s;
+            height: 65px; background: transparent; border-radius: 8px;
+            cursor: pointer; perspective: 1000px;
         }
-        .memory-card.flipped { transform: rotateY(180deg); background: #f39c12; }
-        .memory-card.matched { background: #2ecc71; cursor: default; }
+        .memory-card-inner {
+            position: relative; width: 100%; height: 100%;
+            text-align: center; transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d; border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .memory-card.flipped .memory-card-inner { transform: rotateY(180deg); }
+        .memory-card-front, .memory-card-back {
+            position: absolute; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden; backface-visibility: hidden;
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: bold;
+        }
+        .memory-card-front { background: #2c3e50; color: white; }
+        .memory-card-back { background: #f39c12; color: white; transform: rotateY(180deg); }
+        .memory-card.matched .memory-card-back { background: #2ecc71; }
+        .memory-card.matched { cursor: default; }
 
         /* 5. TIC-TAC-TOE */
         .ttt-grid {
@@ -675,7 +740,9 @@
         <div class="game-header" onclick="restoreGameModal()">
             <h4 id="gameWindowTitle">B.Đ.B Minigames Center</h4>
             <div class="game-controls">
-                <button title="Thu nhỏ (Minimize)" onclick="minimizeGameModal(event)">-</button>
+                <button title="Thu nhỏ (Minimize)" onclick="minimizeGameModal(event)">
+                    <span class="icon-windows-stacked"></span>
+                </button>
                 <button title="Đóng" onclick="closeGameModal(event)">x</button>
             </div>
         </div>
@@ -1639,6 +1706,7 @@
         const modal = document.getElementById('gameModal');
         const win = document.getElementById('gameWindow');
         win.classList.remove('minimized');
+        modal.classList.remove('is-minimized');
         modal.classList.add('active');
     }
 
@@ -1646,6 +1714,9 @@
         if (e) e.stopPropagation();
         stopAutoPlay();
         const modal = document.getElementById('gameModal');
+        const win = document.getElementById('gameWindow');
+        win.classList.remove('minimized');
+        modal.classList.remove('is-minimized');
         modal.classList.remove('active');
     }
 
@@ -1654,14 +1725,15 @@
         const win = document.getElementById('gameWindow');
         const modal = document.getElementById('gameModal');
         win.classList.add('minimized');
-        modal.style.pointerEvents = 'none';
+        modal.classList.add('is-minimized');
     }
 
     function restoreGameModal() {
         const win = document.getElementById('gameWindow');
+        const modal = document.getElementById('gameModal');
         if (win.classList.contains('minimized')) {
             win.classList.remove('minimized');
-            document.getElementById('gameModal').style.pointerEvents = 'auto';
+            modal.classList.remove('is-minimized');
         }
     }
 
@@ -1797,10 +1869,9 @@
                 const fromTowerRect = fromTowerEl.getBoundingClientRect();
                 const toTowerRect = toTowerEl.getBoundingClientRect();
 
-                // Tính toán chính xác vị trí 3 giai đoạn animation theo đúng Video tham khảo
                 const deltaX = (toTowerRect.left + toTowerRect.width / 2) - (diskRect.left + diskRect.width / 2);
                 const towerTopY = fromTowerRect.top + 15;
-                const liftY = -(diskRect.top - towerTopY + 30); // Rút thẳng lên qua đỉnh cọc
+                const liftY = -(diskRect.top - towerTopY + 30);
 
                 const diskHeight = 20;
                 const destStackHeight = toStack.length * diskHeight;
@@ -1809,7 +1880,6 @@
 
                 let duration = Math.max(200, 600 / hanoiSpeedFactor);
 
-                // ANIMATION 3 BƯỚC: NHẮC THẲNG LÊN -> TRƯỢT NGANG -> RƠI VÀO CỌC
                 const anim = diskEl.animate([
                     { transform: 'translate(0px, 0px)', offset: 0 },
                     { transform: `translate(0px, ${liftY}px)`, offset: 0.35 },
@@ -1946,9 +2016,12 @@
         }
     }
 
-    /* 3. 15-PUZZLE LOGIC */
+    /* 3. 15-PUZZLE LOGIC (ANIMATION TRƯỢT SANG TRÁI, PHẢI, TRÊN, DƯỚI) */
     let puzzleBoard = [];
+    let isPuzzleAnimating = false;
+
     function init15Puzzle() {
+        isPuzzleAnimating = false;
         puzzleBoard = Array.from({length: 15}, (_, i) => i + 1);
         puzzleBoard.push(0);
         puzzleBoard.sort(() => Math.random() - 0.5);
@@ -1961,6 +2034,7 @@
         puzzleBoard.forEach((val, idx) => {
             const tile = document.createElement('div');
             tile.className = `puzzle-tile ${val === 0 ? 'empty' : ''}`;
+            tile.dataset.index = idx;
             tile.innerText = val === 0 ? '' : val;
             tile.onclick = () => movePuzzleTile(idx);
             grid.appendChild(tile);
@@ -1968,15 +2042,36 @@
     }
 
     function movePuzzleTile(idx) {
+        if (isPuzzleAnimating) return;
+
         let emptyIdx = puzzleBoard.indexOf(0);
-        let validMoves = [idx - 1, idx + 1, idx - 4, idx + 4];
-        if (validMoves.includes(emptyIdx)) {
-            [puzzleBoard[idx], puzzleBoard[emptyIdx]] = [puzzleBoard[emptyIdx], puzzleBoard[idx]];
-            render15Puzzle();
+        let rowIdx = Math.floor(idx / 4), colIdx = idx % 4;
+        let rowEmpty = Math.floor(emptyIdx / 4), colEmpty = emptyIdx % 4;
+
+        let isAdjacent = (Math.abs(rowIdx - rowEmpty) + Math.abs(colIdx - colEmpty)) === 1;
+
+        if (isAdjacent) {
+            isPuzzleAnimating = true;
+            const grid = document.getElementById('puzzleGrid');
+            const tileEl = grid.children[idx];
+
+            let deltaX = 0, deltaY = 0;
+            if (colEmpty > colIdx) deltaX = 64;       /* Trượt sang phải */
+            else if (colEmpty < colIdx) deltaX = -64;  /* Trượt sang trái */
+            else if (rowEmpty > rowIdx) deltaY = 64;  /* Trượt xuống dưới */
+            else if (rowEmpty < rowIdx) deltaY = -64;  /* Trượt lên trên */
+
+            tileEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+            setTimeout(() => {
+                [puzzleBoard[idx], puzzleBoard[emptyIdx]] = [puzzleBoard[emptyIdx], puzzleBoard[idx]];
+                isPuzzleAnimating = false;
+                render15Puzzle();
+            }, 250);
         }
     }
 
-    /* 4. MEMORY MATCH LOGIC */
+    /* 4. MEMORY MATCH LOGIC (ANIMATION LẬT BÀI 3D) */
     let memoryCards = [];
     let flippedCards = [];
     const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'];
@@ -1994,8 +2089,14 @@
         memoryCards.forEach((c) => {
             const card = document.createElement('div');
             card.className = `memory-card ${c.flipped ? 'flipped' : ''} ${c.matched ? 'matched' : ''}`;
-            card.innerText = c.flipped || c.matched ? c.icon : '❓';
             card.onclick = () => flipMemoryCard(c);
+
+            card.innerHTML = `
+                <div class="memory-card-inner">
+                    <div class="memory-card-front">❓</div>
+                    <div class="memory-card-back">${c.icon}</div>
+                </div>
+            `;
             grid.appendChild(card);
         });
     }
