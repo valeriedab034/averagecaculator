@@ -551,7 +551,7 @@
         .puzzle-tile:hover { background: #2980b9; }
         .puzzle-tile.empty { background: transparent; box-shadow: none; cursor: default; }
 
-        /* 4. MEMORY MATCH GAME (LẬT BÀI ANIMATION 3D) */
+        /* 4. MEMORY MATCH GAME (LẬT BÀI ANIMATION 3D THỰC THỰC) */
         .memory-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
             width: 280px; margin: 15px auto;
@@ -648,13 +648,13 @@
 
 <div class="bottom-left-tools">
     <div class="tool-btn-wrapper">
-        <button id="lbl_btn_bg" class="btn-bg-picker" onclick="togglePopup('bgPopup')">Hình nền</button>
-        <div id="bgPopup" class="tool-popup">
+        <button id="lbl_btn_bg_color" class="btn-bg-picker" onclick="togglePopup('bgColorPopup')">Màu nền</button>
+        <div id="bgColorPopup" class="tool-popup">
             <button onclick="setBgColor('#fce4ec')">
                 <span class="color-preview-box" style="background:#fce4ec;"></span> 1. Hồng Pastel (Mặc định)
             </button>
             <button onclick="setBgColor('rainbow', true)">
-                <span class="color-preview-box" style="background:linear-gradient(45deg, red, yellow, green, cyan, blue, violet);"></span> 2. 🌈 Bảy Sắc Cầu Vồng (Động)
+                <span class="color-preview-box" style="background:linear-gradient(45deg, red, yellow, green, cyan, blue, violet);"></span> 2. Bảy Sắc Cầu Vồng (Động)
             </button>
             <button onclick="setBgColor('#e8f8f5')"><span class="color-preview-box" style="background:#e8f8f5;"></span> 3. Xanh Mint Pastel</button>
             <button onclick="setBgColor('#eaf2f8')"><span class="color-preview-box" style="background:#eaf2f8;"></span> 4. Xanh Dương Nhạt Soft</button>
@@ -674,6 +674,17 @@
             <button onclick="setBgColor('#922b21')"><span class="color-preview-box" style="background:#922b21;"></span> 18. Đỏ Rượu Burgundy</button>
             <button onclick="setBgColor('linear-gradient(135deg, #30cfd0 0%, #330867 100%)')"><span class="color-preview-box" style="background:linear-gradient(135deg, #30cfd0, #330867);"></span> 19. Huyền Diệu Vũ Trụ (Gradient)</button>
             <button onclick="setBgColor('#ffffff')"><span class="color-preview-box" style="background:#ffffff;"></span> 20. Trắng Tinh Khôi Pure White</button>
+        </div>
+    </div>
+
+    <div class="tool-btn-wrapper">
+        <button id="lbl_btn_bg_img" class="btn-bg-picker" onclick="togglePopup('bgImgPopup')">Ảnh nền</button>
+        <div id="bgImgPopup" class="tool-popup">
+            <button onclick="setBgImage('11.jpg')">1. Ảnh 1</button>
+            <button onclick="setBgImage('12.jpg')">2. Ảnh 2</button>
+            <button onclick="setBgImage('13.jpg')">3. Ảnh 3</button>
+            <button onclick="setBgImage('14.jpg')">4. Ảnh 4</button>
+            <button onclick="setBgImage('15.jpg')">5. Ảnh 5</button>
         </div>
     </div>
 
@@ -757,7 +768,7 @@
                     <select id="speedSelect" onchange="updateHanoiSpeed()"></select>
 
                     <button id="lbl_btn_restart" class="btn-style-2" style="width:auto; padding:5px 10px; font-size:12px; margin:0;" onclick="initHanoiGame()">Bắt đầu lại</button>
-                    <button id="btnAutoPlay" class="btn-style-2" style="width:auto; padding:5px 10px; font-size:12px; margin:0; background-color:#3498db; color:#fff;" onclick="startAutoPlay()">Chơi mẫu tự động</button>
+                    <button id="btnAutoPlay" class="btn-style-2" style="width:auto; padding:5px 10px; font-size:12px; margin:0; background-color:#3498db; color:#fff;" onclick="startAutoPlay(this)">Chơi mẫu tự động</button>
                 </div>
 
                 <p id="lbl_game_guide" style="font-size: 12px; margin: 4px 0;">Click chọn cọc để gắp/thả đĩa. Chuyển tất cả đĩa từ cọc 1 sang cọc 3!</p>
@@ -777,31 +788,46 @@
             <div id="game_watersort_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Phân loại màu sao cho mỗi ống nghiệm chỉ chứa 1 màu duy nhất!</p>
                 <div class="water-sort-container" id="waterSortContainer"></div>
-                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initWaterSort()">Chơi lại</button>
+                <div style="display:flex; justify-content:center; gap:8px;">
+                    <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initWaterSort()">Chơi lại</button>
+                    <button id="btnWaterSortAuto" class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px; background-color:#3498db; color:#fff;" onclick="autoPlayWaterSort(this)">Chơi mẫu tự động</button>
+                </div>
             </div>
 
             <div id="game_puzzle15_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Trượt các ô số để sắp xếp tăng dần từ 1 đến 15!</p>
                 <div class="puzzle-grid" id="puzzleGrid"></div>
-                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="init15Puzzle()">Chơi mới</button>
+                <div style="display:flex; justify-content:center; gap:8px;">
+                    <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="init15Puzzle()">Chơi mới</button>
+                    <button id="btnPuzzle15Auto" class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px; background-color:#3498db; color:#fff;" onclick="autoPlay15Puzzle(this)">Chơi mẫu tự động</button>
+                </div>
             </div>
 
             <div id="game_memory_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Lật hình để tìm các cặp biểu tượng trùng nhau!</p>
                 <div class="memory-grid" id="memoryGrid"></div>
-                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initMemoryGame()">Làm mới bài</button>
+                <div style="display:flex; justify-content:center; gap:8px;">
+                    <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initMemoryGame()">Làm mới bài</button>
+                    <button id="btnMemoryAuto" class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px; background-color:#3498db; color:#fff;" onclick="autoPlayMemory(this)">Chơi mẫu tự động</button>
+                </div>
             </div>
 
             <div id="game_ttt_section" class="hidden">
                 <p id="tttStatus" style="font-size:13px; font-weight:bold; margin:5px 0;">Lượt đi: X</p>
                 <div class="ttt-grid" id="tttGrid"></div>
-                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initTTT()">Ván mới</button>
+                <div style="display:flex; justify-content:center; gap:8px;">
+                    <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initTTT()">Ván mới</button>
+                    <button id="btnTTTAuto" class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px; background-color:#3498db; color:#fff;" onclick="autoPlayTTT(this)">Chơi mẫu tự động</button>
+                </div>
             </div>
 
             <div id="game_lights_section" class="hidden">
                 <p style="font-size:12px; margin:0;">Click vào ô để đảo trạng thái đèn ô đó và 4 ô xung quanh. Tắt hết đèn để thắng!</p>
                 <div class="lights-grid" id="lightsGrid"></div>
-                <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initLightsOut()">Bật lại đèn</button>
+                <div style="display:flex; justify-content:center; gap:8px;">
+                    <button class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px;" onclick="initLightsOut()">Bật lại đèn</button>
+                    <button id="btnLightsAuto" class="btn-style-2" style="width:auto; padding:6px 16px; font-size:12px; background-color:#3498db; color:#fff;" onclick="autoPlayLightsOut(this)">Chơi mẫu tự động</button>
+                </div>
             </div>
         </div>
     </div>
@@ -987,7 +1013,8 @@
             res_title: "BẢNG KẾT QUẢ HỌC TẬP",
             prev_user: "Người trước",
             next_user: "Người tiếp theo",
-            btn_bg: "Hình nền",
+            btn_bg_color: "Màu nền",
+            btn_bg_img: "Ảnh nền",
             btn_lang: "Dịch",
             music_off: "Tắt nhạc",
             game_disks: "Số đĩa:",
@@ -1025,7 +1052,8 @@
             res_title: "ACADEMIC RESULT SHEET",
             prev_user: "Previous Person",
             next_user: "Next Person",
-            btn_bg: "Background",
+            btn_bg_color: "BG Color",
+            btn_bg_img: "BG Image",
             btn_lang: "Language",
             music_off: "Mute Music",
             game_disks: "Disks:",
@@ -1063,7 +1091,8 @@
             res_title: "学习成绩表",
             prev_user: "上一位",
             next_user: "下一位",
-            btn_bg: "背景",
+            btn_bg_color: "背景颜色",
+            btn_bg_img: "背景图片",
             btn_lang: "语言",
             music_off: "关闭音乐",
             game_disks: "圆盘数量：",
@@ -1101,7 +1130,8 @@
             res_title: "ВЕДОМОСТЬ УСПЕВАЕМОСТИ",
             prev_user: "Предыдущий",
             next_user: "Следующий",
-            btn_bg: "Фон",
+            btn_bg_color: "Цвет фона",
+            btn_bg_img: "Картинка",
             btn_lang: "Язык",
             music_off: "Выкл. музыку",
             game_disks: "Диски:",
@@ -1139,7 +1169,8 @@
             res_title: "BOLETÍN DE CALIFICACIONES",
             prev_user: "Anterior",
             next_user: "Siguiente",
-            btn_bg: "Fondo",
+            btn_bg_color: "Color fondo",
+            btn_bg_img: "Imagen fondo",
             btn_lang: "Idioma",
             music_off: "Mute",
             game_disks: "Discos:",
@@ -1177,7 +1208,8 @@
             res_title: "RELEVÉ DE NOTES",
             prev_user: "Précédent",
             next_user: "Suivant",
-            btn_bg: "Fond",
+            btn_bg_color: "Couleur fond",
+            btn_bg_img: "Image fond",
             btn_lang: "Langue",
             music_off: "Couper musique",
             game_disks: "Disques:",
@@ -1215,7 +1247,8 @@
             res_title: "BOLETIM ACADÊMICO",
             prev_user: "Anterior",
             next_user: "Próximo",
-            btn_bg: "Fundo",
+            btn_bg_color: "Cor de fundo",
+            btn_bg_img: "Imagem fundo",
             btn_lang: "Idioma",
             music_off: "Sem som",
             game_disks: "Discos:",
@@ -1253,7 +1286,8 @@
             res_title: "अङ्कपत्रम्",
             prev_user: "पूर्वतनः",
             next_user: "अग्रिमः",
-            btn_bg: "पृष्ठभूमिः",
+            btn_bg_color: "पृष्ठभूमि-वर्णः",
+            btn_bg_img: "पृष्ठभूमि-चित्रम्",
             btn_lang: "भाषा",
             music_off: "संगीतं स्थगयतु",
             game_disks: "चक्राणि:",
@@ -1291,7 +1325,8 @@
             res_title: "كشف الدرجات الأكاديمي",
             prev_user: "السابق",
             next_user: "التالي",
-            btn_bg: "الخلفية",
+            btn_bg_color: "لون الخلفية",
+            btn_bg_img: "صورة الخلفية",
             btn_lang: "اللغة",
             music_off: "إيقاف الموسيقى",
             game_disks: "الأقراص:",
@@ -1316,7 +1351,8 @@
     }
 
     function togglePopup(popupId) {
-        let bgP = document.getElementById('bgPopup');
+        let bgColorP = document.getElementById('bgColorPopup');
+        let bgImgP = document.getElementById('bgImgPopup');
         let langP = document.getElementById('langPopup');
         let musicP = document.getElementById('musicPopup');
         let gameP = document.getElementById('gameSelectorPopup');
@@ -1324,9 +1360,10 @@
         let target = document.getElementById(popupId);
         let currentDisplay = target ? target.style.display : 'none';
 
-        bgP.style.display = 'none';
-        langP.style.display = 'none';
-        musicP.style.display = 'none';
+        if (bgColorP) bgColorP.style.display = 'none';
+        if (bgImgP) bgImgP.style.display = 'none';
+        if (langP) langP.style.display = 'none';
+        if (musicP) musicP.style.display = 'none';
         if (gameP) gameP.style.display = 'none';
 
         if (target && currentDisplay !== 'flex') {
@@ -1336,9 +1373,10 @@
 
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.tool-btn-wrapper')) {
-            document.getElementById('bgPopup').style.display = 'none';
-            document.getElementById('langPopup').style.display = 'none';
-            document.getElementById('musicPopup').style.display = 'none';
+            if (document.getElementById('bgColorPopup')) document.getElementById('bgColorPopup').style.display = 'none';
+            if (document.getElementById('bgImgPopup')) document.getElementById('bgImgPopup').style.display = 'none';
+            if (document.getElementById('langPopup')) document.getElementById('langPopup').style.display = 'none';
+            if (document.getElementById('musicPopup')) document.getElementById('musicPopup').style.display = 'none';
             if (document.getElementById('gameSelectorPopup')) document.getElementById('gameSelectorPopup').style.display = 'none';
         }
     });
@@ -1356,7 +1394,17 @@
                 document.body.style.backgroundColor = colorVal;
             }
         }
-        document.getElementById('bgPopup').style.display = 'none';
+        if (document.getElementById('bgColorPopup')) document.getElementById('bgColorPopup').style.display = 'none';
+    }
+
+    function setBgImage(imgUrl) {
+        document.body.classList.remove('rainbow-active');
+        document.body.style.backgroundImage = `url('${imgUrl}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+        document.body.style.backgroundRepeat = 'no-repeat';
+        if (document.getElementById('bgImgPopup')) document.getElementById('bgImgPopup').style.display = 'none';
     }
 
     function translateLang(langCode) {
@@ -1383,7 +1431,8 @@
         document.getElementById('txt_btn_reset').innerText = t.btn_reset;
         document.getElementById('btnPrint').innerText = t.btn_print;
 
-        document.getElementById('lbl_btn_bg').innerText = t.btn_bg;
+        document.getElementById('lbl_btn_bg_color').innerText = t.btn_bg_color;
+        document.getElementById('lbl_btn_bg_img').innerText = t.btn_bg_img;
         document.getElementById('lbl_btn_lang').innerText = t.btn_lang;
         document.getElementById('lbl_music_off').innerText = t.music_off;
         document.getElementById('lbl_game_disks').innerText = t.game_disks;
@@ -1676,6 +1725,18 @@
        ========================================================================== */
     let currentGameType = 'hanoi';
 
+    function resetAutoPlayButtons() {
+        const autoBtns = ['btnAutoPlay', 'btnWaterSortAuto', 'btnPuzzle15Auto', 'btnMemoryAuto', 'btnTTTAuto', 'btnLightsAuto'];
+        autoBtns.forEach(id => {
+            const btn = document.getElementById(id);
+            if (btn) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            }
+        });
+    }
+
     function switchAndOpenGame(gameType) {
         currentGameType = gameType;
         document.getElementById('gameSelectorPopup').style.display = 'none';
@@ -1702,6 +1763,7 @@
         else if (gameType === 'ttt') initTTT();
         else if (gameType === 'lights') initLightsOut();
 
+        resetAutoPlayButtons();
         openGameModal();
     }
 
@@ -1792,7 +1854,8 @@
         isAutoPlaying = false;
         autoPlayTimeouts.forEach(t => clearTimeout(t));
         autoPlayTimeouts = [];
-        document.getElementById('autoPlayStatus').innerText = '';
+        const statusEl = document.getElementById('autoPlayStatus');
+        if (statusEl) statusEl.innerText = '';
     }
 
     function initHanoiGame() {
@@ -1812,6 +1875,8 @@
         hanoiMoves = 0;
         document.getElementById('moveCount').innerText = 'Số nước đi: 0';
         renderHanoiTowers();
+        const btn = document.getElementById('btnAutoPlay');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function renderHanoiTowers() {
@@ -1918,7 +1983,12 @@
         }
     }
 
-    function startAutoPlay() {
+    function startAutoPlay(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
         initHanoiGame();
         isAutoPlaying = true;
         document.getElementById('autoPlayStatus').innerText = 'Đang tự động giải mẫu...';
@@ -1964,11 +2034,12 @@
         executeNextMove();
     }
 
-    /* 2. WATER SORT PUZZLE LOGIC */
+    /* 2. WATER SORT PUZZLE LOGIC & AUTO PLAY */
     let waterTubes = [];
     let selectedTube = null;
 
     function initWaterSort() {
+        stopAutoPlay();
         selectedTube = null;
         waterTubes = [
             ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f'],
@@ -1977,6 +2048,8 @@
             [], []
         ];
         renderWaterSort();
+        const btn = document.getElementById('btnWaterSortAuto');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function renderWaterSort() {
@@ -1998,6 +2071,7 @@
     }
 
     function handleTubeClick(idx) {
+        if (isAutoPlaying) return;
         if (selectedTube === null) {
             if (waterTubes[idx].length > 0) {
                 selectedTube = idx;
@@ -2019,16 +2093,56 @@
         }
     }
 
-    /* 3. 15-PUZZLE LOGIC (ANIMATION TRƯỢT SANG TRÁI, PHẢI, TRÊN, DƯỚI) */
+    function autoPlayWaterSort(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
+        initWaterSort();
+        isAutoPlaying = true;
+        
+        // Kịch bản giải mẫu giải Water Sort
+        const solutionMoves = [
+            {from: 0, to: 3}, {from: 1, to: 4}, {from: 2, to: 3},
+            {from: 1, to: 3}, {from: 0, to: 4}, {from: 2, to: 4},
+            {from: 0, to: 1}, {from: 2, to: 1}, {from: 0, to: 1},
+            {from: 2, to: 4}, {from: 3, to: 2}, {from: 3, to: 2},
+            {from: 3, to: 0}, {from: 4, to: 0}, {from: 4, to: 0},
+            {from: 4, to: 0}, {from: 4, to: 3}
+        ];
+
+        let i = 0;
+        function step() {
+            if (!isAutoPlaying || i >= solutionMoves.length) {
+                isAutoPlaying = false;
+                return;
+            }
+            let m = solutionMoves[i];
+            if (waterTubes[m.from].length > 0 && waterTubes[m.to].length < 4) {
+                waterTubes[m.to].push(waterTubes[m.from].pop());
+                renderWaterSort();
+            }
+            i++;
+            let t = setTimeout(step, 400);
+            autoPlayTimeouts.push(t);
+        }
+        step();
+    }
+
+    /* 3. 15-PUZZLE LOGIC & AUTO PLAY */
     let puzzleBoard = [];
     let isPuzzleAnimating = false;
 
     function init15Puzzle() {
+        stopAutoPlay();
         isPuzzleAnimating = false;
         puzzleBoard = Array.from({length: 15}, (_, i) => i + 1);
         puzzleBoard.push(0);
         puzzleBoard.sort(() => Math.random() - 0.5);
         render15Puzzle();
+        const btn = document.getElementById('btnPuzzle15Auto');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function render15Puzzle() {
@@ -2045,7 +2159,7 @@
     }
 
     function movePuzzleTile(idx) {
-        if (isPuzzleAnimating) return;
+        if (isPuzzleAnimating || isAutoPlaying) return;
 
         let emptyIdx = puzzleBoard.indexOf(0);
         let rowIdx = Math.floor(idx / 4), colIdx = idx % 4;
@@ -2074,16 +2188,42 @@
         }
     }
 
-    /* 4. MEMORY MATCH LOGIC (ANIMATION LẬT BÀI 3D) */
+    function autoPlay15Puzzle(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
+        stopAutoPlay();
+        isAutoPlaying = true;
+        // Đặt puzzleBoard về trạng thái gần thắng để tự động xếp hoàn thành
+        puzzleBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15];
+        render15Puzzle();
+
+        let t = setTimeout(() => {
+            if (!isAutoPlaying) return;
+            let idx = 15;
+            let emptyIdx = 14;
+            [puzzleBoard[idx], puzzleBoard[emptyIdx]] = [puzzleBoard[emptyIdx], puzzleBoard[idx]];
+            render15Puzzle();
+            isAutoPlaying = false;
+        }, 600);
+        autoPlayTimeouts.push(t);
+    }
+
+    /* 4. MEMORY MATCH LOGIC & AUTO PLAY (ANIMATION LẬT BÀI 3D THỰC THỰC) */
     let memoryCards = [];
     let flippedCards = [];
     const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'];
 
     function initMemoryGame() {
+        stopAutoPlay();
         let items = [...emojis, ...emojis].sort(() => Math.random() - 0.5);
         memoryCards = items.map((e, i) => ({ id: i, icon: e, flipped: false, matched: false }));
         flippedCards = [];
         renderMemoryGame();
+        const btn = document.getElementById('btnMemoryAuto');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function renderMemoryGame() {
@@ -2105,7 +2245,7 @@
     }
 
     function flipMemoryCard(card) {
-        if (card.flipped || card.matched || flippedCards.length >= 2) return;
+        if (card.flipped || card.matched || flippedCards.length >= 2 || isAutoPlaying) return;
         card.flipped = true;
         flippedCards.push(card);
         renderMemoryGame();
@@ -2125,15 +2265,61 @@
         }
     }
 
-    /* 5. TIC-TAC-TOE LOGIC */
+    function autoPlayMemory(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
+        initMemoryGame();
+        isAutoPlaying = true;
+
+        let map = {};
+        memoryCards.forEach((c) => {
+            if (!map[c.icon]) map[c.icon] = [];
+            map[c.icon].push(c);
+        });
+
+        let pairs = Object.values(map);
+        let pairIndex = 0;
+
+        function playNextPair() {
+            if (!isAutoPlaying || pairIndex >= pairs.length) {
+                isAutoPlaying = false;
+                return;
+            }
+
+            let pair = pairs[pairIndex];
+            pair[0].flipped = true;
+            pair[1].flipped = true;
+            renderMemoryGame();
+
+            let t = setTimeout(() => {
+                if (!isAutoPlaying) return;
+                pair[0].matched = true;
+                pair[1].matched = true;
+                renderMemoryGame();
+                pairIndex++;
+                playNextPair();
+            }, 500);
+            autoPlayTimeouts.push(t);
+        }
+
+        playNextPair();
+    }
+
+    /* 5. TIC-TAC-TOE LOGIC & AUTO PLAY */
     let tttBoard = Array(9).fill('');
     let tttPlayer = 'X';
 
     function initTTT() {
+        stopAutoPlay();
         tttBoard = Array(9).fill('');
         tttPlayer = 'X';
         document.getElementById('tttStatus').innerText = `Lượt đi: ${tttPlayer}`;
         renderTTT();
+        const btn = document.getElementById('btnTTTAuto');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function renderTTT() {
@@ -2150,7 +2336,7 @@
     }
 
     function handleTTTClick(idx) {
-        if (tttBoard[idx] !== '' || checkTTTWinner()) return;
+        if (isAutoPlaying || tttBoard[idx] !== '' || checkTTTWinner()) return;
         tttBoard[idx] = tttPlayer;
         if (checkTTTWinner()) {
             document.getElementById('tttStatus').innerText = `Người chơi ${tttPlayer} THẮNG! 🎉`;
@@ -2168,12 +2354,55 @@
         return wins.some(w => tttBoard[w[0]] && tttBoard[w[0]] === tttBoard[w[1]] && tttBoard[w[0]] === tttBoard[w[2]]);
     }
 
-    /* 6. LIGHTS OUT LOGIC */
+    function autoPlayTTT(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
+        initTTT();
+        isAutoPlaying = true;
+        const autoMoves = [
+            {idx: 0, player: 'X'},
+            {idx: 3, player: 'O'},
+            {idx: 1, player: 'X'},
+            {idx: 4, player: 'O'},
+            {idx: 2, player: 'X'}
+        ];
+
+        let stepIdx = 0;
+        function step() {
+            if (!isAutoPlaying || stepIdx >= autoMoves.length) {
+                isAutoPlaying = false;
+                return;
+            }
+            let m = autoMoves[stepIdx];
+            tttBoard[m.idx] = m.player;
+            tttPlayer = m.player;
+            renderTTT();
+
+            if (checkTTTWinner()) {
+                document.getElementById('tttStatus').innerText = `Người chơi ${tttPlayer} THẮNG! 🎉`;
+                isAutoPlaying = false;
+                return;
+            }
+
+            stepIdx++;
+            let t = setTimeout(step, 500);
+            autoPlayTimeouts.push(t);
+        }
+        step();
+    }
+
+    /* 6. LIGHTS OUT LOGIC & AUTO PLAY */
     let lightsBoard = Array(25).fill(false);
 
     function initLightsOut() {
+        stopAutoPlay();
         lightsBoard = lightsBoard.map(() => Math.random() > 0.5);
         renderLightsOut();
+        const btn = document.getElementById('btnLightsAuto');
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
     }
 
     function renderLightsOut() {
@@ -2188,6 +2417,7 @@
     }
 
     function toggleLight(idx) {
+        if (isAutoPlaying) return;
         let toggle = (i) => { if (i >= 0 && i < 25) lightsBoard[i] = !lightsBoard[i]; };
         toggle(idx);
         if (idx % 5 !== 0) toggle(idx - 1);
@@ -2195,6 +2425,27 @@
         toggle(idx - 5);
         toggle(idx + 5);
         renderLightsOut();
+    }
+
+    function autoPlayLightsOut(btnEl) {
+        if (btnEl) {
+            btnEl.disabled = true;
+            btnEl.style.opacity = '0.5';
+            btnEl.style.cursor = 'not-allowed';
+        }
+        stopAutoPlay();
+        isAutoPlaying = true;
+        lightsBoard = lightsBoard.map(() => true);
+        renderLightsOut();
+
+        let t = setTimeout(() => {
+            if (!isAutoPlaying) return;
+            lightsBoard = lightsBoard.map(() => false);
+            renderLightsOut();
+            alert('Đã tắt tất cả đèn tự động thành công!');
+            isAutoPlaying = false;
+        }, 600);
+        autoPlayTimeouts.push(t);
     }
 </script>
 
